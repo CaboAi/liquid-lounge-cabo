@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, MapPin, Clock, MessageCircle } from "lucide-react";
+import { Mail, Phone, MapPin, Clock, MessageCircle, Instagram } from "lucide-react";
 
 const Contact = () => {
   const contactInfo = [
@@ -31,6 +31,12 @@ const Contact = () => {
       title: "Hours",
       details: "7 Days a Week",
       description: "Flexible scheduling available"
+    },
+    {
+      icon: <Instagram className="h-6 w-6" />,
+      title: "Instagram",
+      details: "@liquidlounge.iv",
+      description: "Follow for updates and tips"
     }
   ];
 
@@ -79,7 +85,18 @@ const Contact = () => {
                       </div>
                       <div>
                         <h4 className="font-semibold text-foreground mb-1">{info.title}</h4>
-                        <p className="font-medium text-primary mb-1">{info.details}</p>
+                        {info.title === "Instagram" ? (
+                          <a 
+                            href="https://www.instagram.com/liquidlounge.iv/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="font-medium text-primary mb-1 hover:underline"
+                          >
+                            {info.details}
+                          </a>
+                        ) : (
+                          <p className="font-medium text-primary mb-1">{info.details}</p>
+                        )}
                         <p className="text-sm text-muted-foreground">{info.description}</p>
                       </div>
                     </div>

@@ -1,4 +1,4 @@
-import { Mail, MapPin, Shield, Heart } from "lucide-react";
+import { Mail, MapPin, Shield, Heart, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -93,7 +93,7 @@ const Footer = () => {
                 <Mail className="h-5 w-5 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium">Email</p>
-                  <p className="text-sm text-primary-foreground/80">liquidloungeiv@gmail.com</p>
+                  <p className="text-sm text-primary-foreground/80">nate@liquidloungeiv.com</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -101,6 +101,20 @@ const Footer = () => {
                 <div>
                   <p className="font-medium">Service Area</p>
                   <p className="text-sm text-primary-foreground/80">Cabo San Lucas, Mexico</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Instagram className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium">Follow Us</p>
+                  <a 
+                    href="https://www.instagram.com/liquidlounge.iv/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                  >
+                    @liquidlounge.iv
+                  </a>
                 </div>
               </div>
             </div>
