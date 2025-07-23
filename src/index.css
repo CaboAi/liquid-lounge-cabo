@@ -17,24 +17,35 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 164 44% 28%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 164 20% 92%;
+    --secondary-foreground: 164 44% 28%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 164 15% 96%;
+    --muted-foreground: 164 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 164 35% 85%;
+    --accent-foreground: 164 44% 28%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 164 20% 90%;
+    --input: 164 20% 90%;
+    --ring: 164 44% 28%;
+
+    --medical-teal: 164 44% 28%;
+    --medical-teal-light: 164 35% 85%;
+    --medical-teal-dark: 164 50% 20%;
+    --wellness-gold: 43 74% 66%;
+    --wellness-cream: 43 36% 95%;
+    
+    --gradient-hero: linear-gradient(135deg, hsl(var(--medical-teal)), hsl(var(--medical-teal-dark)));
+    --gradient-card: linear-gradient(180deg, hsl(var(--background)), hsl(var(--wellness-cream)));
+    --shadow-medical: 0 10px 30px -10px hsl(var(--medical-teal) / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--medical-teal-light) / 0.4);
 
     --radius: 0.5rem;
 
