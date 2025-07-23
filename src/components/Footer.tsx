@@ -19,7 +19,7 @@ const Footer = () => {
               <img 
                 src="/lovable-uploads/502c30b6-f5cc-4000-afda-21649d723089.png" 
                 alt="Liquid Lounge Logo" 
-                className="h-12 w-auto brightness-0 invert"
+                className="h-12 w-auto filter brightness-0 invert opacity-90"
               />
               <div>
                 <h3 className="text-xl font-bold">LIQUID LOUNGE</h3>
