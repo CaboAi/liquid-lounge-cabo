@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 const IVMenu = () => {
-  const ingredients = [
+  const nutrients = [
     {
       category: "Vitamins",
       items: ["Vitamin B1-12", "Vitamin C", "Magnesium", "Zinc", "Vitamin D", "Vitamin A & Vitamin E"],
@@ -46,42 +46,42 @@ const IVMenu = () => {
     {
       name: "Hydration Hero",
       description: "Perfect for dehydration, hangovers, and general wellness",
-      ingredients: ["IV Saline", "Electrolytes", "Vitamin B Complex"],
+      nutrients: ["IV Saline", "Electrolytes", "Vitamin B Complex"],
       duration: "30 minutes",
       price: "Starting at $150"
     },
     {
       name: "Energy Boost",
       description: "Combat fatigue and boost energy levels naturally",
-      ingredients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
+      nutrients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
       duration: "45 minutes", 
       price: "Starting at $200"
     },
     {
       name: "Immunity Shield",
       description: "Strengthen your immune system and fight off illness",
-      ingredients: ["High-dose Vitamin C", "Zinc", "Glutathione", "B Complex"],
+      nutrients: ["High-dose Vitamin C", "Zinc", "Glutathione", "B Complex"],
       duration: "45 minutes",
       price: "Starting at $225"
     },
     {
       name: "Beauty Glow",
       description: "Anti-aging and skin health optimization",
-      ingredients: ["Glutathione", "Vitamin C", "Biotin", "Collagen Support"],
+      nutrients: ["Glutathione", "Vitamin C", "Biotin", "Collagen Support"],
       duration: "45 minutes",
       price: "Starting at $275"
     },
     {
       name: "Performance Plus",
       description: "Athletic recovery and performance enhancement", 
-      ingredients: ["L-Carnitine", "L-Lysine", "B Complex", "Electrolytes", "Amino Acids"],
+      nutrients: ["L-Carnitine", "L-Lysine", "B Complex", "Electrolytes", "Amino Acids"],
       duration: "60 minutes",
       price: "Starting at $300"
     },
     {
       name: "NAD+ Longevity",
       description: "Premium anti-aging and cellular repair therapy",
-      ingredients: ["NAD+", "Glutathione", "Vitamin Complex", "Antioxidants"],
+      nutrients: ["NAD+", "Glutathione", "Vitamin Complex", "Antioxidants"],
       duration: "90 minutes",
       price: "Starting at $450"
     }
@@ -109,22 +109,22 @@ const IVMenu = () => {
 
         {/* Ingredients Section */}
         <div className="mb-16">
-          <h3 className="text-2xl font-bold text-center mb-8">Our Premium Ingredients</h3>
+          <h3 className="text-2xl font-bold text-center mb-8">Our Premium Nutrients</h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {ingredients.map((ingredient, index) => (
+            {nutrients.map((nutrient, index) => (
               <Card key={index} className="border-primary/20 hover:shadow-lg transition-shadow">
                 <CardHeader>
                   <div className="flex items-center justify-between mb-2">
-                    <CardTitle className="text-lg">{ingredient.category}</CardTitle>
-                    <Badge className={ingredient.color}>{ingredient.category}</Badge>
+                    <CardTitle className="text-lg">{nutrient.category}</CardTitle>
+                    <Badge className={nutrient.color}>{nutrient.category}</Badge>
                   </div>
                   <CardDescription className="text-sm">
-                    {ingredient.description}
+                    {nutrient.description}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-1">
-                    {ingredient.items.map((item, itemIndex) => (
+                    {nutrient.items.map((item, itemIndex) => (
                       <div key={itemIndex} className="text-sm text-muted-foreground flex items-center">
                         <div className="h-1 w-1 bg-primary rounded-full mr-2"></div>
                         {item}
@@ -155,10 +155,10 @@ const IVMenu = () => {
                   <div>
                     <h4 className="font-semibold text-sm mb-2">Includes:</h4>
                     <ul className="space-y-1">
-                      {pkg.ingredients.map((ingredient, ingredientIndex) => (
-                        <li key={ingredientIndex} className="text-sm text-muted-foreground flex items-center">
+                      {pkg.nutrients.map((nutrient, nutrientIndex) => (
+                        <li key={nutrientIndex} className="text-sm text-muted-foreground flex items-center">
                           <div className="h-1 w-1 bg-primary rounded-full mr-2"></div>
-                          {ingredient}
+                          {nutrient}
                         </li>
                       ))}
                     </ul>

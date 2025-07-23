@@ -20,7 +20,7 @@ const Header = () => {
     { name: "About", href: "/about" },
     { name: "Find Your IV", href: "/find-your-iv" },
     { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (
@@ -69,8 +69,8 @@ const Header = () => {
               <Phone className="h-4 w-4" />
               <span>+52 624 228 7777</span>
             </div>
-            <Button variant="medical" onClick={() => scrollToSection('contact')}>
-              Book Now
+            <Button variant="medical">
+              <Link to="/contact">Book Now</Link>
             </Button>
           </div>
 
@@ -107,8 +107,8 @@ const Header = () => {
                   </Link>
                 )
               ))}
-              <Button variant="medical" className="mt-4" onClick={() => scrollToSection('contact')}>
-                Book Now
+              <Button variant="medical" className="mt-4">
+                <Link to="/contact">Book Now</Link>
               </Button>
             </nav>
           </div>

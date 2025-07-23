@@ -100,7 +100,7 @@ const Quiz = () => {
       return {
         package: "Hydration Hero",
         description: "Perfect for dehydration recovery and general wellness.",
-        ingredients: ["IV Saline", "Electrolytes", "Vitamin B Complex"],
+        nutrients: ["IV Saline", "Electrolytes", "Vitamin B Complex"],
         reasoning: "Based on your responses, you need rapid hydration and electrolyte replenishment."
       };
     }
@@ -109,7 +109,7 @@ const Quiz = () => {
       return {
         package: "Energy Boost",
         description: "Combat fatigue and boost energy levels naturally.",
-        ingredients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
+        nutrients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
         reasoning: "Your energy levels indicate you'd benefit from our energy-boosting vitamin blend."
       };
     }
@@ -118,7 +118,7 @@ const Quiz = () => {
       return {
         package: "Immunity Shield", 
         description: "Strengthen your immune system and fight off illness.",
-        ingredients: ["High-dose Vitamin C", "Zinc", "Glutathione", "B Complex"],
+        nutrients: ["High-dose Vitamin C", "Zinc", "Glutathione", "B Complex"],
         reasoning: "Your immune system needs support. This blend will help strengthen your defenses."
       };
     }
@@ -127,7 +127,7 @@ const Quiz = () => {
       return {
         package: "Beauty Glow",
         description: "Anti-aging and skin health optimization.",
-        ingredients: ["Glutathione", "Vitamin C", "Biotin", "Collagen Support"],
+        nutrients: ["Glutathione", "Vitamin C", "Biotin", "Collagen Support"],
         reasoning: "Perfect for anti-aging benefits and enhanced skin health."
       };
     }
@@ -136,7 +136,7 @@ const Quiz = () => {
       return {
         package: "Performance Plus",
         description: "Athletic recovery and performance enhancement.",
-        ingredients: ["L-Carnitine", "L-Lysine", "B Complex", "Electrolytes", "Amino Acids"],
+        nutrients: ["L-Carnitine", "L-Lysine", "B Complex", "Electrolytes", "Amino Acids"],
         reasoning: "Your active lifestyle requires enhanced recovery and performance support."
       };
     }
@@ -145,7 +145,7 @@ const Quiz = () => {
       return {
         package: "NAD+ Longevity",
         description: "Premium anti-aging and cellular repair therapy.",
-        ingredients: ["NAD+", "Glutathione", "Vitamin Complex", "Antioxidants"],
+        nutrients: ["NAD+", "Glutathione", "Vitamin Complex", "Antioxidants"],
         reasoning: "You'll benefit from our premium detox and cellular repair therapy."
       };
     }
@@ -154,7 +154,7 @@ const Quiz = () => {
     return {
       package: "Energy Boost",
       description: "Our most popular therapy for overall wellness.",
-      ingredients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
+      nutrients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
       reasoning: "A great all-around therapy to boost your energy and wellness."
     };
   };
@@ -193,10 +193,10 @@ const Quiz = () => {
                 <div>
                   <h4 className="font-semibold mb-3">This therapy includes:</h4>
                   <ul className="space-y-2">
-                    {recommendation.ingredients.map((ingredient, index) => (
+                    {recommendation.nutrients.map((nutrient, index) => (
                       <li key={index} className="flex items-center text-sm">
                         <div className="h-1.5 w-1.5 bg-primary rounded-full mr-3"></div>
-                        {ingredient}
+                        {nutrient}
                       </li>
                     ))}
                   </ul>

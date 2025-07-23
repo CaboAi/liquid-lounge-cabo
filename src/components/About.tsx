@@ -136,7 +136,7 @@ const About = () => {
                       <div>
                         <h5 className="font-semibold mb-1">Premium Experience</h5>
                         <p className="text-sm text-muted-foreground">
-                          Hospital-grade equipment and pharmaceutical-grade ingredients for optimal results.
+                          Hospital-grade equipment and pharmaceutical-grade nutrients for optimal results.
                         </p>
                       </div>
                     </div>

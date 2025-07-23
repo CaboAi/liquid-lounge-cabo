@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import AboutPage from "./pages/About";
 import BlogPage from "./pages/Blog";
 import FindYourIVPage from "./pages/FindYourIV";
+import ContactPage from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/about" element={<AboutPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/find-your-iv" element={<FindYourIVPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
