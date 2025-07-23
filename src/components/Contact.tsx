@@ -11,13 +11,13 @@ const Contact = () => {
     {
       icon: <Mail className="h-6 w-6" />,
       title: "Email",
-      details: "liquidloungeiv@gmail.com",
+      details: "nate@liquidloungeiv.com",
       description: "Send us a message anytime"
     },
     {
       icon: <Phone className="h-6 w-6" />,
       title: "Phone", 
-      details: "Available upon booking",
+      details: "+52 624 228 7777",
       description: "Call or WhatsApp for immediate response"
     },
     {

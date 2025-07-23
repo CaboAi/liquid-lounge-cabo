@@ -146,8 +146,9 @@ const About = () => {
                     <Badge variant="secondary" className="mb-4">
                       Contact Information
                     </Badge>
-                    <div className="text-sm text-muted-foreground mb-4">
-                      <div>Email: liquidloungeiv@gmail.com</div>
+                    <div className="text-sm text-muted-foreground mb-4 space-y-1">
+                      <div>Email: nate@liquidloungeiv.com</div>
+                      <div>Phone: +52 624 228 7777</div>
                     </div>
                     <Button variant="medical" onClick={() => scrollToSection('contact')}>
                       Schedule Consultation
