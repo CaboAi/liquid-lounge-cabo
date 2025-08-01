@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -12,6 +14,22 @@ const Header = () => {
       element.scrollIntoView({ behavior: 'smooth' });
       setIsMenuOpen(false);
     }
+  };
+
+  const handleNavigation = (href: string) => {
+    if (href.startsWith('#')) {
+      // Handle section navigation
+      const sectionId = href.substring(1);
+      
+      if (location.pathname === '/') {
+        // Already on homepage, just scroll
+        scrollToSection(sectionId);
+      } else {
+        // Navigate to homepage with hash, then scroll
+        navigate(`/${href}`);
+      }
+    }
+    setIsMenuOpen(false);
   };
 
   const navItems = [
@@ -46,7 +64,7 @@ const Header = () => {
               item.href.startsWith('#') ? (
                 <button
                   key={item.name}
-                  onClick={() => scrollToSection(item.href.substring(1))}
+                  onClick={() => handleNavigation(item.href)}
                   className="text-foreground hover:text-primary transition-colors"
                 >
                   {item.name}
@@ -91,7 +109,7 @@ const Header = () => {
                 item.href.startsWith('#') ? (
                   <button 
                     key={item.name}
-                    onClick={() => scrollToSection(item.href.substring(1))} 
+                    onClick={() => handleNavigation(item.href)} 
                     className="text-left py-2 text-foreground hover:text-primary transition-colors"
                   >
                     {item.name}
