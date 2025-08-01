@@ -1,4 +1,4 @@
-import { Mail, MapPin, Shield, Heart, Instagram, Star } from "lucide-react";
+import { Mail, MapPin, Shield, Heart, Instagram, Star, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -19,7 +19,7 @@ const Footer = () => {
               <img 
                 src="/lovable-uploads/502c30b6-f5cc-4000-afda-21649d723089.png" 
                 alt="Liquid Lounge Logo" 
-                className="h-12 w-auto filter brightness-0 invert opacity-90"
+                className="h-12 w-auto"
               />
               <div>
                 <h3 className="text-xl font-bold">LIQUID LOUNGE</h3>
@@ -128,6 +128,20 @@ const Footer = () => {
                     className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
                   >
                     Read Our Reviews
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Facebook className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium">Facebook</p>
+                  <a 
+                    href="https://www.facebook.com/share/1PBaJhWUMn/?mibextid=wwXIfr" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                  >
+                    @liquidlounge.iv
                   </a>
                 </div>
               </div>
