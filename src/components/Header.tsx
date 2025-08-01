@@ -34,7 +34,7 @@ const Header = () => {
 
   const navItems = [
     { name: "Services", href: "#services" },
-    { name: "IV Menu", href: "#iv-menu" },
+    { name: "IV Menu", href: "#menu" },
     { name: "About", href: "/about" },
     { name: "Find Your IV", href: "/find-your-iv" },
     { name: "Blog", href: "/blog" },
