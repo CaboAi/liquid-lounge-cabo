@@ -1,4 +1,4 @@
-import { Mail, MapPin, Shield, Heart, Instagram } from "lucide-react";
+import { Mail, MapPin, Shield, Heart, Instagram, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
@@ -114,6 +114,20 @@ const Footer = () => {
                     className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
                   >
                     @liquidlounge.iv
+                  </a>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <Star className="h-5 w-5 mt-0.5 flex-shrink-0" />
+                <div>
+                  <p className="font-medium">Google Reviews</p>
+                  <a 
+                    href="https://maps.app.goo.gl/JszkUHYBxfJh3pYN9" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                  >
+                    Read Our Reviews
                   </a>
                 </div>
               </div>
