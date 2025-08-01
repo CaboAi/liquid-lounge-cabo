@@ -1,10 +1,6 @@
-import { useState, useEffect } from 'react';
-import { useToast } from "@/hooks/use-toast";
+import { useState } from 'react';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ReviewCard } from './ReviewCard';
-import { FirecrawlService } from '@/utils/FirecrawlService';
 import { Star } from 'lucide-react';
 
 interface ReviewData {
@@ -55,41 +51,9 @@ const mockReviews: ReviewData[] = [
 ];
 
 export const ReviewsCarousel = () => {
-  const { toast } = useToast();
-  const [reviews, setReviews] = useState<ReviewData[]>(mockReviews);
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    // Try to load Google Reviews in the background, but don't block the display
-    loadReviews();
-  }, []);
-
-  const loadReviews = async () => {
-    const apiKey = FirecrawlService.getApiKey();
-    if (!apiKey) {
-      return; // Just use mock reviews if no API key
-    }
-
-    setIsLoading(true);
-    try {
-      // Try to scrape actual Google Reviews in the background
-      const result = await FirecrawlService.crawlGoogleReviews('https://maps.app.goo.gl/JszkUHYBxfJh3pYN9');
-      
-      if (result.success && result.data && result.data.length > 0) {
-        setReviews(result.data);
-        toast({
-          title: "Live Reviews Loaded",
-          description: `Successfully loaded ${result.data.length} Google Reviews`,
-          duration: 3000,
-        });
-      }
-    } catch (error) {
-      console.error('Error loading reviews:', error);
-      // Keep using mock reviews on error
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const [reviews] = useState<ReviewData[]>(mockReviews);
+  
+  console.log('ReviewsCarousel: reviews loaded', reviews.length, reviews);
 
   return (
     <section className="py-16 bg-wellness-cream/30">
@@ -110,9 +74,6 @@ export const ReviewsCarousel = () => {
             <span className="text-sm text-muted-foreground ml-2">
               Based on {reviews.length} reviews
             </span>
-            {isLoading && (
-              <span className="text-xs text-muted-foreground ml-2">(updating...)</span>
-            )}
           </div>
         </div>
 
