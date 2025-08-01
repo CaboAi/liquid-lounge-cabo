@@ -20,6 +20,7 @@ type CrawlResponse = CrawlStatusResponse | ErrorResponse;
 export class FirecrawlService {
   private static API_KEY_STORAGE_KEY = 'firecrawl_api_key';
   private static firecrawlApp: FirecrawlApp | null = null;
+  private static readonly DEFAULT_API_KEY = 'fc-689bf853a4eb42cd856807826fa57670';
 
   static saveApiKey(apiKey: string): void {
     localStorage.setItem(this.API_KEY_STORAGE_KEY, apiKey);
@@ -28,7 +29,8 @@ export class FirecrawlService {
   }
 
   static getApiKey(): string | null {
-    return localStorage.getItem(this.API_KEY_STORAGE_KEY);
+    const storedKey = localStorage.getItem(this.API_KEY_STORAGE_KEY);
+    return storedKey || this.DEFAULT_API_KEY;
   }
 
   static async testApiKey(apiKey: string): Promise<boolean> {
@@ -67,9 +69,12 @@ export class FirecrawlService {
       }
 
       const crawlResponse = await this.firecrawlApp.crawlUrl(businessUrl, {
-        limit: 10,
+        limit: 5,
         scrapeOptions: {
-          formats: ['markdown', 'html']
+          formats: ['markdown', 'html'],
+          includeTags: ['div', 'span', 'p'],
+          onlyMainContent: false,
+          waitFor: 3000
         }
       }) as CrawlResponse;
 
@@ -81,6 +86,9 @@ export class FirecrawlService {
         };
       }
 
+      // Debug: Log raw data to understand structure
+      console.log('Raw crawl response:', JSON.stringify(crawlResponse, null, 2));
+      
       // Process and cache the results
       const processedReviews = this.processReviewData(crawlResponse.data);
       this.cacheReviews(cacheKey, processedReviews);
@@ -134,33 +142,75 @@ export class FirecrawlService {
   }
 
   private static processReviewData(rawData: any[]): any[] {
-    // Process the scraped data to extract reviews in a consistent format
-    if (!Array.isArray(rawData)) return [];
+    console.log('Processing review data:', rawData);
+    
+    if (!Array.isArray(rawData)) {
+      console.log('Raw data is not an array:', rawData);
+      return [];
+    }
 
-    return rawData.map(item => {
+    const processedReviews = rawData.flatMap(item => {
+      const reviews: any[] = [];
+      
       try {
-        // Extract review data from markdown content
-        const content = item.markdown || item.content || '';
-        const reviewMatch = content.match(/(\d+)\s*stars?\s*[:\-]?\s*(.*?)(?:\n|$)/i);
+        const content = item.markdown || item.content || item.html || '';
+        console.log('Processing content:', content.substring(0, 500));
         
-        return {
-          rating: reviewMatch ? parseInt(reviewMatch[1]) : 5,
-          text: reviewMatch ? reviewMatch[2].trim() : 'Great service!',
-          author: this.extractAuthor(content) || 'Anonymous',
-          date: this.extractDate(content) || new Date().toISOString().split('T')[0],
-          verified: true
-        };
+        // Google Reviews patterns
+        const googleReviewPatterns = [
+          // Pattern 1: Star rating followed by review text
+          /([1-5])\s*(?:star|★|⭐).*?\n(.*?)\n.*?(?:by|from)\s+([A-Za-z\s]+)/gi,
+          // Pattern 2: Review with rating in different format
+          /Rating:\s*([1-5]).*?\nReview:\s*(.*?)\n.*?Reviewer:\s*([A-Za-z\s]+)/gi,
+          // Pattern 3: Simple star pattern
+          /(\d+)\s*(?:stars?|★+)\s*[:\-]?\s*(.*?)(?:\n|$)/gi,
+          // Pattern 4: Google Maps specific pattern
+          /([A-Za-z\s]+)\s*\n.*?([1-5])\s*(?:star|★).*?\n(.*?)$/gmi
+        ];
+
+        for (const pattern of googleReviewPatterns) {
+          let match;
+          while ((match = pattern.exec(content)) !== null) {
+            const hasRating = match[1] && /[1-5]/.test(match[1]);
+            const hasText = match[2] && match[2].trim().length > 10;
+            
+            if (hasRating && hasText) {
+              reviews.push({
+                rating: parseInt(match[1]),
+                text: match[2].trim(),
+                author: match[3]?.trim() || this.extractAuthor(content) || 'Google User',
+                date: this.extractDate(content) || new Date().toISOString().split('T')[0],
+                verified: true
+              });
+            }
+          }
+        }
+
+        // Fallback: Look for any review-like content
+        if (reviews.length === 0) {
+          const lines = content.split('\n').filter(line => line.trim().length > 20);
+          for (let i = 0; i < lines.length - 1; i++) {
+            const ratingMatch = lines[i].match(/([1-5])\s*(?:star|★)/i);
+            if (ratingMatch && lines[i + 1] && lines[i + 1].trim().length > 10) {
+              reviews.push({
+                rating: parseInt(ratingMatch[1]),
+                text: lines[i + 1].trim(),
+                author: this.extractAuthor(lines[i + 2] || '') || 'Google User',
+                date: this.extractDate(content) || new Date().toISOString().split('T')[0],
+                verified: true
+              });
+            }
+          }
+        }
       } catch (error) {
         console.error('Error processing review item:', error);
-        return {
-          rating: 5,
-          text: 'Great service!',
-          author: 'Customer',
-          date: new Date().toISOString().split('T')[0],
-          verified: true
-        };
       }
-    }).filter(review => review.text && review.text.length > 10);
+      
+      return reviews;
+    });
+
+    console.log('Processed reviews:', processedReviews);
+    return processedReviews.filter(review => review.text && review.text.length > 10);
   }
 
   private static extractAuthor(content: string): string | null {
