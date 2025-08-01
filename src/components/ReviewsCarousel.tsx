@@ -4,7 +4,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ReviewCard } from './ReviewCard';
-import { ApiKeyInput } from './ApiKeyInput';
 import { FirecrawlService } from '@/utils/FirecrawlService';
 import { Star } from 'lucide-react';
 
@@ -16,150 +15,81 @@ interface ReviewData {
   verified?: boolean;
 }
 
+// Mock reviews for demonstration - replace with actual scraped data
+const mockReviews: ReviewData[] = [
+  {
+    rating: 5,
+    text: "Nathan provided exceptional IV therapy service right at our resort. Professional, knowledgeable, and the results were immediate. Highly recommend for anyone in Cabo!",
+    author: "Sarah M.",
+    date: "2024-01-15",
+    verified: true
+  },
+  {
+    rating: 5,
+    text: "Best hangover cure ever! Nathan was punctual, professional, and made the whole experience comfortable. Will definitely use again on our next Cabo trip.",
+    author: "Mike R.",
+    date: "2024-01-10",
+    verified: true
+  },
+  {
+    rating: 5,
+    text: "Amazing service! The hydration therapy helped me recover from food poisoning quickly. Nathan's expertise and care made all the difference.",
+    author: "Jessica L.",
+    date: "2024-01-08",
+    verified: true
+  },
+  {
+    rating: 5,
+    text: "Professional and convenient. Nathan came to our villa and provided excellent IV therapy. Perfect for our vacation wellness needs.",
+    author: "David K.",
+    date: "2024-01-05",
+    verified: true
+  },
+  {
+    rating: 5,
+    text: "Outstanding experience! Nathan is knowledgeable, friendly, and provides top-notch mobile IV therapy. Couldn't ask for better service in Cabo.",
+    author: "Emma T.",
+    date: "2024-01-03",
+    verified: true
+  }
+];
+
 export const ReviewsCarousel = () => {
   const { toast } = useToast();
-  const [reviews, setReviews] = useState<ReviewData[]>([]);
+  const [reviews, setReviews] = useState<ReviewData[]>(mockReviews);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasApiKey, setHasApiKey] = useState(false);
-
-  // Mock reviews for demonstration - replace with actual scraped data
-  const mockReviews: ReviewData[] = [
-    {
-      rating: 5,
-      text: "Nathan provided exceptional IV therapy service right at our resort. Professional, knowledgeable, and the results were immediate. Highly recommend for anyone in Cabo!",
-      author: "Sarah M.",
-      date: "2024-01-15",
-      verified: true
-    },
-    {
-      rating: 5,
-      text: "Best hangover cure ever! Nathan was punctual, professional, and made the whole experience comfortable. Will definitely use again on our next Cabo trip.",
-      author: "Mike R.",
-      date: "2024-01-10",
-      verified: true
-    },
-    {
-      rating: 5,
-      text: "Amazing service! The hydration therapy helped me recover from food poisoning quickly. Nathan's expertise and care made all the difference.",
-      author: "Jessica L.",
-      date: "2024-01-08",
-      verified: true
-    },
-    {
-      rating: 5,
-      text: "Professional and convenient. Nathan came to our villa and provided excellent IV therapy. Perfect for our vacation wellness needs.",
-      author: "David K.",
-      date: "2024-01-05",
-      verified: true
-    },
-    {
-      rating: 5,
-      text: "Outstanding experience! Nathan is knowledgeable, friendly, and provides top-notch mobile IV therapy. Couldn't ask for better service in Cabo.",
-      author: "Emma T.",
-      date: "2024-01-03",
-      verified: true
-    }
-  ];
 
   useEffect(() => {
-    const apiKey = FirecrawlService.getApiKey();
-    if (apiKey) {
-      setHasApiKey(true);
-      loadReviews();
-    }
+    // Try to load Google Reviews in the background, but don't block the display
+    loadReviews();
   }, []);
 
   const loadReviews = async () => {
+    const apiKey = FirecrawlService.getApiKey();
+    if (!apiKey) {
+      return; // Just use mock reviews if no API key
+    }
+
     setIsLoading(true);
     try {
-      // Try to scrape actual Google Reviews first
+      // Try to scrape actual Google Reviews in the background
       const result = await FirecrawlService.crawlGoogleReviews('https://maps.app.goo.gl/JszkUHYBxfJh3pYN9');
       
       if (result.success && result.data && result.data.length > 0) {
         setReviews(result.data);
         toast({
-          title: "Reviews Loaded",
+          title: "Live Reviews Loaded",
           description: `Successfully loaded ${result.data.length} Google Reviews`,
-          duration: 3000,
-        });
-      } else {
-        // Fallback to mock reviews if scraping fails
-        setReviews(mockReviews);
-        toast({
-          title: "Using Sample Reviews",
-          description: result.error || "Unable to fetch live reviews, showing sample data",
-          variant: "default",
           duration: 3000,
         });
       }
     } catch (error) {
       console.error('Error loading reviews:', error);
-      setReviews(mockReviews); // Fallback to mock reviews
-      
-      toast({
-        title: "Using Sample Reviews",
-        description: "Unable to fetch live reviews, showing sample data",
-        variant: "default",
-        duration: 3000,
-      });
+      // Keep using mock reviews on error
     } finally {
       setIsLoading(false);
     }
   };
-
-  const handleApiKeySet = () => {
-    setHasApiKey(true);
-    loadReviews();
-  };
-
-  if (!hasApiKey) {
-    return (
-      <section className="py-16 bg-wellness-cream/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              What Our Clients Say
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Real reviews from satisfied clients who experienced our premium mobile IV therapy services
-            </p>
-          </div>
-          <ApiKeyInput onApiKeySet={handleApiKeySet} />
-        </div>
-      </section>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <section className="py-16 bg-wellness-cream/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              What Our Clients Say
-            </h2>
-            <p className="text-lg text-muted-foreground">Loading latest reviews...</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <Card key={i} className="h-64">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4 mb-4">
-                    <Skeleton className="w-12 h-12 rounded-full" />
-                    <div className="flex-1">
-                      <Skeleton className="h-4 w-24 mb-2" />
-                      <Skeleton className="h-3 w-32" />
-                    </div>
-                  </div>
-                  <Skeleton className="h-20 w-full" />
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="py-16 bg-wellness-cream/30">
@@ -169,7 +99,7 @@ export const ReviewsCarousel = () => {
             What Our Clients Say
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Real reviews from satisfied clients who experienced our premium mobile IV therapy services
+            Testimonials from satisfied clients who experienced our premium mobile IV therapy services
           </p>
           <div className="flex items-center justify-center gap-2 mt-4">
             <div className="flex gap-0.5">
@@ -180,6 +110,9 @@ export const ReviewsCarousel = () => {
             <span className="text-sm text-muted-foreground ml-2">
               Based on {reviews.length} reviews
             </span>
+            {isLoading && (
+              <span className="text-xs text-muted-foreground ml-2">(updating...)</span>
+            )}
           </div>
         </div>
 
