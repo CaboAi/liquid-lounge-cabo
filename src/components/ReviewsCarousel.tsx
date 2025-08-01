@@ -72,24 +72,29 @@ export const ReviewsCarousel = () => {
   const loadReviews = async () => {
     setIsLoading(true);
     try {
-      // For now, use mock reviews
-      // In production, you would scrape actual Google Reviews:
-      // const result = await FirecrawlService.crawlGoogleReviews('https://maps.app.goo.gl/JszkUHYBxfJh3pYN9');
+      // Try to scrape actual Google Reviews first
+      const result = await FirecrawlService.crawlGoogleReviews('https://maps.app.goo.gl/JszkUHYBxfJh3pYN9');
       
-      setTimeout(() => {
+      if (result.success && result.data && result.data.length > 0) {
+        setReviews(result.data);
+        toast({
+          title: "Reviews Loaded",
+          description: `Successfully loaded ${result.data.length} Google Reviews`,
+          duration: 3000,
+        });
+      } else {
+        // Fallback to mock reviews if scraping fails
         setReviews(mockReviews);
-        setIsLoading(false);
-      }, 1000);
-
-      toast({
-        title: "Reviews Loaded",
-        description: "Latest Google Reviews have been loaded successfully",
-        duration: 3000,
-      });
+        toast({
+          title: "Using Sample Reviews",
+          description: result.error || "Unable to fetch live reviews, showing sample data",
+          variant: "default",
+          duration: 3000,
+        });
+      }
     } catch (error) {
       console.error('Error loading reviews:', error);
       setReviews(mockReviews); // Fallback to mock reviews
-      setIsLoading(false);
       
       toast({
         title: "Using Sample Reviews",
@@ -97,6 +102,8 @@ export const ReviewsCarousel = () => {
         variant: "default",
         duration: 3000,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
