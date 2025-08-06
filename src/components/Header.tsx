@@ -51,7 +51,6 @@ const Header = () => {
     { name: "IV Menu", href: "#menu" },
     { name: "About", href: "/about" },
     { name: "Find Your IV", href: "/find-your-iv" },
-    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ];
 
