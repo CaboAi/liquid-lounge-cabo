@@ -279,19 +279,9 @@ Thank you!`;
                       </ul>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <Button variant="medical" size="lg" className="flex-1" onClick={handleWhatsAppBooking}>
-                        Send WhatsApp Message
-                      </Button>
-                      <Button 
-                        variant="outline" 
-                        size="lg" 
-                        className="flex-1"
-                        onClick={() => window.open('https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session', '_blank')}
-                      >
-                        Quick WhatsApp
-                      </Button>
-                    </div>
+                    <Button variant="medical" size="lg" className="w-full" onClick={handleWhatsAppBooking}>
+                      Send WhatsApp Message
+                    </Button>
                     
                     <p className="text-xs text-muted-foreground text-center mt-4">
                       By submitting this form, you agree to receive communication from Liquid Lounge regarding your booking.

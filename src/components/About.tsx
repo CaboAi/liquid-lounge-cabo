@@ -88,10 +88,13 @@ const About = () => {
 
             {/* Right Column - Photo Placeholder */}
             <div>
-              {/* Single professional photo placeholder */}
-              <div className="bg-primary/10 border-2 border-dashed border-primary/30 rounded-lg p-12 text-center mb-8">
-                <div className="text-primary/60 mb-2 text-lg">Professional Photo</div>
-                <div className="text-sm text-muted-foreground">Nathan Brown BSN RN - Mobile IV Therapy Specialist</div>
+              {/* Professional photo */}
+              <div className="mb-8">
+                <img 
+                  src="/lovable-uploads/d9077de1-84fe-4b43-9d6c-3759d752c32c.png" 
+                  alt="Nathan Brown BSN RN - Mobile IV Therapy Specialist"
+                  className="w-full max-w-md mx-auto rounded-lg shadow-lg"
+                />
               </div>
 
               <div className="text-center">

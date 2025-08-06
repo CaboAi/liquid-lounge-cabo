@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -11,7 +11,7 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerOffset = 80;
+      const headerOffset = 100;
       const elementPosition = element.offsetTop;
       const offsetPosition = elementPosition - headerOffset;
       
@@ -27,24 +27,20 @@ const Header = () => {
     if (href.startsWith('#')) {
       const sectionId = href.substring(1);
       
-      if (location.pathname === '/') {
-        scrollToSection(sectionId);
-      } else {
+      // Always navigate to homepage first if not already there
+      if (location.pathname !== '/') {
         navigate('/');
+        // Wait for page to load, then scroll
         setTimeout(() => {
-          const element = document.getElementById(sectionId);
-          if (element) {
-            const headerOffset = 80;
-            const elementPosition = element.offsetTop;
-            const offsetPosition = elementPosition - headerOffset;
-            
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          }
-        }, 100);
+          scrollToSection(sectionId);
+        }, 300);
+      } else {
+        // Already on homepage, scroll immediately
+        scrollToSection(sectionId);
       }
+    } else {
+      // Handle regular page navigation
+      navigate(href);
     }
     setIsMenuOpen(false);
   };
@@ -53,11 +49,30 @@ const Header = () => {
     { name: "Home", href: "#home" },
     { name: "Services", href: "#services" },
     { name: "IV Menu", href: "#menu" },
-    { name: "About", href: "/about" },
-    { name: "Find Your IV", href: "/find-your-iv" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" },
+    { name: "About", href: "#about" },
+    { name: "Find Your IV", href: "#quiz" },
+    { name: "Blog", href: "#blog" },
+    { name: "Contact", href: "#contact" },
   ];
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        setTimeout(() => {
+          const sectionId = hash.substring(1);
+          scrollToSection(sectionId);
+        }, 100);
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // Handle initial hash
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
 
   return (
     <header className="fixed top-0 w-full bg-background/95 backdrop-blur-sm z-50 border-b border-border">

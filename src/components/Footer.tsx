@@ -150,14 +150,6 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            
-            <Button 
-              variant="secondary" 
-              className="mt-6 w-full"
-              onClick={() => scrollToSection('contact')}
-            >
-              Book Now
-            </Button>
           </div>
         </div>
 
