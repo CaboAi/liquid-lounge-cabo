@@ -91,7 +91,7 @@ const About = () => {
               {/* Professional photo */}
               <div className="mb-8">
                 <img 
-                  src="/lovable-uploads/d9077de1-84fe-4b43-9d6c-3759d752c32c.png" 
+                  src="/lovable-uploads/90826b4b-2c73-4983-bc0d-5a79673db71c.png" 
                   alt="Nathan Brown BSN RN - Mobile IV Therapy Specialist"
                   className="w-full max-w-md mx-auto rounded-lg shadow-lg"
                 />

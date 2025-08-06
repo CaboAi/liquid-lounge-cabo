@@ -49,10 +49,10 @@ const Header = () => {
     { name: "Home", href: "#home" },
     { name: "Services", href: "#services" },
     { name: "IV Menu", href: "#menu" },
-    { name: "About", href: "#about" },
-    { name: "Find Your IV", href: "#quiz" },
-    { name: "Blog", href: "#blog" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Find Your IV", href: "/find-your-iv" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {
