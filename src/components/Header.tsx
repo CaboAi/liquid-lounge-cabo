@@ -9,35 +9,44 @@ const Header = () => {
   const location = useLocation();
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerOffset = 100;
-      const elementPosition = element.offsetTop;
-      const offsetPosition = elementPosition - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-      setIsMenuOpen(false);
+    // First, ensure we're on the homepage
+    if (location.pathname !== '/') {
+      navigate('/');
+      // Wait for navigation to complete, then scroll
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const headerOffset = 100; // Account for fixed header
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 500); // Increased delay to ensure page loads
+    } else {
+      // Already on homepage, scroll immediately
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 100;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
     }
+    setIsMenuOpen(false);
   };
 
   const handleNavigation = (href: string) => {
     if (href.startsWith('#')) {
       const sectionId = href.substring(1);
-      
-      // Always navigate to homepage first if not already there
-      if (location.pathname !== '/') {
-        navigate('/');
-        // Wait for page to load, then scroll
-        setTimeout(() => {
-          scrollToSection(sectionId);
-        }, 300);
-      } else {
-        // Already on homepage, scroll immediately
-        scrollToSection(sectionId);
-      }
+      scrollToSection(sectionId);
     } else {
       // Handle regular page navigation
       navigate(href);
@@ -49,9 +58,9 @@ const Header = () => {
     { name: "Home", href: "#home" },
     { name: "Services", href: "#services" },
     { name: "IV Menu", href: "#menu" },
-    { name: "About", href: "/about" },
-    { name: "Find Your IV", href: "/find-your-iv" },
-    { name: "Contact", href: "/contact" },
+    { name: "About", href: "#about" },
+    { name: "Find Your IV", href: "#quiz" },
+    { name: "Contact", href: "#contact" },
   ];
 
   useEffect(() => {
