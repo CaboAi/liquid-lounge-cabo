@@ -91,11 +91,13 @@ const About = () => {
               {/* Professional photo */}
               <div className="mb-8">
                 <img 
-                  src="/lovable-uploads/0bde89f6-98e2-4f0f-9af3-343a9e8ab0c2.png" 
+                  src="/lovable-uploads/WhatsApp Image 2025-08-01 at 14.48.19_b528d49b.jpg" 
                   alt="Nathan Brown BSN RN - Mobile IV Therapy Specialist"
-                  className="w-full max-w-md mx-auto rounded-lg shadow-lg"
+                  className="w-full max-w-md mx-auto rounded-lg shadow-lg object-cover"
+                  onLoad={() => console.log('Nathan\'s professional photo loaded successfully')}
                   onError={(e) => {
                     console.warn('Failed to load Nathan\'s professional photo');
+                    e.currentTarget.style.display = 'none';
                   }}
                 />
               </div>
