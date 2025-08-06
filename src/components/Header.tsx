@@ -11,22 +11,39 @@ const Header = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 80;
+      const elementPosition = element.offsetTop;
+      const offsetPosition = elementPosition - headerOffset;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
       setIsMenuOpen(false);
     }
   };
 
   const handleNavigation = (href: string) => {
     if (href.startsWith('#')) {
-      // Handle section navigation
       const sectionId = href.substring(1);
       
       if (location.pathname === '/') {
-        // Already on homepage, just scroll
         scrollToSection(sectionId);
       } else {
-        // Navigate to homepage with hash, then scroll
-        navigate(`/${href}`);
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            const headerOffset = 80;
+            const elementPosition = element.offsetTop;
+            const offsetPosition = elementPosition - headerOffset;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }
+        }, 100);
       }
     }
     setIsMenuOpen(false);
@@ -86,7 +103,14 @@ const Header = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Phone className="h-4 w-4" />
-              <a href="tel:+526242287777" className="hover:text-primary transition-colors">+52 624 228 7777</a>
+              <a 
+                href="https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+              >
+                +52 624 228 7777
+              </a>
             </div>
             <Button variant="medical">
               <Link to="/contact">Book Now</Link>

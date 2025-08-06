@@ -86,33 +86,37 @@ const About = () => {
               </div>
             </div>
 
-            {/* Right Column - Photo Placeholders */}
+            {/* Right Column - Photo Placeholder */}
             <div>
-              {/* Placeholder for Nathan's photos */}
-              <div className="space-y-6">
-                <div className="bg-primary/10 border-2 border-dashed border-primary/30 rounded-lg p-8 text-center">
-                  <div className="text-primary/60 mb-2">Professional Photo 1</div>
-                  <div className="text-sm text-muted-foreground">Nathan Brown BSN RN</div>
-                </div>
-                <div className="bg-primary/10 border-2 border-dashed border-primary/30 rounded-lg p-8 text-center">
-                  <div className="text-primary/60 mb-2">Professional Photo 2</div>
-                  <div className="text-sm text-muted-foreground">Nathan Brown BSN RN</div>
-                </div>
-                <div className="bg-primary/10 border-2 border-dashed border-primary/30 rounded-lg p-8 text-center">
-                  <div className="text-primary/60 mb-2">Professional Photo 3</div>
-                  <div className="text-sm text-muted-foreground">Nathan Brown BSN RN</div>
-                </div>
+              {/* Single professional photo placeholder */}
+              <div className="bg-primary/10 border-2 border-dashed border-primary/30 rounded-lg p-12 text-center mb-8">
+                <div className="text-primary/60 mb-2 text-lg">Professional Photo</div>
+                <div className="text-sm text-muted-foreground">Nathan Brown BSN RN - Mobile IV Therapy Specialist</div>
               </div>
 
-              <div className="mt-8 text-center">
+              <div className="text-center">
                 <Badge variant="secondary" className="mb-4">
                   Contact Information
                 </Badge>
                 <div className="text-sm text-muted-foreground mb-4 space-y-1">
-                  <div>Email: nate@liquidloungeiv.com</div>
-                  <div>Phone: +52 624 228 7777</div>
+                  <div>
+                    Email: <a href="mailto:liquidloungeiv@gmail.com" className="text-primary hover:underline">liquidloungeiv@gmail.com</a>
+                  </div>
+                  <div>
+                    Phone: <a 
+                      href="https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      +52 624 228 7777
+                    </a>
+                  </div>
                 </div>
-                <Button variant="medical" onClick={() => scrollToSection('contact')}>
+                <Button 
+                  variant="medical" 
+                  onClick={() => window.open('https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%27d%20like%20to%20schedule%20a%20consultation%20for%20IV%20therapy', '_blank')}
+                >
                   Schedule Consultation
                 </Button>
               </div>

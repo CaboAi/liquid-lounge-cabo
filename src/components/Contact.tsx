@@ -7,12 +7,45 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Mail, Phone, MapPin, Clock, MessageCircle, Instagram, Facebook } from "lucide-react";
 
 const Contact = () => {
+  const handleWhatsAppBooking = () => {
+    const firstName = (document.getElementById('firstName') as HTMLInputElement)?.value || '';
+    const lastName = (document.getElementById('lastName') as HTMLInputElement)?.value || '';
+    const email = (document.getElementById('email') as HTMLInputElement)?.value || '';
+    const phone = (document.getElementById('phone') as HTMLInputElement)?.value || '';
+    const serviceElement = document.querySelector('[role="combobox"][aria-expanded]') as HTMLElement;
+    const service = serviceElement?.textContent || 'Not specified';
+    const date = (document.getElementById('date') as HTMLInputElement)?.value || 'Not specified';
+    const timeElement = document.querySelector('[id*="time"]') as HTMLElement;
+    const time = timeElement?.textContent || 'Not specified';
+    const location = (document.getElementById('location') as HTMLInputElement)?.value || '';
+    const message = (document.getElementById('message') as HTMLTextAreaElement)?.value || '';
+    
+    const whatsappMessage = `Hi Nurse Nate,
+
+I'd like to book an IV therapy session:
+
+Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone}
+Service: ${service}
+Preferred Date: ${date}
+Preferred Time: ${time}
+Location: ${location}
+Additional Info: ${message}
+
+Thank you!`;
+    
+    const whatsappURL = `https://wa.me/526242287777?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappURL, '_blank');
+  };
+
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6" />,
       title: "Email",
-      details: "nate@liquidloungeiv.com",
-      description: "Send us a message anytime"
+      details: "liquidloungeiv@gmail.com",
+      description: "Send us a message anytime",
+      isEmail: true
     },
     {
       icon: <Phone className="h-6 w-6" />,
@@ -111,7 +144,16 @@ const Contact = () => {
                           </a>
                         ) : info.isPhone ? (
                           <a 
-                            href="tel:+526242287777" 
+                            href="https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium text-primary mb-1 hover:underline"
+                          >
+                            {info.details}
+                          </a>
+                        ) : info.isEmail ? (
+                          <a 
+                            href="mailto:liquidloungeiv@gmail.com"
                             className="font-medium text-primary mb-1 hover:underline"
                           >
                             {info.details}
@@ -238,16 +280,16 @@ const Contact = () => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4">
-                      <Button variant="medical" size="lg" className="flex-1">
-                        Submit Booking Request
+                      <Button variant="medical" size="lg" className="flex-1" onClick={handleWhatsAppBooking}>
+                        Send WhatsApp Message
                       </Button>
                       <Button 
                         variant="outline" 
                         size="lg" 
                         className="flex-1"
-                        onClick={() => window.open('https://wa.me/526242287777?text=Hi%20Nathan,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session', '_blank')}
+                        onClick={() => window.open('https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session', '_blank')}
                       >
-                        WhatsApp Book
+                        Quick WhatsApp
                       </Button>
                     </div>
                     

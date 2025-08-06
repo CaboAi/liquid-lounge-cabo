@@ -209,7 +209,7 @@ const Quiz = () => {
                   <Button 
                     variant="outline" 
                     className="flex-1"
-                    onClick={() => window.open(`https://wa.me/526242287777?text=Hi%20Nathan,%20I%27d%20like%20to%20book%20${encodeURIComponent(getRecommendation().package)}%20therapy`, '_blank')}
+                    onClick={() => window.open(`https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%20completed%20the%20IV%20quiz%20and%20I%27m%20interested%20in%20the%20${encodeURIComponent(getRecommendation().package)}%20therapy`, '_blank')}
                   >
                     WhatsApp Book
                   </Button>

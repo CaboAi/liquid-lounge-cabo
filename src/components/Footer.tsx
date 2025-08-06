@@ -92,7 +92,12 @@ const Footer = () => {
                 <Mail className="h-5 w-5 mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium">Email</p>
-                  <p className="text-sm text-primary-foreground/80">nate@liquidloungeiv.com</p>
+                  <a 
+                    href="mailto:liquidloungeiv@gmail.com"
+                    className="text-sm text-primary-foreground/80 hover:text-primary-foreground transition-colors"
+                  >
+                    liquidloungeiv@gmail.com
+                  </a>
                 </div>
               </div>
               <div className="flex items-start gap-3">
