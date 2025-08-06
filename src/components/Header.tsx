@@ -33,10 +33,12 @@ const Header = () => {
   };
 
   const navItems = [
+    { name: "Home", href: "#home" },
     { name: "Services", href: "#services" },
     { name: "IV Menu", href: "#menu" },
     { name: "About", href: "/about" },
     { name: "Find Your IV", href: "/find-your-iv" },
+    { name: "Blog", href: "/blog" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -84,7 +86,7 @@ const Header = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-sm text-muted-foreground">
               <Phone className="h-4 w-4" />
-              <span>+52 624 228 7777</span>
+              <a href="tel:+526242287777" className="hover:text-primary transition-colors">+52 624 228 7777</a>
             </div>
             <Button variant="medical">
               <Link to="/contact">Book Now</Link>

@@ -18,7 +18,8 @@ const Contact = () => {
       icon: <Phone className="h-6 w-6" />,
       title: "Phone", 
       details: "+52 624 228 7777",
-      description: "Call or WhatsApp for immediate response"
+      description: "Call or WhatsApp for immediate response",
+      isPhone: true
     },
     {
       icon: <MapPin className="h-6 w-6" />,
@@ -47,12 +48,11 @@ const Contact = () => {
   ];
 
   const services = [
-    "Hydration Hero",
-    "Energy Boost", 
-    "Immunity Shield",
-    "Beauty Glow",
-    "Performance Plus",
-    "NAD+ Longevity",
+    "Re-Hydration",
+    "Post-Workout", 
+    "Immunity Myers",
+    "The \"Cure\"",
+    "NAD+",
     "Custom Blend",
     "Consultation Only"
   ];
@@ -67,7 +67,7 @@ const Contact = () => {
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Ready to experience premium mobile IV therapy in Cabo San Lucas? 
-            Contact Nathan Brown BS RN to schedule your personalized treatment.
+            Contact Nathan Brown BSN RN to schedule your personalized treatment.
           </p>
         </div>
 
@@ -105,6 +105,13 @@ const Contact = () => {
                             href="https://www.facebook.com/share/1PBaJhWUMn/?mibextid=wwXIfr" 
                             target="_blank" 
                             rel="noopener noreferrer"
+                            className="font-medium text-primary mb-1 hover:underline"
+                          >
+                            {info.details}
+                          </a>
+                        ) : info.isPhone ? (
+                          <a 
+                            href="tel:+526242287777" 
                             className="font-medium text-primary mb-1 hover:underline"
                           >
                             {info.details}
@@ -230,9 +237,19 @@ const Contact = () => {
                       </ul>
                     </div>
 
-                    <Button variant="medical" size="lg" className="w-full">
-                      Submit Booking Request
-                    </Button>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <Button variant="medical" size="lg" className="flex-1">
+                        Submit Booking Request
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="lg" 
+                        className="flex-1"
+                        onClick={() => window.open('https://wa.me/526242287777?text=Hi%20Nathan,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session', '_blank')}
+                      >
+                        WhatsApp Book
+                      </Button>
+                    </div>
                     
                     <p className="text-xs text-muted-foreground text-center mt-4">
                       By submitting this form, you agree to receive communication from Liquid Lounge regarding your booking.

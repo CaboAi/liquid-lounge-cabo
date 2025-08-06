@@ -98,63 +98,63 @@ const Quiz = () => {
     // Simple recommendation logic based on answers
     if (goal === "hydration" || condition === "dehydration") {
       return {
-        package: "Hydration Hero",
-        description: "Perfect for dehydration recovery and general wellness.",
-        nutrients: ["IV Saline", "Electrolytes", "Vitamin B Complex"],
+        package: "Re-Hydration",
+        description: "Essential hydration therapy for optimal wellness.",
+        nutrients: ["1000mL Fluids", "Electrolytes like sodium, potassium, calcium, chloride"],
         reasoning: "Based on your responses, you need rapid hydration and electrolyte replenishment."
       };
     }
     
     if (goal === "energy" || energy === "very-low" || energy === "low") {
       return {
-        package: "Energy Boost",
-        description: "Combat fatigue and boost energy levels naturally.",
-        nutrients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
+        package: "Post-Workout",
+        description: "Perfect recovery blend for athletic performance.",
+        nutrients: ["Fluids & electrolytes", "L-Carnitine", "Vitamin B1, B6, B12", "Magnesium"],
         reasoning: "Your energy levels indicate you'd benefit from our energy-boosting vitamin blend."
       };
     }
     
     if (goal === "immunity" || condition === "illness") {
       return {
-        package: "Immunity Shield", 
-        description: "Strengthen your immune system and fight off illness.",
-        nutrients: ["High-dose Vitamin C", "Zinc", "Glutathione", "B Complex"],
+        package: "Immunity Myers", 
+        description: "Immune system support with classic Myers' cocktail.",
+        nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium"],
         reasoning: "Your immune system needs support. This blend will help strengthen your defenses."
       };
     }
     
     if (goal === "beauty" || (age === "35-45" || age === "46-55" || age === "55+")) {
       return {
-        package: "Beauty Glow",
-        description: "Anti-aging and skin health optimization.",
-        nutrients: ["Glutathione", "Vitamin C", "Biotin", "Collagen Support"],
-        reasoning: "Perfect for anti-aging benefits and enhanced skin health."
+        package: "The \"Cure\"",
+        description: "Ultimate wellness therapy with premium antioxidants.",
+        nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium", "Glutathione"],
+        reasoning: "Perfect for anti-aging benefits and enhanced skin health with powerful antioxidants."
       };
     }
     
     if (goal === "performance" || exercise === "regularly" || exercise === "daily") {
       return {
-        package: "Performance Plus",
-        description: "Athletic recovery and performance enhancement.",
-        nutrients: ["L-Carnitine", "L-Lysine", "B Complex", "Electrolytes", "Amino Acids"],
+        package: "Post-Workout",
+        description: "Perfect recovery blend for athletic performance.",
+        nutrients: ["Fluids & electrolytes", "L-Carnitine", "Vitamin B1, B6, B12", "Magnesium"],
         reasoning: "Your active lifestyle requires enhanced recovery and performance support."
       };
     }
     
     if (goal === "detox" || condition === "stress") {
       return {
-        package: "NAD+ Longevity",
+        package: "NAD+",
         description: "Premium anti-aging and cellular repair therapy.",
-        nutrients: ["NAD+", "Glutathione", "Vitamin Complex", "Antioxidants"],
+        nutrients: ["Fluids & electrolytes", "NAD+ up to 1000mg"],
         reasoning: "You'll benefit from our premium detox and cellular repair therapy."
       };
     }
     
     // Default recommendation
     return {
-      package: "Energy Boost",
+      package: "Immunity Myers",
       description: "Our most popular therapy for overall wellness.",
-      nutrients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
+      nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium"],
       reasoning: "A great all-around therapy to boost your energy and wellness."
     };
   };
@@ -205,6 +205,13 @@ const Quiz = () => {
                 <div className="flex flex-col sm:flex-row gap-4 pt-6">
                   <Button variant="medical" className="flex-1" onClick={() => scrollToSection('contact')}>
                     Book This Treatment
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="flex-1"
+                    onClick={() => window.open(`https://wa.me/526242287777?text=Hi%20Nathan,%20I%27d%20like%20to%20book%20${encodeURIComponent(getRecommendation().package)}%20therapy`, '_blank')}
+                  >
+                    WhatsApp Book
                   </Button>
                   <Button variant="outline" onClick={resetQuiz}>
                     Retake Quiz

@@ -8,14 +8,14 @@ const About = () => {
     { icon: <GraduationCap className="h-5 w-5" />, text: "Bachelor of Science in Nursing" },
     { icon: <Shield className="h-5 w-5" />, text: "Registered Nurse (RN)" },
     { icon: <Award className="h-5 w-5" />, text: "IV Therapy Certified" },
-    { icon: <Heart className="h-5 w-5" />, text: "Advanced Cardiac Life Support" },
+    
   ];
 
   const experience = [
     { number: "10+", label: "Years Experience" },
     { number: "1000+", label: "Treatments Given" },
     { number: "100%", label: "Safety Record" },
-    { number: "24/7", label: "Mobile Service" },
+    { number: "7 Days a Week", label: "Mobile Service" },
   ];
 
   const scrollToSection = (sectionId: string) => {
@@ -35,7 +35,7 @@ const About = () => {
               Meet Your IV Therapy Specialist
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Professional, experienced, and dedicated to your wellness journey in beautiful Cabo San Lucas.
+              Cabo's Best Mobile IV Therapy - Private, Professional, Premium.
             </p>
           </div>
 
@@ -43,7 +43,7 @@ const About = () => {
             {/* Left Column - Professional Info */}
             <div>
               <div className="mb-8">
-                <h3 className="text-2xl font-bold text-foreground mb-4">Nathan Brown BS RN</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-4">Nathan Brown BSN RN</h3>
                 <div className="flex items-center gap-2 mb-4">
                   <MapPin className="h-5 w-5 text-primary" />
                   <span className="text-muted-foreground">From Kelowna, Canada • Now serving Cabo San Lucas</span>
@@ -86,76 +86,36 @@ const About = () => {
               </div>
             </div>
 
-            {/* Right Column - Service Info */}
+            {/* Right Column - Photo Placeholders */}
             <div>
-              <Card className="p-8 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
-                <CardContent className="p-0">
-                  <h4 className="text-xl font-bold mb-6 text-center">Why Choose Liquid Lounge?</h4>
-                  
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 bg-primary/20 rounded-full">
-                        <Shield className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h5 className="font-semibold mb-1">Licensed & Insured</h5>
-                        <p className="text-sm text-muted-foreground">
-                          Fully licensed RN with comprehensive insurance coverage for your peace of mind.
-                        </p>
-                      </div>
-                    </div>
+              {/* Placeholder for Nathan's photos */}
+              <div className="space-y-6">
+                <div className="bg-primary/10 border-2 border-dashed border-primary/30 rounded-lg p-8 text-center">
+                  <div className="text-primary/60 mb-2">Professional Photo 1</div>
+                  <div className="text-sm text-muted-foreground">Nathan Brown BSN RN</div>
+                </div>
+                <div className="bg-primary/10 border-2 border-dashed border-primary/30 rounded-lg p-8 text-center">
+                  <div className="text-primary/60 mb-2">Professional Photo 2</div>
+                  <div className="text-sm text-muted-foreground">Nathan Brown BSN RN</div>
+                </div>
+                <div className="bg-primary/10 border-2 border-dashed border-primary/30 rounded-lg p-8 text-center">
+                  <div className="text-primary/60 mb-2">Professional Photo 3</div>
+                  <div className="text-sm text-muted-foreground">Nathan Brown BSN RN</div>
+                </div>
+              </div>
 
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 bg-primary/20 rounded-full">
-                        <Heart className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h5 className="font-semibold mb-1">Personalized Care</h5>
-                        <p className="text-sm text-muted-foreground">
-                          Every treatment is customized based on your health history and wellness goals.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 bg-primary/20 rounded-full">
-                        <MapPin className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h5 className="font-semibold mb-1">Mobile Convenience</h5>
-                        <p className="text-sm text-muted-foreground">
-                          Professional IV therapy at your hotel, villa, or preferred location in Cabo.
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="p-2 bg-primary/20 rounded-full">
-                        <Users className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <h5 className="font-semibold mb-1">Premium Experience</h5>
-                        <p className="text-sm text-muted-foreground">
-                          Hospital-grade equipment and pharmaceutical-grade nutrients for optimal results.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-8 text-center">
-                    <Badge variant="secondary" className="mb-4">
-                      Contact Information
-                    </Badge>
-                    <div className="text-sm text-muted-foreground mb-4 space-y-1">
-                      <div>Email: nate@liquidloungeiv.com</div>
-                      <div>Phone: +52 624 228 7777</div>
-                    </div>
-                    <Button variant="medical" onClick={() => scrollToSection('contact')}>
-                      Schedule Consultation
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="mt-8 text-center">
+                <Badge variant="secondary" className="mb-4">
+                  Contact Information
+                </Badge>
+                <div className="text-sm text-muted-foreground mb-4 space-y-1">
+                  <div>Email: nate@liquidloungeiv.com</div>
+                  <div>Phone: +52 624 228 7777</div>
+                </div>
+                <Button variant="medical" onClick={() => scrollToSection('contact')}>
+                  Schedule Consultation
+                </Button>
+              </div>
             </div>
           </div>
         </div>

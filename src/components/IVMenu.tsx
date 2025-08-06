@@ -13,25 +13,25 @@ const IVMenu = () => {
     {
       category: "NAD+",
       items: ["Nicotinamide adenine dinucleotide"],
-      description: "Anti-aging, cardio & neuro-protective qualities. Studies show improved energy, recovery & longevity.",
+      description: "Nicotinamide adenine dinucleotide (NAD+) is a critical coenzyme found in every cell. Anti-aging, cardio & neuro-protective qualities. Clinical studies show improved cellular energy production, enhanced recovery, DNA repair support, and longevity benefits. May help with mental clarity, physical endurance, and metabolic function.",
       color: "bg-purple-100 text-purple-800"
     },
     {
       category: "Glutathione",
       items: ["Master antioxidant tri-peptide"],
-      description: "Helps with detoxification, skin & liver health, and increasing energy.",
+      description: "Glutathione is the body's master antioxidant tri-peptide, composed of three amino acids. Essential for detoxification processes, supports liver health, enhances skin brightness and clarity, boosts immune function, and increases cellular energy. Known as the most important antioxidant for overall health and anti-aging.",
       color: "bg-green-100 text-green-800"
     },
     {
       category: "L-Lysine",
       items: ["Essential amino acid"],
-      description: "Obtained through diet only to support collagen and immune function.",
+      description: "L-Lysine is an essential amino acid that cannot be produced by the body and must be obtained through diet or supplementation. Critical for collagen synthesis, immune system support, wound healing, calcium absorption, and protein synthesis. Particularly beneficial for skin health, bone strength, and recovery.",
       color: "bg-yellow-100 text-yellow-800"
     },
     {
       category: "L-Carnitine",
       items: ["Naturally occurring amino acid"],
-      description: "Used for weight loss and physical & mental performance. Helps in the conversion of fat to fuel.",
+      description: "L-Carnitine is a naturally occurring amino acid derivative that plays a crucial role in energy metabolism. Facilitates the conversion of fat to fuel at the cellular level, supports weight management, enhances physical performance, improves mental clarity, and aids in recovery. Essential for optimal mitochondrial function and energy production.",
       color: "bg-red-100 text-red-800"
     },
     {
@@ -44,46 +44,40 @@ const IVMenu = () => {
 
   const ivPackages = [
     {
-      name: "Hydration Hero",
-      description: "Perfect for dehydration, hangovers, and general wellness",
-      nutrients: ["IV Saline", "Electrolytes", "Vitamin B Complex"],
-      duration: "30 minutes",
-      price: "Starting at $150"
+      name: "Re-Hydration",
+      description: "Essential hydration therapy for optimal wellness",
+      nutrients: ["1000mL Fluids", "Electrolytes like sodium, potassium, calcium, chloride"],
+      duration: "30-45 minutes",
+      price: "Prices starting at $120. Average spend $300. No hidden costs. Straight to your living room"
     },
     {
-      name: "Energy Boost",
-      description: "Combat fatigue and boost energy levels naturally",
-      nutrients: ["B Vitamins", "Vitamin C", "Magnesium", "L-Carnitine"],
-      duration: "45 minutes", 
-      price: "Starting at $200"
-    },
-    {
-      name: "Immunity Shield",
-      description: "Strengthen your immune system and fight off illness",
-      nutrients: ["High-dose Vitamin C", "Zinc", "Glutathione", "B Complex"],
+      name: "Post-Workout",
+      description: "Perfect recovery blend for athletic performance",
+      nutrients: ["Fluids & electrolytes", "L-Carnitine", "Vitamin B1, B6, B12", "Magnesium"],
       duration: "45 minutes",
-      price: "Starting at $225"
+      price: "Prices starting at $120. Average spend $300. No hidden costs. Straight to your living room"
     },
     {
-      name: "Beauty Glow",
-      description: "Anti-aging and skin health optimization",
-      nutrients: ["Glutathione", "Vitamin C", "Biotin", "Collagen Support"],
+      name: "Immunity Myers",
+      description: "Immune system support with classic Myers' cocktail",
+      nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium"],
       duration: "45 minutes",
-      price: "Starting at $275"
+      price: "Prices starting at $120. Average spend $300. No hidden costs. Straight to your living room"
     },
     {
-      name: "Performance Plus",
-      description: "Athletic recovery and performance enhancement", 
-      nutrients: ["L-Carnitine", "L-Lysine", "B Complex", "Electrolytes", "Amino Acids"],
+      name: "The \"Cure\"",
+      description: "Ultimate wellness therapy with premium antioxidants",
+      nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium", "Glutathione"],
       duration: "60 minutes",
-      price: "Starting at $300"
+      price: "Prices starting at $120. Average spend $300. No hidden costs. Straight to your living room"
     },
     {
-      name: "NAD+ Longevity",
+      name: "NAD+",
       description: "Premium anti-aging and cellular repair therapy",
-      nutrients: ["NAD+", "Glutathione", "Vitamin Complex", "Antioxidants"],
+      nutrients: ["Fluids & electrolytes", "NAD+ up to 1000mg"],
       duration: "90 minutes",
-      price: "Starting at $450"
+      price: "Prices starting at $120. Average spend $300. No hidden costs. Straight to your living room",
+      specialNote: "Recommended add-on: Vitamin Bs to help with production of energy"
     }
   ];
 
@@ -162,16 +156,21 @@ const IVMenu = () => {
                         </li>
                       ))}
                     </ul>
+                    {pkg.specialNote && (
+                      <div className="mt-3 p-2 bg-primary/5 rounded-lg">
+                        <p className="text-sm text-primary font-medium">{pkg.specialNote}</p>
+                      </div>
+                    )}
                   </div>
                   
-                  <div className="flex justify-between items-center pt-4 border-t border-border">
-                    <div>
+                  <div className="pt-4 border-t border-border">
+                    <div className="mb-2">
                       <div className="text-sm text-muted-foreground">Duration</div>
                       <div className="font-semibold">{pkg.duration}</div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-sm text-muted-foreground">Price</div>
-                      <div className="font-bold text-primary">{pkg.price}</div>
+                    <div>
+                      <div className="text-sm text-muted-foreground">Pricing</div>
+                      <div className="font-bold text-primary text-sm">{pkg.price}</div>
                     </div>
                   </div>
                 </CardContent>
@@ -184,7 +183,7 @@ const IVMenu = () => {
         <div className="text-center mt-16 p-8 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg">
           <h3 className="text-2xl font-bold mb-4">Ready to Book Your IV Therapy?</h3>
           <p className="text-muted-foreground mb-6">
-            Contact Nathan Brown BS RN to schedule your personalized IV therapy session in Cabo San Lucas.
+            Contact Nathan Brown BSN RN to schedule your personalized IV therapy session in Cabo San Lucas.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="medical" size="lg" onClick={() => scrollToSection('contact')}>

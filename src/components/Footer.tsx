@@ -27,8 +27,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-primary-foreground/80 mb-6 max-w-md">
-              Premium mobile IV therapy services in Cabo San Lucas. Professional care by Nathan Brown BS RN, 
-              bringing hospital-grade hydration and wellness therapy directly to your location.
+              Cabo's Best Mobile IV Therapy - Private, Professional, Premium.
             </p>
             <div className="flex items-center gap-4 text-sm">
               <div className="flex items-center gap-2">
@@ -162,7 +161,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-primary-foreground/80">
               <p>&copy; 2024 Liquid Lounge Mobile IV Therapy. All rights reserved.</p>
-              <p className="mt-1">Licensed and operated by Nathan Brown BS RN</p>
+              <p className="mt-1">Licensed and operated by Nathan Brown BSN RN</p>
             </div>
             
             <div className="flex items-center gap-6 text-sm text-primary-foreground/80">

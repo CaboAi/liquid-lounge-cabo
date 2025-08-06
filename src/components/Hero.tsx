@@ -29,8 +29,7 @@ const Hero = () => {
                   <span className="block text-primary">Mobile IV Therapy</span>
                 </h1>
                 <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
-                  Premium hydration and wellness therapy delivered directly to you in Cabo San Lucas. 
-                  Professional care by Nathan Brown BS RN - bringing hospital-grade IV therapy to your location.
+                  Cabo's Best Mobile IV Therapy - Private, Professional, Premium.
                 </p>
               </div>
               
