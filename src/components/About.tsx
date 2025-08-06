@@ -91,9 +91,12 @@ const About = () => {
               {/* Professional photo */}
               <div className="mb-8">
                 <img 
-                  src="/lovable-uploads/90826b4b-2c73-4983-bc0d-5a79673db71c.png" 
+                  src="/lovable-uploads/0bde89f6-98e2-4f0f-9af3-343a9e8ab0c2.png" 
                   alt="Nathan Brown BSN RN - Mobile IV Therapy Specialist"
                   className="w-full max-w-md mx-auto rounded-lg shadow-lg"
+                  onError={(e) => {
+                    console.warn('Failed to load Nathan\'s professional photo');
+                  }}
                 />
               </div>
 
