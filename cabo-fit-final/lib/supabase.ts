@@ -18,27 +18,18 @@ export interface Class {
   gym_id: string
 }
 
-// Get today's classes
-export async function getTodaysClasses() {
-  try {
-    const today = new Date().toISOString().split('T')[0]
-    
-    const { data, error } = await supabase
-      .from('classes')
-      .select('id, title, start_time, end_time, capacity, price, instructor, difficulty, gym_id')
-      .gte('start_time', today + 'T00:00:00')
-      .lt('start_time', today + 'T23:59:59')
-      .order('start_time', { ascending: true })
-    
-    if (error) throw error
-    return { success: true, data: data || [] }
-  } catch (error) {
-    console.error('Error fetching classes:', error)
-    return { success: false, error, data: [] }
-  }
+export interface Booking {
+  id?: string
+  user_id: string
+  class_id: string
+  type: string
+  payment_status: string
+  booking_date: string
+  notes?: string
+  created_at?: string
 }
 
-// Get all classes (fallback if no classes today)
+// Get all classes
 export async function getAllClasses() {
   try {
     const { data, error } = await supabase
@@ -55,7 +46,24 @@ export async function getAllClasses() {
   }
 }
 
-// Test connection (keep existing)
+// Create a booking - THIS WAS MISSING!
+export async function createBooking(booking: Omit<Booking, 'id' | 'created_at'>) {
+  try {
+    const { data, error } = await supabase
+      .from('bookings')
+      .insert([booking])
+      .select()
+      .single()
+    
+    if (error) throw error
+    return { success: true, data }
+  } catch (error) {
+    console.error('Error creating booking:', error)
+    return { success: false, error }
+  }
+}
+
+// Test connection
 export async function testConnection() {
   try {
     const { data, error } = await supabase.from('classes').select('count')
@@ -66,7 +74,7 @@ export async function testConnection() {
   }
 }
 
-// Simple function to get classes (keep existing for test component)
+// Simple function to get classes
 export async function getClasses() {
   try {
     const { data, error } = await supabase

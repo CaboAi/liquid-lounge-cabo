@@ -4,13 +4,15 @@ import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import ClassCard from '@/components/fitness/ClassCard'
-import { getAllClasses, Class } from '@/lib/supabase'
+import { getAllClasses, createBooking, Class } from '@/lib/supabase'
 
 export default function Dashboard() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [classes, setClasses] = useState<Class[]>([])
   const [loading, setLoading] = useState(true)
+  const [booking, setBooking] = useState(false)
+  const [credits, setCredits] = useState(5)
 
   useEffect(() => {
     if (status === 'loading') return
@@ -32,6 +34,44 @@ export default function Dashboard() {
       console.error(err)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleBookClass = async (classItem: Class) => {
+    if (!session?.user?.email) {
+      alert('Please log in to book classes')
+      return
+    }
+
+    if (credits < 1) {
+      alert('You need more credits to book this class!')
+      return
+    }
+
+    setBooking(true)
+    try {
+      const bookingData = {
+        user_id: session.user.email,
+        class_id: classItem.id,
+        type: 'drop-in',
+        payment_status: 'completed',
+        booking_date: new Date().toISOString().split('T')[0],
+        notes: 'Booked via dashboard'
+      }
+
+      const result = await createBooking(bookingData)
+      
+      if (result.success) {
+        setCredits(credits - 1)
+        alert('Successfully booked ' + classItem.title + '! ')
+      } else {
+        alert('Booking failed. Please try again.')
+      }
+    } catch (error) {
+      alert('Booking error. Please try again.')
+      console.error(error)
+    } finally {
+      setBooking(false)
     }
   }
 
@@ -61,7 +101,7 @@ export default function Dashboard() {
           <h2 className="text-2xl font-semibold mb-4">Your Credits</h2>
           <div className="flex items-center space-x-4">
             <div className="bg-orange-100 text-orange-800 px-4 py-2 rounded-lg">
-              <span className="text-2xl font-bold">5</span>
+              <span className="text-2xl font-bold">{credits}</span>
               <span className="text-sm ml-1">credits available</span>
             </div>
             <button className="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700">
@@ -72,7 +112,7 @@ export default function Dashboard() {
 
         <div className="mb-6">
           <h2 className="text-2xl font-semibold mb-4">
-            Real Classes from Database ({classes.length})
+            Available Classes ({classes.length})
           </h2>
           
           {classes.length === 0 ? (
@@ -91,12 +131,23 @@ export default function Dashboard() {
                   credits={1}
                   difficulty={classItem.difficulty || 'All Levels'}
                   spotsLeft={classItem.capacity}
-                  onBook={() => alert('Booking coming in Step 6!')}
+                  onBook={() => handleBookClass(classItem)}
                 />
               ))}
             </div>
           )}
         </div>
+
+        {booking && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-lg p-6">
+              <div className="text-center">
+                <div className="text-xl mb-2">Booking class...</div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-600 mx-auto"></div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
