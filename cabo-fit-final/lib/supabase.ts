@@ -17,6 +17,15 @@ export interface Class {
   gym_id: string
 }
 
+export interface Booking {
+  user_id: string
+  class_id: string
+  type: string
+  payment_status: string
+  booking_date: string
+  notes?: string
+}
+
 export async function getAllClasses() {
   try {
     const { data, error } = await supabase
@@ -32,7 +41,7 @@ export async function getAllClasses() {
   }
 }
 
-export async function createBooking(booking: any) {
+export async function createBooking(booking: Booking) {
   try {
     const { data, error } = await supabase
       .from('bookings')
@@ -44,6 +53,30 @@ export async function createBooking(booking: any) {
     return { success: true, data }
   } catch (error) {
     console.error('Error:', error)
+    return { success: false, error }
+  }
+}
+
+export async function testConnection() {
+  try {
+    const { data, error } = await supabase.from('classes').select('count')
+    if (error) throw error
+    return { success: true, data }
+  } catch (error) {
+    return { success: false, error }
+  }
+}
+
+export async function getClasses() {
+  try {
+    const { data, error } = await supabase
+      .from('classes')
+      .select('id, title, start_time, end_time, capacity, price, instructor, difficulty')
+      .limit(10)
+    
+    if (error) throw error
+    return { success: true, data }
+  } catch (error) {
     return { success: false, error }
   }
 }
