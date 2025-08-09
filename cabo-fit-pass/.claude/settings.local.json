@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(claude mcp:*)",
+      "Bash(npm search:*)",
+      "Bash(gh repo list:*)",
+      "Bash(git fetch:*)",
+      "Bash(git pull:*)",
+      "Bash(git reset:*)",
+      "Bash(git checkout:*)",
+      "Bash(find:*)",
+      "Bash(node:*)",
+      "Bash(rm:*)",
+      "Bash(npm install:*)"
+    ],
+    "deny": []
+  }
+}

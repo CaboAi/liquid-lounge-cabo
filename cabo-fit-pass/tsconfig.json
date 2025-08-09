@@ -1,0 +1,128 @@
+{
+  "compilerOptions": {
+    // Language and Module Settings
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": [
+      "dom",
+      "dom.iterable", 
+      "ES6",
+      "ES2017",
+      "ES2018",
+      "ES2019",
+      "ES2020",
+      "ES2021",
+      "ES2022"
+    ],
+    "allowJs": true,
+    "checkJs": false,
+    "jsx": "preserve",
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "removeComments": false,
+    "noEmit": true,
+    "importHelpers": true,
+    "downlevelIteration": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "preserveSymlinks": false,
+    "allowUmdGlobalAccess": false,
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    
+    // Strict Type Checking Options
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": false,
+    "exactOptionalPropertyTypes": false,
+    
+    // Additional Checks
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": false,
+    
+    // Module Resolution
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/components/ui/*": ["./src/components/ui/*"],
+      "@/app/*": ["./src/app/*"],
+      "@/lib/*": ["./src/lib/*"],
+      "@/utils/*": ["./src/lib/*"],
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/styles/*": ["./src/styles/*"],
+      "@/assets/*": ["./src/assets/*"],
+      "@/public/*": ["./public/*"],
+      "@/config/*": ["./src/config/*"],
+      "@/constants/*": ["./src/constants/*"],
+      "@/providers/*": ["./src/providers/*"],
+      "@/context/*": ["./src/context/*"],
+      "@/store/*": ["./src/store/*"],
+      "@/api/*": ["./src/app/api/*"]
+    },
+    
+    // Emit Options
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    
+    // Advanced Options
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+    
+    // Next.js specific
+    "allowImportingTsExtensions": false,
+    "noResolve": false,
+    
+    // Plugin configuration
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/**/*",
+    "tailwind.config.ts",
+    "next.config.js"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next",
+    "out",
+    "dist",
+    "build",
+    "coverage",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "**/*.spec.tsx",
+    "**/*.test.tsx"
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
+  "typedocOptions": {
+    "entryPoints": ["src/index.ts"],
+    "out": "docs",
+    "theme": "default"
+  }
+}

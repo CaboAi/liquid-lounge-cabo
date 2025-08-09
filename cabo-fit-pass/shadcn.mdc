@@ -1,0 +1,45 @@
+# Shadcn UI Implementation Rules for Claude Code
+
+## Usage Rule
+When asked to use shadcn components, use the MCP server.
+
+## Planning Rule  
+When asked to plan using anything related to shadcn:
+- Use the MCP server during planning
+- Apply components wherever components are applicable
+- Use whole blocks where possible (e.g., login page, calendar)
+
+## Implementation Rule
+When implementing:
+1. First call the demo tool to see how it is used
+2. Then implement it so that it is implemented correctly
+
+## Available Components
+- accordion, alert, alert-dialog, aspect-ratio, avatar, badge, breadcrumb
+- button, calendar, card, carousel, chart, checkbox, collapsible, command
+- context-menu, dialog, drawer, dropdown-menu, form, hover-card
+- input, input-otp, label, menubar, navigation-menu, pagination
+- popover, progress, radio-group, resizable, scroll-area, select
+- separator, sheet, sidebar, skeleton, slider, sonner, switch
+- table, tabs, textarea, toggle, toggle-group, tooltip
+
+## Available Blocks
+- **Login blocks**: login-01 through login-05 (authentication interfaces)
+- **Dashboard blocks**: dashboard-01 (complete dashboard with sidebar, charts, data tables)
+- **Calendar blocks**: calendar-01 through calendar-32 (various calendar layouts)
+- **Sidebar blocks**: sidebar-01 through sidebar-16 (navigation sidebars)
+- **Products blocks**: products-01 (e-commerce product listings)
+
+## Key MCP Server Tools
+- `shadcn-ui:get_component` - Get component source code
+- `shadcn-ui:get_component_demo` - Get component usage examples
+- `shadcn-ui:get_block` - Get complete block implementations
+- `shadcn-ui:list_components` - List all available components
+- `shadcn-ui:list_blocks` - List all available blocks
+
+## Best Practices
+- Always check demo usage before implementing
+- Use complete blocks for complex layouts (login pages, dashboards)
+- Prefer modern, responsive designs
+- Leverage Tailwind utility classes for styling
+- Maintain accessibility standards with proper ARIA labels

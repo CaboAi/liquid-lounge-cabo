@@ -1,0 +1,124 @@
+# CaboFitPass Docker Ignore File
+
+# Dependencies
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Next.js build output
+.next/
+out/
+
+# Environment variables
+.env*
+!.env.example
+
+# Development files
+*.log
+.DS_Store
+*.tsbuildinfo
+
+# Testing
+coverage/
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS generated files
+Thumbs.db
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+
+# Git
+.git/
+.gitignore
+README.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# Linting and formatting
+.eslintrc*
+.prettierrc*
+.editorconfig
+
+# TypeScript
+tsconfig.json
+
+# Vercel
+.vercel/
+
+# Supabase
+supabase/
+
+# Local development
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Backup files
+*.bak
+*.backup
+
+# Archive files
+*.zip
+*.tar.gz
+*.rar
+
+# IDE files
+*.sublime-project
+*.sublime-workspace
+
+# Mac files
+.AppleDouble
+.LSOverride
+Icon
+
+# Windows files
+desktop.ini
+
+# Linux files
+.directory
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificates
+*.pem
+*.key
+*.crt
+
+# Monitoring and logs
+logs/
+*.log
+
+# Build artifacts
+dist/
+build/

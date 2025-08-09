@@ -1,0 +1,335 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: '18'
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  # Job 1: Pre-deployment checks
+  pre-deploy:
+    name: 🔍 Pre-deployment Checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    outputs:
+      should-deploy: ${{ steps.check.outputs.should-deploy }}
+      environment: ${{ steps.check.outputs.environment }}
+      version: ${{ steps.check.outputs.version }}
+    
+    steps:
+      - name: 🏗 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🔍 Check deployment conditions
+        id: check
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "environment=${{ github.event.inputs.environment }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "environment=production" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "should-deploy=true" >> $GITHUB_OUTPUT
+            echo "environment=production" >> $GITHUB_OUTPUT
+          else
+            echo "should-deploy=false" >> $GITHUB_OUTPUT
+          fi
+          
+          # Generate version
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          else
+            echo "version=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 📋 Deployment summary
+        if: steps.check.outputs.should-deploy == 'true'
+        run: |
+          echo "🚀 Deploying to ${{ steps.check.outputs.environment }}"
+          echo "📦 Version: ${{ steps.check.outputs.version }}"
+          echo "🔗 Branch/Tag: ${{ github.ref }}"
+
+  # Job 2: Run full CI pipeline
+  ci:
+    name: 🔄 Run CI Pipeline
+    uses: ./.github/workflows/ci.yml
+    needs: [pre-deploy]
+    if: needs.pre-deploy.outputs.should-deploy == 'true'
+    secrets: inherit
+
+  # Job 3: Build and deploy to Vercel
+  deploy-vercel:
+    name: 🚀 Deploy to Vercel
+    runs-on: ubuntu-latest
+    needs: [pre-deploy, ci]
+    if: needs.pre-deploy.outputs.should-deploy == 'true'
+    timeout-minutes: 20
+    
+    environment:
+      name: ${{ needs.pre-deploy.outputs.environment }}
+      url: ${{ steps.deploy.outputs.preview-url }}
+    
+    steps:
+      - name: 🏗 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install Vercel CLI
+        run: npm install -g vercel@latest
+
+      - name: 🔗 Link Vercel project
+        run: vercel link --yes --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 🏗 Build project artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }} ${{ needs.pre-deploy.outputs.environment == 'production' && '--prod' || '' }}
+
+      - name: 🚀 Deploy to Vercel
+        id: deploy
+        run: |
+          if [[ "${{ needs.pre-deploy.outputs.environment }}" == "production" ]]; then
+            url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --prod)
+          else
+            url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          fi
+          echo "preview-url=$url" >> $GITHUB_OUTPUT
+          echo "🌐 Deployed to: $url"
+
+      - name: 💬 Comment PR with deployment URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '🚀 **Deployment Ready**\n\n📱 Preview: ${{ steps.deploy.outputs.preview-url }}\n🔗 Environment: ${{ needs.pre-deploy.outputs.environment }}\n📦 Version: ${{ needs.pre-deploy.outputs.version }}'
+            })
+
+  # Job 4: Database migrations (production only)
+  migrate-database:
+    name: 🗄️ Migrate Database
+    runs-on: ubuntu-latest
+    needs: [pre-deploy, deploy-vercel]
+    if: needs.pre-deploy.outputs.environment == 'production'
+    timeout-minutes: 10
+    
+    steps:
+      - name: 🏗 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 🗄️ Run production migrations
+        run: npm run db:migrate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: 📊 Update database analytics
+        run: npm run db:analyze
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+  # Job 5: Post-deployment testing
+  post-deploy-tests:
+    name: 🧪 Post-deployment Tests
+    runs-on: ubuntu-latest
+    needs: [deploy-vercel, migrate-database]
+    if: always() && needs.deploy-vercel.result == 'success'
+    timeout-minutes: 15
+    
+    steps:
+      - name: 🏗 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🏗 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm ci
+
+      - name: 📦 Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: 🌐 Health check
+        run: |
+          curl -f ${{ needs.deploy-vercel.outputs.preview-url }}/api/health || exit 1
+
+      - name: 🎭 Run smoke tests
+        run: npm run test:smoke
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ needs.deploy-vercel.outputs.preview-url }}
+
+      - name: ⚡ Run performance tests
+        run: npm run test:performance
+        env:
+          LIGHTHOUSE_URL: ${{ needs.deploy-vercel.outputs.preview-url }}
+
+  # Job 6: Security scan post-deployment
+  security-scan:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    needs: [deploy-vercel]
+    if: needs.pre-deploy.outputs.environment == 'production'
+    timeout-minutes: 10
+    
+    steps:
+      - name: 🔒 Run OWASP ZAP scan
+        uses: zaproxy/action-full-scan@v0.7.0
+        with:
+          target: ${{ needs.deploy-vercel.outputs.preview-url }}
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'
+
+  # Job 7: Update deployment status
+  update-status:
+    name: 📊 Update Deployment Status
+    runs-on: ubuntu-latest
+    needs: [pre-deploy, deploy-vercel, migrate-database, post-deploy-tests]
+    if: always() && needs.pre-deploy.outputs.should-deploy == 'true'
+    
+    steps:
+      - name: 📊 Create deployment status
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const deployment = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: context.sha,
+              environment: '${{ needs.pre-deploy.outputs.environment }}',
+              description: 'Deployment via GitHub Actions',
+              auto_merge: false,
+              required_contexts: []
+            });
+
+            const status = '${{ needs.post-deploy-tests.result }}' === 'success' ? 'success' : 'failure';
+            
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.data.id,
+              state: status,
+              environment_url: '${{ needs.deploy-vercel.outputs.preview-url }}',
+              description: status === 'success' ? 'Deployment successful' : 'Deployment failed'
+            });
+
+  # Job 8: Notify stakeholders
+  notify:
+    name: 📢 Notify Deployment
+    runs-on: ubuntu-latest
+    needs: [pre-deploy, deploy-vercel, post-deploy-tests, update-status]
+    if: always() && needs.pre-deploy.outputs.should-deploy == 'true'
+    
+    steps:
+      - name: 📧 Send email notification
+        if: needs.pre-deploy.outputs.environment == 'production'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: '🚀 CaboFitPass Production Deployment ${{ needs.deploy-vercel.result == 'success' && 'Successful' || 'Failed' }}'
+          body: |
+            CaboFitPass has been deployed to production.
+            
+            🌐 URL: ${{ needs.deploy-vercel.outputs.preview-url }}
+            📦 Version: ${{ needs.pre-deploy.outputs.version }}
+            ✅ Status: ${{ needs.deploy-vercel.result == 'success' && 'Success' || 'Failed' }}
+            🧪 Tests: ${{ needs.post-deploy-tests.result == 'success' && 'Passed' || 'Failed' }}
+            
+            View deployment: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          to: ${{ secrets.DEPLOYMENT_EMAIL_LIST }}
+          from: 'CaboFitPass CI/CD <noreply@cabofitpass.com>'
+
+      - name: 📱 Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ needs.deploy-vercel.result == 'success' && needs.post-deploy-tests.result == 'success' && 'success' || 'failure' }}
+          channel: '#cabo-fit-pass'
+          fields: repo,message,commit,author,action,eventName,ref,workflow
+          text: |
+            🚀 **Deployment to ${{ needs.pre-deploy.outputs.environment }}**
+            
+            🌐 **URL:** ${{ needs.deploy-vercel.outputs.preview-url }}
+            📦 **Version:** ${{ needs.pre-deploy.outputs.version }}
+            ✅ **Status:** ${{ needs.deploy-vercel.result == 'success' && needs.post-deploy-tests.result == 'success' && 'Success' || 'Failed' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+  # Job 9: Create GitHub release (for tags)
+  create-release:
+    name: 📦 Create GitHub Release
+    runs-on: ubuntu-latest
+    needs: [pre-deploy, deploy-vercel, post-deploy-tests]
+    if: startsWith(github.ref, 'refs/tags/v') && needs.deploy-vercel.result == 'success'
+    
+    steps:
+      - name: 🏗 Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📦 Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: CaboFitPass ${{ github.ref_name }}
+          body: |
+            🚀 **CaboFitPass ${{ github.ref_name }}** has been released!
+            
+            ## 🌐 Deployment
+            - **Production URL:** ${{ needs.deploy-vercel.outputs.preview-url }}
+            - **Environment:** Production
+            - **Deployed:** ${{ github.event.head_commit.timestamp }}
+            
+            ## 📝 Changes
+            See the [full changelog](https://github.com/${{ github.repository }}/compare/${{ github.event.before }}...${{ github.sha }}) for all changes in this release.
+            
+            ## 🔗 Links
+            - [View Deployment](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [Report Issues](https://github.com/${{ github.repository }}/issues)
+          draft: false
+          prerelease: false

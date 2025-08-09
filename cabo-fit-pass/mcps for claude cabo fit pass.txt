@@ -1,0 +1,19 @@
+{
+    "claude.mcpServers": {
+        "shadcn-ui": {
+            "command": "npx",
+            "args": ["@jpisnice/shadcn-ui-mcp-server"],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "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"
+            }
+        },
+        "supabase": {
+            "command": "npx",
+            "args": ["supabase-mcp-server"],
+            "env": {
+                "SUPABASE_URL": "https://YOUR_SUPABASE_PROJECT_URL.supabase.co",
+                "SUPABASE_KEY": "YOUR_SUPABASE_API_KEY"
+            }
+        }
+    }
+}
