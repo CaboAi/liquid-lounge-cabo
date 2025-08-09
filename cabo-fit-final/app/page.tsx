@@ -23,11 +23,11 @@ export default function HomePage() {
           Cabo Fit Pass
         </h1>
         <p className="text-xl text-gray-600">
-          Your fitness marketplace is LIVE! 🏋️‍♂️
+          Your fitness marketplace is LIVE! 
         </p>
-        
+
         <SupabaseTest />
-        
+
         <div className="bg-white rounded-lg shadow-lg p-8">
           {session ? (
             <div className="space-y-4">
@@ -39,7 +39,7 @@ export default function HomePage() {
               </p>
               <Link href="/dashboard">
                 <Button className="w-full mb-2">
-                  View Classes 🏋️‍♂️
+                  View Classes 
                 </Button>
               </Link>
               <Button onClick={() => signOut()} variant="outline" className="w-full">
@@ -49,10 +49,10 @@ export default function HomePage() {
           ) : (
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold text-gray-800">
-                Phase 5 Ready!
+                Phase 6 Ready!
               </h2>
               <p className="text-gray-600">
-                Complete fitness marketplace with class booking system!
+                Complete fitness marketplace with real Supabase data!
               </p>
               <Link href="/auth/signin">
                 <Button className="w-full">
