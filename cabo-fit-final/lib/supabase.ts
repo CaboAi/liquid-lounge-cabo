@@ -5,7 +5,6 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
-// Types
 export interface Class {
   id: string
   title: string
@@ -18,36 +17,22 @@ export interface Class {
   gym_id: string
 }
 
-export interface Booking {
-  id?: string
-  user_id: string
-  class_id: string
-  type: string
-  payment_status: string
-  booking_date: string
-  notes?: string
-  created_at?: string
-}
-
-// Get all classes
 export async function getAllClasses() {
   try {
     const { data, error } = await supabase
       .from('classes')
-      .select('id, title, start_time, end_time, capacity, price, instructor, difficulty, gym_id')
-      .order('start_time', { ascending: true })
+      .select('*')
       .limit(10)
     
     if (error) throw error
     return { success: true, data: data || [] }
   } catch (error) {
-    console.error('Error fetching all classes:', error)
+    console.error('Error:', error)
     return { success: false, error, data: [] }
   }
 }
 
-// Create a booking - THIS WAS MISSING!
-export async function createBooking(booking: Omit<Booking, 'id' | 'created_at'>) {
+export async function createBooking(booking: any) {
   try {
     const { data, error } = await supabase
       .from('bookings')
@@ -58,33 +43,7 @@ export async function createBooking(booking: Omit<Booking, 'id' | 'created_at'>)
     if (error) throw error
     return { success: true, data }
   } catch (error) {
-    console.error('Error creating booking:', error)
-    return { success: false, error }
-  }
-}
-
-// Test connection
-export async function testConnection() {
-  try {
-    const { data, error } = await supabase.from('classes').select('count')
-    if (error) throw error
-    return { success: true, data }
-  } catch (error) {
-    return { success: false, error }
-  }
-}
-
-// Simple function to get classes
-export async function getClasses() {
-  try {
-    const { data, error } = await supabase
-      .from('classes')
-      .select('id, title, start_time, end_time, capacity, price, instructor, difficulty')
-      .limit(10)
-    
-    if (error) throw error
-    return { success: true, data }
-  } catch (error) {
+    console.error('Error:', error)
     return { success: false, error }
   }
 }
