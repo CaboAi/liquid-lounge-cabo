@@ -2,56 +2,15 @@
 
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import ClassCard from '@/components/fitness/ClassCard'
-
-// Sample data - in real app this would come from Supabase
-const sampleClasses = [
-  {
-    id: 1,
-    name: 'Sunrise Yoga',
-    studio: 'Ocean View Wellness',
-    time: '7:00 AM',
-    duration: 60,
-    credits: 1,
-    difficulty: 'Beginner',
-    spotsLeft: 8
-  },
-  {
-    id: 2,
-    name: 'HIIT Bootcamp',
-    studio: 'Cabo Fitness Club',
-    time: '6:00 PM',
-    duration: 45,
-    credits: 2,
-    difficulty: 'Advanced',
-    spotsLeft: 3
-  },
-  {
-    id: 3,
-    name: 'Pilates Core',
-    studio: 'Mind Body Studio',
-    time: '9:00 AM',
-    duration: 50,
-    credits: 1,
-    difficulty: 'Intermediate',
-    spotsLeft: 12
-  },
-  {
-    id: 4,
-    name: 'Beach Volleyball',
-    studio: 'Los Cabos Sports',
-    time: '5:30 PM',
-    duration: 90,
-    credits: 2,
-    difficulty: 'Beginner',
-    spotsLeft: 0
-  }
-]
+import { getAllClasses, Class } from '@/lib/supabase'
 
 export default function Dashboard() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const [classes, setClasses] = useState<Class[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (status === 'loading') return
@@ -59,9 +18,24 @@ export default function Dashboard() {
       router.push('/auth/signin')
       return
     }
+    loadClasses()
   }, [session, status, router])
 
-  if (status === 'loading') {
+  const loadClasses = async () => {
+    try {
+      setLoading(true)
+      const result = await getAllClasses()
+      if (result.success) {
+        setClasses(result.data)
+      }
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-xl">Loading...</div>
@@ -97,21 +71,31 @@ export default function Dashboard() {
         </div>
 
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-4">Today&apos;s Classes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {sampleClasses.map((classItem) => (
-              <ClassCard
-                key={classItem.id}
-                name={classItem.name}
-                studio={classItem.studio}
-                time={classItem.time}
-                duration={classItem.duration}
-                credits={classItem.credits}
-                difficulty={classItem.difficulty}
-                spotsLeft={classItem.spotsLeft}
-              />
-            ))}
-          </div>
+          <h2 className="text-2xl font-semibold mb-4">
+            Real Classes from Database ({classes.length})
+          </h2>
+          
+          {classes.length === 0 ? (
+            <div className="bg-white rounded-lg shadow-lg p-8 text-center">
+              <p className="text-gray-600 mb-4">Loading classes from Supabase...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {classes.map((classItem) => (
+                <ClassCard
+                  key={classItem.id}
+                  name={classItem.title}
+                  studio="Cabo Fitness"
+                  time={new Date(classItem.start_time).toLocaleTimeString()}
+                  duration={60}
+                  credits={1}
+                  difficulty={classItem.difficulty || 'All Levels'}
+                  spotsLeft={classItem.capacity}
+                  onBook={() => alert('Booking coming in Step 6!')}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </div>
