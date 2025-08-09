@@ -1,0 +1,42 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem"],
+      "env": {
+        "FILESYSTEM_ALLOWED_DIRECTORIES": "/mnt/c/Users/mario/cabo-fit-pass"
+      }
+    },
+    "shadcn-ui": {
+      "command": "npx",
+      "args": ["@jpisnice/shadcn-ui-mcp-server", "--github-api-key", "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"]
+    },
+    "supabase": {
+      "command": "npx",
+      "args": ["-y", "@supabase/mcp-server-supabase"],
+      "env": {
+        "SUPABASE_URL": "https://pamzfhiiuvmtlwwvufut.supabase.co",
+        "SUPABASE_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBhbXpmaGlpdXZtdGx3d3Z1ZnV0Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1MzgxODA3NiwiZXhwIjoyMDY5Mzk0MDc2fQ.3fxf5_BYqXaaGJrifTt-Lf8cJjpDkmWI5OJSSvxedoA"
+      }
+    },
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "make": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://us2.make.com/mcp/api/v1/u/d55d9eb0-7949-4b89-b253-0acdc6977071/sse"
+      ]
+    },
+    "n8n-mcp": {
+      "command": "npx",
+      "args": ["n8n-mcp"],
+      "disabled": false,
+      "alwaysAllow": ["list_workflows", "get_workflow", "search_nodes", "get_node_essentials"],
+      "autoApprove": ["create_workflow", "update_workflow", "validate_workflow"]
+    }
+  }
+}

@@ -11,7 +11,22 @@
       "Bash(find:*)",
       "Bash(node:*)",
       "Bash(rm:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(gh repo view:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm audit:*)",
+      "Bash(npm run dev:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(npx:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(curl:*)",
+      "mcp__github__get_file_contents",
+      "mcp__github__search_code",
+      "mcp__github__create_or_update_file",
+      "mcp__github__push_files",
+      "Bash(timeout 10 npm run dev)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

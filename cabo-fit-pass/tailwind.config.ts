@@ -2,14 +2,13 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   // Dark mode configuration
-  darkMode: ['class'],
+  darkMode: 'class',
   
   // Content paths for Tailwind to scan
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/lib/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './lib/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   
   // Prefix for all Tailwind classes (optional)
