@@ -34,7 +34,7 @@ const Index = () => {
       <section id="reviews" className="scroll-mt-20">
         <ReviewsCarousel />
       </section>
-      <section aria-label="Team photo" className="py-10 md:py-14">
+      <section aria-label="Team photo" className="pt-10 pb-4 md:py-14">
         <div className="mx-auto w-full max-w-5xl px-4">
           <img 
             src="/images/GroupshotLL.jpg" 
