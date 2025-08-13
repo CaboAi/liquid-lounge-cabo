@@ -91,14 +91,10 @@ const About = () => {
               {/* Professional photo */}
               <div className="mb-8">
                 <img 
-                  src="/lovable-uploads/Nathan_Brown_professional.jpg?v=1" 
-                  alt="Nathan Brown BSN RN - Mobile IV Therapy Specialist"
-                  className="w-full max-w-md mx-auto rounded-lg shadow-lg object-cover"
-                  onLoad={() => console.log('Nathan\'s professional photo loaded successfully')}
-                  onError={(e) => {
-                    console.warn('Failed to load Nathan\'s professional photo');
-                    e.currentTarget.style.display = 'none';
-                  }}
+                  src="/lovable-uploads/Nathan_Brown_professional.jpg" 
+                  alt="Nathan Brown BSN RN - Mobile IV Therapy Specialist in Cabo San Lucas"
+                  className="w-full max-w-md mx-auto rounded-lg shadow-lg object-cover aspect-[3/4]"
+                  loading="lazy"
                 />
               </div>
 
