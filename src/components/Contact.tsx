@@ -5,7 +5,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, MapPin, Clock, MessageCircle, Instagram, Facebook } from "lucide-react";
-
 const Contact = () => {
   const handleWhatsAppBooking = () => {
     const firstName = (document.getElementById('firstName') as HTMLInputElement)?.value || '';
@@ -19,7 +18,6 @@ const Contact = () => {
     const time = timeElement?.textContent || 'Not specified';
     const location = (document.getElementById('location') as HTMLInputElement)?.value || '';
     const message = (document.getElementById('message') as HTMLTextAreaElement)?.value || '';
-    
     const whatsappMessage = `Hi Nurse Nate,
 
 I'd like to book an IV therapy session:
@@ -34,64 +32,44 @@ Location: ${location}
 Additional Info: ${message}
 
 Thank you!`;
-    
     const whatsappURL = `https://wa.me/526242287777?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappURL, '_blank');
   };
-
-  const contactInfo = [
-    {
-      icon: <Mail className="h-6 w-6" />,
-      title: "Email",
-      details: "liquidloungeiv@gmail.com",
-      description: "Send us a message anytime",
-      isEmail: true
-    },
-    {
-      icon: <Phone className="h-6 w-6" />,
-      title: "Phone", 
-      details: "+52 624 228 7777",
-      description: "Call or WhatsApp for immediate response",
-      isPhone: true
-    },
-    {
-      icon: <MapPin className="h-6 w-6" />,
-      title: "Service Area",
-      details: "Los Cabos, Mexico",
-      description: "Mobile service to your location"
-    },
-    {
-      icon: <Clock className="h-6 w-6" />,
-      title: "Hours",
-      details: "7 Days a Week",
-      description: "Flexible scheduling available"
-    },
-    {
-      icon: <Instagram className="h-6 w-6" />,
-      title: "Instagram",
-      details: "@liquidlounge.iv",
-      description: "Follow for updates and tips"
-    },
-    {
-      icon: <Facebook className="h-6 w-6" />,
-      title: "Facebook",
-      details: "@liquidlounge.iv",
-      description: "Follow us on Facebook"
-    }
-  ];
-
-  const services = [
-    "Re-Hydration",
-    "Post-Workout", 
-    "Immunity Myers",
-    "The \"Cure\"",
-    "NAD+",
-    "Custom Blend",
-    "Consultation Only"
-  ];
-
-  return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-wellness-cream/30 to-background">
+  const contactInfo = [{
+    icon: <Mail className="h-6 w-6" />,
+    title: "Email",
+    details: "liquidloungeiv@gmail.com",
+    description: "Send us a message anytime",
+    isEmail: true
+  }, {
+    icon: <Phone className="h-6 w-6" />,
+    title: "Phone",
+    details: "+52 624 228 7777",
+    description: "Call or WhatsApp for immediate response",
+    isPhone: true
+  }, {
+    icon: <MapPin className="h-6 w-6" />,
+    title: "Service Area",
+    details: "Cabo San Lucas, Mexico",
+    description: "Mobile service to your location"
+  }, {
+    icon: <Clock className="h-6 w-6" />,
+    title: "Hours",
+    details: "7 Days a Week",
+    description: "Flexible scheduling available"
+  }, {
+    icon: <Instagram className="h-6 w-6" />,
+    title: "Instagram",
+    details: "@liquidlounge.iv",
+    description: "Follow for updates and tips"
+  }, {
+    icon: <Facebook className="h-6 w-6" />,
+    title: "Facebook",
+    details: "@liquidlounge.iv",
+    description: "Follow us on Facebook"
+  }];
+  const services = ["Re-Hydration", "Post-Workout", "Immunity Myers", "The \"Cure\"", "NAD+", "Custom Blend", "Consultation Only"];
+  return <section id="contact" className="py-20 bg-gradient-to-br from-wellness-cream/30 to-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -110,13 +88,10 @@ Thank you!`;
             <div className="lg:col-span-1 space-y-6">
               <div className="text-center lg:text-left mb-8">
                 <h3 className="text-2xl font-bold mb-4">Get in Touch</h3>
-                <p className="text-muted-foreground">
-                  Professional IV therapy services delivered directly to your location in Cabo San Lucas.
-                </p>
+                <p className="text-muted-foreground">We are excited to help improve your health and wellness journey.</p>
               </div>
 
-              {contactInfo.map((info, index) => (
-                <Card key={index} className="border-primary/20 hover:shadow-lg transition-shadow">
+              {contactInfo.map((info, index) => <Card key={index} className="border-primary/20 hover:shadow-lg transition-shadow">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-4">
                       <div className="p-3 bg-primary/10 rounded-full text-primary">
@@ -124,49 +99,20 @@ Thank you!`;
                       </div>
                       <div>
                         <h4 className="font-semibold text-foreground mb-1">{info.title}</h4>
-                        {info.title === "Instagram" ? (
-                          <a 
-                            href="https://www.instagram.com/liquidlounge.iv/" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="font-medium text-primary mb-1 hover:underline"
-                          >
+                        {info.title === "Instagram" ? <a href="https://www.instagram.com/liquidlounge.iv/" target="_blank" rel="noopener noreferrer" className="font-medium text-primary mb-1 hover:underline">
                             {info.details}
-                          </a>
-                        ) : info.title === "Facebook" ? (
-                          <a 
-                            href="https://www.facebook.com/share/1PBaJhWUMn/?mibextid=wwXIfr" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="font-medium text-primary mb-1 hover:underline"
-                          >
+                          </a> : info.title === "Facebook" ? <a href="https://www.facebook.com/share/1PBaJhWUMn/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="font-medium text-primary mb-1 hover:underline">
                             {info.details}
-                          </a>
-                        ) : info.isPhone ? (
-                          <a 
-                            href="https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="font-medium text-primary mb-1 hover:underline"
-                          >
+                          </a> : info.isPhone ? <a href="https://wa.me/526242287777?text=Hi%20Nurse%20Nate,%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session" target="_blank" rel="noopener noreferrer" className="font-medium text-primary mb-1 hover:underline">
                             {info.details}
-                          </a>
-                        ) : info.isEmail ? (
-                          <a 
-                            href="mailto:liquidloungeiv@gmail.com"
-                            className="font-medium text-primary mb-1 hover:underline"
-                          >
+                          </a> : info.isEmail ? <a href="mailto:liquidloungeiv@gmail.com" className="font-medium text-primary mb-1 hover:underline">
                             {info.details}
-                          </a>
-                        ) : (
-                          <p className="font-medium text-primary mb-1">{info.details}</p>
-                        )}
+                          </a> : <p className="font-medium text-primary mb-1">{info.details}</p>}
                         <p className="text-sm text-muted-foreground">{info.description}</p>
                       </div>
                     </div>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
 
               {/* Quick Info */}
               <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
@@ -190,9 +136,7 @@ Thank you!`;
               <Card className="border-primary/20 shadow-xl">
                 <CardHeader>
                   <CardTitle className="text-2xl">Book Your Session</CardTitle>
-                  <CardDescription>
-                    Fill out the form below and Nathan will contact you to confirm your appointment details.
-                  </CardDescription>
+                  <CardDescription>Please fill out the form below with as much detail as possible to speed up your booking process:</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
@@ -224,11 +168,9 @@ Thank you!`;
                         <SelectValue placeholder="Select your preferred therapy" />
                       </SelectTrigger>
                       <SelectContent>
-                        {services.map((service, index) => (
-                          <SelectItem key={index} value={service.toLowerCase().replace(/\s+/g, '-')}>
+                        {services.map((service, index) => <SelectItem key={index} value={service.toLowerCase().replace(/\s+/g, '-')}>
                             {service}
-                          </SelectItem>
-                        ))}
+                          </SelectItem>)}
                       </SelectContent>
                     </Select>
                   </div>
@@ -261,11 +203,7 @@ Thank you!`;
 
                   <div className="space-y-2">
                     <Label htmlFor="message">Additional Information</Label>
-                    <Textarea 
-                      id="message" 
-                      placeholder="Any medical conditions, specific goals, or special requests..."
-                      rows={4}
-                    />
+                    <Textarea id="message" placeholder="Any medical conditions, specific goals, or special requests..." rows={4} />
                   </div>
 
                   <div className="border-t border-border pt-6">
@@ -293,8 +231,6 @@ Thank you!`;
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Contact;
