@@ -31,18 +31,20 @@ const Index = () => {
       <section id="services" className="scroll-mt-20">
         <Services />
       </section>
-      <section id="reviews" className="relative scroll-mt-20">
+      <section id="reviews" className="scroll-mt-20">
         <ReviewsCarousel />
-        <div className="hidden md:block pointer-events-none absolute right-8 -bottom-20">
+      </section>
+      <section aria-label="Team photo" className="py-10 md:py-14">
+        <div className="mx-auto w-full max-w-5xl px-4">
           <img 
             src="/images/GroupshotLL.jpg" 
-            alt="Liquid Lounge team group photo" 
+            alt="Liquid Lounge team" 
             loading="lazy" 
-            className="w-[520px] h-[340px] rounded-2xl shadow-xl ring-1 ring-black/5 object-cover" 
+            className="w-full h-auto rounded-2xl shadow-xl object-cover aspect-[16/9]" 
           />
         </div>
       </section>
-      <section id="specialist" className="scroll-mt-20 pt-0 md:pt-28">
+      <section id="specialist" className="scroll-mt-20 pt-0 md:pt-6">
         <About />
       </section>
       <Footer />
