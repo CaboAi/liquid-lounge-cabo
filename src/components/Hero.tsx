@@ -28,7 +28,8 @@ const Hero = () => {
                   Liquid Lounge
                   <span className="block text-primary">Mobile IV Therapy</span>
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8 max-w-2xl">Cabo's Best Mobile IV Therapy - Private, Professional, Premium.</p>
+                <p className="text-xl text-muted-foreground mb-8 max-w-2xl">Cabo's Best Mobile IV Therapy.
+Private, Professional, Premium.</p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
