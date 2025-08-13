@@ -41,8 +41,8 @@ Private, Professional, Premium.</p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                 <div className="flex flex-col items-center">
                   <Shield className="h-8 w-8 text-primary mb-2" />
-                  <span className="text-2xl font-bold text-foreground">RN</span>
-                  <span className="text-sm text-muted-foreground">Licensed</span>
+                  <span className="text-2xl font-bold text-foreground">Licensed</span>
+                  <span className="text-sm text-muted-foreground">Professionals</span>
                 </div>
                 <div className="flex flex-col items-center">
                   <Clock className="h-8 w-8 text-primary mb-2" />
