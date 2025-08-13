@@ -55,12 +55,12 @@ const Header = () => {
   };
 
   const navItems = [
-    { name: "Home", href: "#home" },
+    { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
-    { name: "IV Menu", href: "#menu" },
+    { name: "IV Menu", href: "/iv-menu" },
     { name: "About", href: "#about" },
     { name: "Find Your IV", href: "#quiz" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {

@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Droplet, Shield, Clock, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import CompactQuiz from "@/components/CompactQuiz";
 
 const Hero = () => {
+  const navigate = useNavigate();
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -45,7 +49,7 @@ const Hero = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  onClick={() => scrollToSection('menu')}
+                  onClick={() => navigate('/iv-menu')}
                   className="px-8 py-4 text-lg"
                 >
                   View IV Menu
@@ -77,38 +81,11 @@ const Hero = () => {
               </div>
             </div>
 
-            {/* Right Column - Visual */}
+            {/* Right Column - Compact Quiz */}
             <div className="relative">
-              <Card className="p-8 bg-gradient-to-br from-background to-wellness-cream/50 shadow-xl border-primary/20">
-                <CardContent className="p-0">
-                  <div className="text-center mb-6">
-                    <img 
-                      src="/lovable-uploads/afba4d72-c696-44c4-99af-93f2db3c9f17.png" 
-                      alt="Liquid Lounge Logo" 
-                      className="mx-auto h-32 w-auto mb-4"
-                    />
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
-                      <span className="font-medium">Hydration Therapy</span>
-                      <Droplet className="h-5 w-5 text-primary" />
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
-                      <span className="font-medium">Vitamin Infusions</span>
-                      <Shield className="h-5 w-5 text-primary" />
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
-                      <span className="font-medium">NAD+ Therapy</span>
-                      <Clock className="h-5 w-5 text-primary" />
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-primary/5 rounded-lg">
-                      <span className="font-medium">Custom Blends</span>
-                      <MapPin className="h-5 w-5 text-primary" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="h-full max-h-[600px] overflow-hidden">
+                <CompactQuiz />
+              </div>
             </div>
           </div>
         </div>

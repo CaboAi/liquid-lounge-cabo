@@ -95,67 +95,89 @@ const Quiz = () => {
   const getRecommendation = () => {
     const [goal, energy, condition, age, exercise] = answers;
     
-    // Simple recommendation logic based on answers
-    if (goal === "hydration" || condition === "dehydration") {
-      return {
-        package: "Re-Hydration",
+    // Updated scoring logic with NAD+ bias and reduced Post-Workout dominance
+    let scores = {
+      "Re-Hydration": 0,
+      "Immunity Myers": 0,
+      "The \"Cure\"": 0,
+      "NAD+": 2, // Base bias toward NAD+
+      "Post-Workout": 0
+    };
+
+    // Primary goal scoring
+    if (goal === "hydration") scores["Re-Hydration"] += 3;
+    if (goal === "energy") scores["NAD+"] += 2;
+    if (goal === "immunity") scores["Immunity Myers"] += 3;
+    if (goal === "beauty") scores["The \"Cure\""] += 3;
+    if (goal === "performance") scores["Post-Workout"] += 2; // Reduced from 3
+    if (goal === "detox") scores["NAD+"] += 3;
+
+    // Energy level scoring
+    if (energy === "very-low" || energy === "low") {
+      scores["NAD+"] += 2;
+      scores["Post-Workout"] += 1; // Only small boost
+    }
+    if (energy === "moderate") scores["NAD+"] += 1;
+
+    // Condition scoring - require multiple signals for Post-Workout
+    if (condition === "dehydration") scores["Re-Hydration"] += 3;
+    if (condition === "stress") scores["NAD+"] += 2;
+    if (condition === "illness") scores["Immunity Myers"] += 3;
+    if (condition === "exercise") {
+      scores["Post-Workout"] += 2; // Only if also performance goal
+      if (goal === "performance") scores["Post-Workout"] += 1; // Bonus only with matching goal
+    }
+
+    // Age factor
+    if (age === "46-55" || age === "55+") {
+      scores["NAD+"] += 1;
+      scores["The \"Cure\""] += 1;
+    }
+
+    // Exercise factor - require multiple indicators for Post-Workout
+    if (exercise === "regularly" || exercise === "daily") {
+      if (goal === "performance" || condition === "exercise") {
+        scores["Post-Workout"] += 1; // Only with supporting indicators
+      } else {
+        scores["NAD+"] += 1; // Otherwise boost NAD+
+      }
+    }
+
+    // Find highest score
+    const maxScore = Math.max(...Object.values(scores));
+    const recommendedPackage = Object.keys(scores).find(pkg => scores[pkg] === maxScore) || "NAD+";
+
+    const packageDetails = {
+      "Re-Hydration": {
         description: "Essential hydration therapy for optimal wellness.",
         nutrients: ["1000mL Fluids", "Electrolytes like sodium, potassium, calcium, chloride"],
         reasoning: "Based on your responses, you need rapid hydration and electrolyte replenishment."
-      };
-    }
-    
-    if (goal === "energy" || energy === "very-low" || energy === "low") {
-      return {
-        package: "Post-Workout",
+      },
+      "Post-Workout": {
         description: "Perfect recovery blend for athletic performance.",
         nutrients: ["Fluids & electrolytes", "L-Carnitine", "Vitamin B1, B6, B12", "Magnesium"],
-        reasoning: "Your energy levels indicate you'd benefit from our energy-boosting vitamin blend."
-      };
-    }
-    
-    if (goal === "immunity" || condition === "illness") {
-      return {
-        package: "Immunity Myers", 
+        reasoning: "Your active lifestyle and performance goals require enhanced recovery support."
+      },
+      "Immunity Myers": {
         description: "Immune system support with classic Myers' cocktail.",
         nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium"],
         reasoning: "Your immune system needs support. This blend will help strengthen your defenses."
-      };
-    }
-    
-    if (goal === "beauty" || (age === "35-45" || age === "46-55" || age === "55+")) {
-      return {
-        package: "The \"Cure\"",
+      },
+      "The \"Cure\"": {
         description: "Ultimate wellness therapy with premium antioxidants.",
         nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium", "Glutathione"],
         reasoning: "Perfect for anti-aging benefits and enhanced skin health with powerful antioxidants."
-      };
-    }
-    
-    if (goal === "performance" || exercise === "regularly" || exercise === "daily") {
-      return {
-        package: "Post-Workout",
-        description: "Perfect recovery blend for athletic performance.",
-        nutrients: ["Fluids & electrolytes", "L-Carnitine", "Vitamin B1, B6, B12", "Magnesium"],
-        reasoning: "Your active lifestyle requires enhanced recovery and performance support."
-      };
-    }
-    
-    if (goal === "detox" || condition === "stress") {
-      return {
-        package: "NAD+",
+      },
+      "NAD+": {
         description: "Premium anti-aging and cellular repair therapy.",
         nutrients: ["Fluids & electrolytes", "NAD+ up to 1000mg"],
-        reasoning: "You'll benefit from our premium detox and cellular repair therapy."
-      };
-    }
-    
-    // Default recommendation
+        reasoning: "Ideal for energy enhancement, cellular repair, and overall wellness optimization."
+      }
+    };
+
     return {
-      package: "Immunity Myers",
-      description: "Our most popular therapy for overall wellness.",
-      nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium"],
-      reasoning: "A great all-around therapy to boost your energy and wellness."
+      package: recommendedPackage,
+      ...packageDetails[recommendedPackage]
     };
   };
 
