@@ -44,32 +44,6 @@ const Index = () => {
           />
         </div>
       </section>
-      
-      {/* Experience Stats Section */}
-      <section className="py-10 md:py-14 bg-wellness-cream/20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-              <div className="text-center p-4 bg-background border border-primary/20 rounded-lg">
-                <div className="text-2xl font-bold text-primary">10+</div>
-                <div className="text-sm text-muted-foreground">Years Experience</div>
-              </div>
-              <div className="text-center p-4 bg-background border border-primary/20 rounded-lg">
-                <div className="text-2xl font-bold text-primary">1000+</div>
-                <div className="text-sm text-muted-foreground">Treatments Given</div>
-              </div>
-              <div className="text-center p-4 bg-background border border-primary/20 rounded-lg">
-                <div className="text-2xl font-bold text-primary">100%</div>
-                <div className="text-sm text-muted-foreground">Safety Record</div>
-              </div>
-              <div className="text-center p-4 bg-background border border-primary/20 rounded-lg">
-                <div className="text-2xl font-bold text-primary">7 Days a Week</div>
-                <div className="text-sm text-muted-foreground">Mobile Service</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
       <section id="specialist" className="scroll-mt-20 pt-0 md:pt-6">
         <About />
       </section>
