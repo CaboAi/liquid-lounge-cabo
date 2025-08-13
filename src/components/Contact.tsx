@@ -198,7 +198,7 @@ Thank you!`;
 
                   <div className="space-y-2">
                     <Label htmlFor="location">Service Location *</Label>
-                    <Input id="location" placeholder="Hotel name, address, or area in Cabo San Lucas" />
+                    <Input id="location" placeholder="Hotel name, address, or area in Los Cabos" />
                   </div>
 
                   <div className="space-y-2">
