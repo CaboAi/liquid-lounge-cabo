@@ -50,7 +50,7 @@ Thank you!`;
   }, {
     icon: <MapPin className="h-6 w-6" />,
     title: "Service Area",
-    details: "Cabo San Lucas, Mexico",
+    details: "Los Cabos, Mexico",
     description: "Mobile service to your location"
   }, {
     icon: <Clock className="h-6 w-6" />,
