@@ -39,19 +39,13 @@ const About = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            
-            
+            <h2 className="text-4xl font-bold text-foreground mb-4">Nurse Nate</h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Professional Info */}
             <div>
               <div className="mb-8">
-                <h3 className="text-2xl font-bold text-foreground mb-4">Nurse Nate</h3>
-                <div className="flex items-center gap-2 mb-4">
-                  
-                  
-                </div>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">Liquid Lounge offers premium, hospital-grade IV hydration and wellness treatments- delivered directly to your villa, resort, yacht, or private event. Founded by Nurse Nate with over a decade of acute care experience, our licensed medical team specializes in customized therapies including NAD+, glutathione, vitamins, and electrolyte recovery.
 
               </p>
