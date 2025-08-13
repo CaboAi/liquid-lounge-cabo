@@ -5,6 +5,14 @@ import { useNavigate } from "react-router-dom";
 import CompactQuiz from "@/components/CompactQuiz";
 const Hero = () => {
   const navigate = useNavigate();
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+  };
   return <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-medical-teal-light/20 to-wellness-cream/30">
       {/* Background decoration */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
@@ -20,11 +28,11 @@ const Hero = () => {
                   Liquid Lounge
                   <span className="block text-primary">Mobile IV Therapy</span>
                 </h1>
-                <p className="text-xl text-muted-foreground mb-8 max-w-2xl">Cabo's Best Mobile IV Therapy -Private, Professional, Premium.</p>
+                <p className="text-xl text-muted-foreground mb-8 max-w-2xl">Cabo's Best Mobile IV Therapy - Private, Professional, Premium.</p>
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-                <Button variant="medical" size="lg" onClick={() => navigate('/contact')} className="px-8 py-4 text-lg">Book Session</Button>
+                <Button variant="medical" size="lg" onClick={() => scrollToSection('contact')} className="px-8 py-4 text-lg">Book Session</Button>
                 <Button variant="outline" size="lg" onClick={() => navigate('/iv-menu')} className="px-8 py-4 text-lg">IV Menu</Button>
               </div>
 
@@ -54,7 +62,7 @@ const Hero = () => {
             </div>
 
             {/* Right Column - Compact Quiz */}
-            <div className="relative" id="quiz">
+            <div className="relative">
               <div className="h-full max-h-[600px] overflow-hidden">
                 <CompactQuiz />
               </div>
