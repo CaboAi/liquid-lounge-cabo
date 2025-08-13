@@ -34,7 +34,7 @@ const About = () => {
       });
     }
   };
-  return <section id="about" className="py-20 bg-gradient-to-br from-wellness-cream/30 to-background">
+  return <section id="about" className="py-20 bg-gradient-to-br from-wellness-cream/30 to-background mx-px">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
