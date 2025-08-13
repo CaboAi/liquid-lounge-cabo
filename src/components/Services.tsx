@@ -15,7 +15,7 @@ const Services = () => {
     },
     {
       icon: <Users className="h-8 w-8 text-primary" />,
-      title: "IV Therapies, 1 on 1, groups and events",
+      title: "IV Therapies, 1 on 1, Groups and Events",
       description: "Personalized and group IV therapy sessions",
       link: "/iv-menu"
     },
