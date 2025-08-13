@@ -2,31 +2,24 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { TestTube, Users, Stethoscope, ChevronRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-
 const Services = () => {
   const navigate = useNavigate();
-  
-  const services = [
-    {
-      icon: <TestTube className="h-8 w-8 text-primary" />,
-      title: "Blood Work Diagnostics",
-      description: "Comprehensive lab testing and health assessments",
-      link: "/contact?topic=blood-work"
-    },
-    {
-      icon: <Users className="h-8 w-8 text-primary" />,
-      title: "IV Therapies, 1 on 1, Groups and Events",
-      description: "Personalized and group IV therapy sessions",
-      link: "/iv-menu"
-    },
-    {
-      icon: <Stethoscope className="h-8 w-8 text-primary" />,
-      title: "Consults for Health",
-      description: "Professional health consultations and guidance",
-      link: "/contact?topic=consultation"
-    }
-  ];
-
+  const services = [{
+    icon: <TestTube className="h-8 w-8 text-primary" />,
+    title: "Blood Work Diagnostics",
+    description: "Comprehensive lab testing and health assessments",
+    link: "/contact?topic=blood-work"
+  }, {
+    icon: <Users className="h-8 w-8 text-primary" />,
+    title: "IV Therapies, 1 on 1, Groups and Events",
+    description: "Personalized and group IV therapy sessions",
+    link: "/iv-menu"
+  }, {
+    icon: <Stethoscope className="h-8 w-8 text-primary" />,
+    title: "Consults for Health",
+    description: "Professional health consultations and guidance",
+    link: "/contact?topic=consultation"
+  }];
   const handleServiceClick = (link: string) => {
     if (link.startsWith('/')) {
       navigate(link);
@@ -34,27 +27,16 @@ const Services = () => {
       window.open(link, '_blank');
     }
   };
-
-  return (
-    <section id="services" className="py-20 bg-gradient-to-br from-background to-wellness-cream/30">
+  return <section id="services" className="py-20 bg-gradient-to-br from-background to-wellness-cream/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Our IV Services
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Professional mobile IV therapy services delivered by Nathan Brown BS RN in Cabo San Lucas.
-          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Services</h2>
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">Professional mobile therapy services delivered in Cabo.</p>
         </div>
 
         {/* Desktop: 3-column grid, Tablet: 2-column, Mobile: 1-column */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service, index) => (
-            <Card 
-              key={index} 
-              className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-primary/20 cursor-pointer p-4 md:p-6"
-              onClick={() => handleServiceClick(service.link)}
-            >
+          {services.map((service, index) => <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-primary/20 cursor-pointer p-4 md:p-6" onClick={() => handleServiceClick(service.link)}>
               <CardHeader className="pb-3 px-0">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
@@ -75,12 +57,9 @@ const Services = () => {
                   {service.description}
                 </CardDescription>
               </CardContent>
-            </Card>
-          ))}
+            </Card>)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default Services;
