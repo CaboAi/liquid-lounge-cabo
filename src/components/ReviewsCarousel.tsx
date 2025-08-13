@@ -15,31 +15,31 @@ const mockReviews: ReviewData[] = [{
   rating: 5,
   text: "Nathan provided exceptional IV therapy service right at our resort. Professional, knowledgeable, and the results were immediate. Highly recommend for anyone in Cabo!",
   author: "Sarah M.",
-  date: "2024-01-15",
+  date: "2025-03-12",
   verified: true
 }, {
   rating: 5,
   text: "Best hangover cure ever! Nathan was punctual, professional, and made the whole experience comfortable. Will definitely use again on our next Cabo trip.",
   author: "Mike R.",
-  date: "2024-01-10",
+  date: "2025-03-12",
   verified: true
 }, {
   rating: 5,
   text: "Amazing service! The hydration therapy helped me recover from food poisoning quickly. Nathan's expertise and care made all the difference.",
   author: "Jessica L.",
-  date: "2024-01-08",
+  date: "2025-03-12",
   verified: true
 }, {
   rating: 5,
   text: "Professional and convenient. Nathan came to our villa and provided excellent IV therapy. Perfect for our vacation wellness needs.",
   author: "David K.",
-  date: "2024-01-05",
+  date: "2025-03-12",
   verified: true
 }, {
   rating: 5,
   text: "Outstanding experience! Nathan is knowledgeable, friendly, and provides top-notch mobile IV therapy. Couldn't ask for better service in Cabo.",
   author: "Emma T.",
-  date: "2024-01-03",
+  date: "2025-03-12",
   verified: true
 }];
 export const ReviewsCarousel = () => {
