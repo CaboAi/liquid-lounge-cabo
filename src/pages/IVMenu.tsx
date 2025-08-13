@@ -101,7 +101,7 @@ const IVMenuPage = () => {
                 
                 <TabsContent value="nutrients" className="space-y-8">
                   <div className="text-center mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Our LL IV Nutrients</h2>
+                    <h2 className="text-2xl font-bold mb-4">LL. IV Nutrients</h2>
                     <p className="text-muted-foreground">High-quality ingredients for maximum therapeutic benefit</p>
                   </div>
                   
