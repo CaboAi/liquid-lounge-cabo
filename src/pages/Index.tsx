@@ -19,7 +19,7 @@ const Index = () => {
         // Small delay to ensure page is fully loaded
         setTimeout(() => {
           element.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+        }, 300);
       }
     }
   }, [location.hash]);
@@ -28,9 +28,13 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
       <Hero />
-      <Services />
-      <ReviewsCarousel />
-      <section id="about">
+      <section id="services" className="scroll-mt-20">
+        <Services />
+      </section>
+      <section id="reviews" className="scroll-mt-20">
+        <ReviewsCarousel />
+      </section>
+      <section id="specialist" className="scroll-mt-20">
         <About />
       </section>
       <Footer />

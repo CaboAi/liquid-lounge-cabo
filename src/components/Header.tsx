@@ -9,35 +9,12 @@ const Header = () => {
   const location = useLocation();
 
   const scrollToSection = (sectionId: string) => {
-    // First, ensure we're on the homepage
     if (location.pathname !== '/') {
-      navigate('/');
-      // Wait for navigation to complete, then scroll
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const headerOffset = 100; // Account for fixed header
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
-      }, 500); // Increased delay to ensure page loads
+      navigate('/' + sectionId);
     } else {
-      // Already on homepage, scroll immediately
-      const element = document.getElementById(sectionId);
+      const element = document.getElementById(sectionId.substring(1));
       if (element) {
-        const headerOffset = 100;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
+        element.scrollIntoView({ behavior: 'smooth' });
       }
     }
     setIsMenuOpen(false);
@@ -58,8 +35,8 @@ const Header = () => {
     { name: "Home", href: "/" },
     { name: "Services", href: "#services" },
     { name: "IV Menu", href: "/iv-menu" },
-    { name: "About", href: "#about" },
-    { name: "Find Your IV", href: "#quiz" },
+    { name: "About", href: "/about" },
+    { name: "Find Your IV", href: "/find-your-iv" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -106,7 +83,7 @@ const Header = () => {
                 <button
                   key={item.name}
                   onClick={() => handleNavigation(item.href)}
-                  className="text-foreground hover:text-primary transition-colors"
+                  className="text-foreground hover:text-primary transition-colors min-h-[44px] flex items-center"
                 >
                   {item.name}
                 </button>
@@ -114,7 +91,7 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="text-foreground hover:text-primary transition-colors"
+                  className="text-foreground hover:text-primary transition-colors min-h-[44px] flex items-center"
                 >
                   {item.name}
                 </Link>
@@ -158,7 +135,7 @@ const Header = () => {
                   <button 
                     key={item.name}
                     onClick={() => handleNavigation(item.href)} 
-                    className="text-left py-2 text-foreground hover:text-primary transition-colors"
+                    className="text-left py-3 text-foreground hover:text-primary transition-colors min-h-[44px] flex items-center"
                   >
                     {item.name}
                   </button>
@@ -166,14 +143,14 @@ const Header = () => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="text-left py-2 text-foreground hover:text-primary transition-colors"
+                    className="text-left py-3 text-foreground hover:text-primary transition-colors min-h-[44px] flex items-center"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 )
               ))}
-              <Button variant="medical" className="mt-4">
+              <Button variant="medical" className="mt-4" onClick={() => setIsMenuOpen(false)}>
                 <Link to="/contact">Book Now</Link>
               </Button>
             </nav>
