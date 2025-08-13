@@ -31,10 +31,18 @@ const Index = () => {
       <section id="services" className="scroll-mt-20">
         <Services />
       </section>
-      <section id="reviews" className="scroll-mt-20">
+      <section id="reviews" className="relative scroll-mt-20">
         <ReviewsCarousel />
+        <div className="hidden md:block pointer-events-none absolute right-8 -bottom-20">
+          <img 
+            src="/images/GroupshotLL.jpg" 
+            alt="Liquid Lounge team group photo" 
+            loading="lazy" 
+            className="w-[520px] h-[340px] rounded-2xl shadow-xl ring-1 ring-black/5 object-cover" 
+          />
+        </div>
       </section>
-      <section id="specialist" className="scroll-mt-20">
+      <section id="specialist" className="scroll-mt-20 pt-0 md:pt-28">
         <About />
       </section>
       <Footer />
