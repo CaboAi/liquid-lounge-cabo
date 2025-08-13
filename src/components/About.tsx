@@ -49,8 +49,8 @@ const About = () => {
               <div className="mb-8">
                 <h3 className="text-2xl font-bold text-foreground mb-4">Nurse Nate</h3>
                 <div className="flex items-center gap-2 mb-4">
-                  <MapPin className="h-5 w-5 text-primary" />
-                  <span className="text-muted-foreground">From Kelowna, Canada • Now serving Cabo San Lucas</span>
+                  
+                  
                 </div>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-6">Liquid Lounge offers premium, hospital-grade IV hydration and wellness treatments- delivered directly to your villa, resort, yacht, or private event. Founded by Nurse Nate with over a decade of acute care experience, our licensed medical team specializes in customized therapies including NAD+, glutathione, vitamins, and electrolyte recovery.
 

@@ -6,10 +6,8 @@ import Services from "@/components/Services";
 import { ReviewsCarousel } from "@/components/ReviewsCarousel";
 import About from "@/components/About";
 import Footer from "@/components/Footer";
-
 const Index = () => {
   const location = useLocation();
-
   useEffect(() => {
     // Handle hash navigation when arriving from another page
     if (location.hash) {
@@ -18,14 +16,14 @@ const Index = () => {
       if (element) {
         // Small delay to ensure page is fully loaded
         setTimeout(() => {
-          element.scrollIntoView({ behavior: 'smooth' });
+          element.scrollIntoView({
+            behavior: 'smooth'
+          });
         }, 300);
       }
     }
   }, [location.hash]);
-
-  return (
-    <div className="min-h-screen">
+  return <div className="min-h-screen">
       <Header />
       <Hero />
       <section id="services" className="scroll-mt-20">
@@ -36,20 +34,13 @@ const Index = () => {
       </section>
       <section aria-label="Team photo" className="pt-10 pb-4 md:py-14">
         <div className="mx-auto w-full max-w-5xl px-4">
-          <img 
-            src="/images/GroupshotLL.jpg" 
-            alt="Liquid Lounge team" 
-            loading="lazy" 
-            className="w-full h-auto rounded-2xl shadow-xl object-cover aspect-[16/9]" 
-          />
+          <img src="/images/GroupshotLL.jpg" alt="Liquid Lounge team" loading="lazy" className="w-full h-auto rounded-2xl shadow-xl object-cover aspect-[16/9]" />
         </div>
       </section>
-      <section id="specialist" className="scroll-mt-20 pt-0 md:pt-6">
+      <section id="specialist" className="scroll-mt-20 pt-0 md:pt-6 py-[2px]">
         <About />
       </section>
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;
