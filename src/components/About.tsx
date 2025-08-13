@@ -39,7 +39,7 @@ const About = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-foreground mb-4">Nurse Nate</h2>
+            <h2 className="text-4xl font-bold text-foreground mb-4">Meet Nurse Nate</h2>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
