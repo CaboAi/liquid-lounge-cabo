@@ -190,10 +190,6 @@ const IVMenuPage = () => {
                                   <div className="text-sm text-muted-foreground">Duration</div>
                                   <div className="font-semibold">{pkg.duration}</div>
                                 </div>
-                                <div>
-                                  <div className="text-sm text-muted-foreground">Pricing</div>
-                                  <div className="font-bold text-primary text-sm">{pkg.price}</div>
-                                </div>
                               </div>
                             </div>
                           </AccordionContent>
@@ -230,10 +226,6 @@ const IVMenuPage = () => {
                             <div className="mb-2">
                               <div className="text-sm text-muted-foreground">Duration</div>
                               <div className="font-semibold">{pkg.duration}</div>
-                            </div>
-                            <div>
-                              <div className="text-sm text-muted-foreground">Pricing</div>
-                              <div className="font-bold text-primary text-sm">{pkg.price}</div>
                             </div>
                           </div>
                         </CardContent>
