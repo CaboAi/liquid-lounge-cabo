@@ -11,7 +11,8 @@ const Services = () => {
     link: "/contact?topic=blood-work"
   }, {
     icon: <Users className="h-8 w-8 text-primary" />,
-    title: "IV Therapies, 1 on 1, Groups and Events",
+    title: "IV Therapies",
+    subtitle: "one-on-one groups and events",
     description: "Personalized and group IV therapy sessions",
     link: "/iv-menu"
   }, {
@@ -47,6 +48,11 @@ const Services = () => {
                       <CardTitle className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
                         {service.title}
                       </CardTitle>
+                      {service.subtitle && (
+                        <p className="text-sm font-light text-muted-foreground mt-1">
+                          {service.subtitle}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
