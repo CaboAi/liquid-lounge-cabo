@@ -39,19 +39,15 @@ const About = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Meet Your IV Therapy Specialist
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Cabo's Best Mobile IV Therapy - Private, Professional, Premium.
-            </p>
+            
+            
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Column - Professional Info */}
             <div>
               <div className="mb-8">
-                <h3 className="text-2xl font-bold text-foreground mb-4">Nathan Brown BSN RN</h3>
+                <h3 className="text-2xl font-bold text-foreground mb-4">Nurse Nate</h3>
                 <div className="flex items-center gap-2 mb-4">
                   <MapPin className="h-5 w-5 text-primary" />
                   <span className="text-muted-foreground">From Kelowna, Canada • Now serving Cabo San Lucas</span>
