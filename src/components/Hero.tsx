@@ -5,13 +5,10 @@ import { useNavigate } from "react-router-dom";
 import CompactQuiz from "@/components/CompactQuiz";
 const Hero = () => {
   const navigate = useNavigate();
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth'
-      });
-    }
+  const handleWhatsAppBooking = () => {
+    const whatsappMessage = "Hi Nurse Nate, I'd like to book an IV therapy session. Please let me know your availability.";
+    const whatsappURL = `https://wa.me/526242287777?text=${encodeURIComponent(whatsappMessage)}`;
+    window.open(whatsappURL, '_blank');
   };
   return <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-medical-teal-light/20 to-wellness-cream/30">
       {/* Background decoration */}
@@ -32,7 +29,7 @@ const Hero = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-8">
-                <Button variant="medical" size="lg" onClick={() => scrollToSection('contact')} className="px-8 py-4 text-lg">Book Session</Button>
+                <Button variant="medical" size="lg" onClick={handleWhatsAppBooking} className="px-8 py-4 text-lg">Book Session</Button>
                 <Button variant="outline" size="lg" onClick={() => navigate('/iv-menu')} className="px-8 py-4 text-lg">IV Menu</Button>
               </div>
 
