@@ -202,7 +202,7 @@ Please let me know your availability and pricing.
 Thank you!`;
                 const mailtoURL = `mailto:liquidloungeiv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                 console.log("Opening email with URL:", mailtoURL);
-                window.location.href = mailtoURL;
+                window.open(mailtoURL, '_blank');
               }}
             >
               Book This Treatment

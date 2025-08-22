@@ -242,7 +242,8 @@ Here are my quiz results:
 Please let me know your availability and pricing.
 
 Thank you!`;
-                      window.location.href = `mailto:liquidloungeiv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                const mailtoURL = `mailto:liquidloungeiv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                window.open(mailtoURL, '_blank');
                     }}
                   >
                     Book This Treatment
