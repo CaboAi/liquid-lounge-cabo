@@ -1,11 +1,29 @@
 import { Mail, MapPin, Shield, Heart, Instagram, Star, Facebook } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Footer = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (href: string) => {
+    if (href.startsWith('/#')) {
+      // Hash-based navigation
+      const sectionId = href.substring(2);
+      
+      if (location.pathname === '/') {
+        // Already on home page, just scroll
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // Navigate to home with hash
+        navigate(href);
+      }
+    } else {
+      // Regular navigation
+      navigate(href);
     }
   };
 
@@ -46,37 +64,31 @@ const Footer = () => {
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <nav className="space-y-3">
               <button 
-                onClick={() => scrollToSection('home')} 
+                onClick={() => handleNavigation('/')} 
                 className="block text-primary-foreground/80 hover:text-primary-foreground transition-colors"
               >
                 Home
               </button>
               <button 
-                onClick={() => scrollToSection('services')} 
+                onClick={() => handleNavigation('/#services')} 
                 className="block text-primary-foreground/80 hover:text-primary-foreground transition-colors"
               >
                 Services
               </button>
               <button 
-                onClick={() => scrollToSection('menu')} 
+                onClick={() => handleNavigation('/iv-menu')} 
                 className="block text-primary-foreground/80 hover:text-primary-foreground transition-colors"
               >
                 IV Menu
               </button>
               <button 
-                onClick={() => scrollToSection('about')} 
+                onClick={() => handleNavigation('/#specialist')} 
                 className="block text-primary-foreground/80 hover:text-primary-foreground transition-colors"
               >
                 About Nathan
               </button>
               <button 
-                onClick={() => scrollToSection('blog')} 
-                className="block text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-              >
-                Blog
-              </button>
-              <button 
-                onClick={() => scrollToSection('quiz')} 
+                onClick={() => handleNavigation('/find-your-iv')} 
                 className="block text-primary-foreground/80 hover:text-primary-foreground transition-colors"
               >
                 Find Your IV
