@@ -186,6 +186,7 @@ const CompactQuiz = () => {
               variant="medical" 
               size="sm" 
               onClick={() => {
+                console.log("Button clicked, generating email...");
                 const subject = `Book ${recommendation.package} IV Therapy`;
                 const body = `Hi Nurse Nate,
 
@@ -199,7 +200,9 @@ Here are my quiz results:
 Please let me know your availability and pricing.
 
 Thank you!`;
-                window.location.href = `mailto:liquidloungeiv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                const mailtoURL = `mailto:liquidloungeiv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                console.log("Opening email with URL:", mailtoURL);
+                window.location.href = mailtoURL;
               }}
             >
               Book This Treatment
