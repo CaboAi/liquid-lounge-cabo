@@ -225,7 +225,26 @@ const Quiz = () => {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                  <Button variant="medical" className="flex-1" onClick={() => scrollToSection('contact')}>
+                  <Button 
+                    variant="medical" 
+                    className="flex-1" 
+                    onClick={() => {
+                      const subject = `Book ${recommendation.package} IV Therapy`;
+                      const body = `Hi Nurse Nate,
+
+I completed the IV therapy quiz and I'm interested in booking the ${recommendation.package} treatment.
+
+Here are my quiz results:
+- Package: ${recommendation.package}
+- Description: ${recommendation.description}
+- Reasoning: ${recommendation.reasoning}
+
+Please let me know your availability and pricing.
+
+Thank you!`;
+                      window.location.href = `mailto:liquidloungeiv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    }}
+                  >
                     Book This Treatment
                   </Button>
                   <Button 

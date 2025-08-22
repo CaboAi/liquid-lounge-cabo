@@ -182,8 +182,27 @@ const CompactQuiz = () => {
           </div>
           
           <div className="flex flex-col gap-2 pt-2">
-            <Button variant="medical" size="sm" asChild>
-              <Link to="/contact">Book This Treatment</Link>
+            <Button 
+              variant="medical" 
+              size="sm" 
+              onClick={() => {
+                const subject = `Book ${recommendation.package} IV Therapy`;
+                const body = `Hi Nurse Nate,
+
+I completed the IV therapy quiz and I'm interested in booking the ${recommendation.package} treatment.
+
+Here are my quiz results:
+- Package: ${recommendation.package}
+- Description: ${recommendation.description}
+- Reasoning: ${recommendation.reasoning}
+
+Please let me know your availability and pricing.
+
+Thank you!`;
+                window.location.href = `mailto:liquidloungeiv@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+              }}
+            >
+              Book This Treatment
             </Button>
             <div className="flex gap-2">
               <Button variant="outline" size="sm" onClick={resetQuiz} className="flex-1">
