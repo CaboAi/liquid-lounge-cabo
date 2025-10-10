@@ -68,7 +68,8 @@ Thank you!`;
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from('booking_submissions').insert({
+      // Step 1: Insert into database
+      const { error: dbError } = await supabase.from('booking_submissions').insert({
         first_name: data.firstName,
         last_name: data.lastName,
         email: data.email,
@@ -80,19 +81,41 @@ Thank you!`;
         additional_info: data.additionalInfo || null,
       });
 
-      if (error) throw error;
+      if (dbError) throw dbError;
 
-      toast({
-        title: "Booking Request Submitted!",
-        description: "We'll confirm your appointment within 24 hours.",
+      // Step 2: Call edge function to send notification
+      const { error: functionError } = await supabase.functions.invoke('send-booking-notification', {
+        body: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phoneNumber: data.phoneNumber,
+          preferredTherapy: data.preferredTherapy,
+          preferredDate: data.preferredDate || 'Not specified',
+          preferredTime: data.preferredTime || 'Not specified',
+          serviceLocation: data.serviceLocation,
+          additionalInfo: data.additionalInfo || 'None',
+        },
       });
 
+      if (functionError) {
+        console.error('Error calling edge function:', functionError);
+        // Don't throw - the booking was saved, notification failure is non-critical
+      }
+
+      // Step 3: Show success message
+      toast({
+        title: "Booking request received!",
+        description: "We'll contact you within 24 hours via phone or email.",
+      });
+
+      // Step 4: Reset form
       form.reset();
     } catch (error) {
       console.error('Error submitting booking:', error);
       toast({
-        title: "Submission Failed",
-        description: "There was an error submitting your booking. Please try WhatsApp instead.",
+        title: "Something went wrong",
+        description: "Please try again or contact us directly at +52 624 228 7777",
         variant: "destructive",
       });
     } finally {
