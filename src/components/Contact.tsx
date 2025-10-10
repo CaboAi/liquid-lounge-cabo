@@ -4,36 +4,100 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, Phone, MapPin, Clock, MessageCircle, Instagram, Facebook } from "lucide-react";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Mail, Phone, MapPin, Clock, MessageCircle, Instagram, Facebook, Send } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
+const bookingSchema = z.object({
+  firstName: z.string().trim().min(1, "First name is required").max(100, "First name must be less than 100 characters"),
+  lastName: z.string().trim().min(1, "Last name is required").max(100, "Last name must be less than 100 characters"),
+  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  phoneNumber: z.string().trim().min(1, "Phone number is required").max(50, "Phone number must be less than 50 characters"),
+  preferredTherapy: z.string().min(1, "Please select a therapy"),
+  preferredDate: z.string().optional(),
+  preferredTime: z.string().optional(),
+  serviceLocation: z.string().trim().min(1, "Service location is required").max(500, "Location must be less than 500 characters"),
+  additionalInfo: z.string().max(1000, "Additional info must be less than 1000 characters").optional(),
+});
+
+type BookingFormData = z.infer<typeof bookingSchema>;
+
 const Contact = () => {
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const form = useForm<BookingFormData>({
+    resolver: zodResolver(bookingSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      preferredTherapy: "",
+      preferredDate: "",
+      preferredTime: "",
+      serviceLocation: "",
+      additionalInfo: "",
+    },
+  });
+
   const handleWhatsAppBooking = () => {
-    const firstName = (document.getElementById('firstName') as HTMLInputElement)?.value || '';
-    const lastName = (document.getElementById('lastName') as HTMLInputElement)?.value || '';
-    const email = (document.getElementById('email') as HTMLInputElement)?.value || '';
-    const phone = (document.getElementById('phone') as HTMLInputElement)?.value || '';
-    const serviceElement = document.querySelector('[role="combobox"][aria-expanded]') as HTMLElement;
-    const service = serviceElement?.textContent || 'Not specified';
-    const date = (document.getElementById('date') as HTMLInputElement)?.value || 'Not specified';
-    const timeElement = document.querySelector('[id*="time"]') as HTMLElement;
-    const time = timeElement?.textContent || 'Not specified';
-    const location = (document.getElementById('location') as HTMLInputElement)?.value || '';
-    const message = (document.getElementById('message') as HTMLTextAreaElement)?.value || '';
+    const values = form.getValues();
     const whatsappMessage = `Hi Nurse Nate,
 
 I'd like to book an IV therapy session:
 
-Name: ${firstName} ${lastName}
-Email: ${email}
-Phone: ${phone}
-Service: ${service}
-Preferred Date: ${date}
-Preferred Time: ${time}
-Location: ${location}
-Additional Info: ${message}
+Name: ${values.firstName} ${values.lastName}
+Email: ${values.email}
+Phone: ${values.phoneNumber}
+Service: ${values.preferredTherapy}
+Preferred Date: ${values.preferredDate || 'Not specified'}
+Preferred Time: ${values.preferredTime || 'Not specified'}
+Location: ${values.serviceLocation}
+Additional Info: ${values.additionalInfo || 'None'}
 
 Thank you!`;
     const whatsappURL = `https://wa.me/526242287777?text=${encodeURIComponent(whatsappMessage)}`;
     window.open(whatsappURL, '_blank');
+  };
+
+  const onSubmit = async (data: BookingFormData) => {
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase.from('booking_submissions').insert({
+        first_name: data.firstName,
+        last_name: data.lastName,
+        email: data.email,
+        phone_number: data.phoneNumber,
+        preferred_therapy: data.preferredTherapy,
+        preferred_date: data.preferredDate || null,
+        preferred_time: data.preferredTime || null,
+        service_location: data.serviceLocation,
+        additional_info: data.additionalInfo || null,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Booking Request Submitted!",
+        description: "We'll confirm your appointment within 24 hours.",
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting booking:', error);
+      toast({
+        title: "Submission Failed",
+        description: "There was an error submitting your booking. Please try WhatsApp instead.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   const contactInfo = [{
     icon: <Mail className="h-6 w-6" />,
@@ -138,93 +202,225 @@ Thank you!`;
                   <CardTitle className="text-2xl">Book Your Session</CardTitle>
                   <CardDescription>Please fill out the form below with as much detail as possible to speed up your booking process:</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName">First Name *</Label>
-                      <Input id="firstName" placeholder="Enter your first name" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName">Last Name *</Label>
-                      <Input id="lastName" placeholder="Enter your last name" />
-                    </div>
-                  </div>
+                <CardContent>
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="firstName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>First Name *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter your first name" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="lastName"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Last Name *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter your last name" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email *</Label>
-                      <Input id="email" type="email" placeholder="Enter your email" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
-                      <Input id="phone" type="tel" placeholder="WhatsApp preferred" />
-                    </div>
-                  </div>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Email *</FormLabel>
+                              <FormControl>
+                                <Input type="email" placeholder="Enter your email" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="phoneNumber"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Phone Number *</FormLabel>
+                              <FormControl>
+                                <Input type="tel" placeholder="WhatsApp preferred" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="service">Preferred IV Therapy *</Label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select your preferred therapy" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {services.map((service, index) => <SelectItem key={index} value={service.toLowerCase().replace(/\s+/g, '-')}>
-                            {service}
-                          </SelectItem>)}
-                      </SelectContent>
-                    </Select>
-                  </div>
+                      <FormField
+                        control={form.control}
+                        name="preferredTherapy"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Preferred IV Therapy *</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select your preferred therapy" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {services.map((service, index) => (
+                                  <SelectItem key={index} value={service}>
+                                    {service}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="date">Preferred Date</Label>
-                      <Input id="date" type="date" />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="time">Preferred Time</Label>
-                      <Select>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select time" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="morning">Morning (8AM - 12PM)</SelectItem>
-                          <SelectItem value="afternoon">Afternoon (12PM - 5PM)</SelectItem>
-                          <SelectItem value="evening">Evening (5PM - 8PM)</SelectItem>
-                          <SelectItem value="flexible">Flexible</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="preferredDate"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Preferred Date</FormLabel>
+                              <FormControl>
+                                <Input type="date" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        <FormField
+                          control={form.control}
+                          name="preferredTime"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Preferred Time</FormLabel>
+                              <Select onValueChange={field.onChange} value={field.value}>
+                                <FormControl>
+                                  <SelectTrigger>
+                                    <SelectValue placeholder="Select time" />
+                                  </SelectTrigger>
+                                </FormControl>
+                                <SelectContent>
+                                  <SelectItem value="Morning (8AM - 12PM)">Morning (8AM - 12PM)</SelectItem>
+                                  <SelectItem value="Afternoon (12PM - 5PM)">Afternoon (12PM - 5PM)</SelectItem>
+                                  <SelectItem value="Evening (5PM - 8PM)">Evening (5PM - 8PM)</SelectItem>
+                                  <SelectItem value="Flexible">Flexible</SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="location">Service Location *</Label>
-                    <Input id="location" placeholder="Hotel name, address, or area in Los Cabos" />
-                  </div>
+                      <FormField
+                        control={form.control}
+                        name="serviceLocation"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Service Location *</FormLabel>
+                            <FormControl>
+                              <Input placeholder="Hotel name, address, or area in Los Cabos" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Additional Information</Label>
-                    <Textarea id="message" placeholder="Any medical conditions, specific goals, or special requests..." rows={4} />
-                  </div>
+                      <FormField
+                        control={form.control}
+                        name="additionalInfo"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Additional Information</FormLabel>
+                            <FormControl>
+                              <Textarea 
+                                placeholder="Any medical conditions, specific goals, or special requests..." 
+                                rows={4} 
+                                {...field} 
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
 
-                  <div className="border-t border-border pt-6">
-                    <div className="bg-primary/5 p-4 rounded-lg mb-6">
-                      <h4 className="font-semibold mb-2">Important Notes:</h4>
-                      <ul className="text-sm text-muted-foreground space-y-1">
-                        <li>• Medical consultation included with every session</li>
-                        <li>• All treatments performed by licensed RN Nathan Brown</li>
-                        <li>• Cancellation policy: 24-hour notice required</li>
-                        <li>• Payment accepted: Cash, card, or digital transfer</li>
-                      </ul>
-                    </div>
+                      <div className="border-t border-border pt-6">
+                        <div className="bg-primary/5 p-4 rounded-lg mb-6">
+                          <h4 className="font-semibold mb-2">Important Notes:</h4>
+                          <ul className="text-sm text-muted-foreground space-y-1">
+                            <li>• Medical consultation included with every session</li>
+                            <li>• All treatments performed by licensed RN Nathan Brown</li>
+                            <li>• Cancellation policy: 24-hour notice required</li>
+                            <li>• Payment accepted: Cash, card, or digital transfer</li>
+                          </ul>
+                        </div>
 
-                    <Button variant="medical" size="lg" className="w-full" onClick={handleWhatsAppBooking}>
-                      Send WhatsApp Message
-                    </Button>
-                    
-                    <p className="text-xs text-muted-foreground text-center mt-4">
-                      By submitting this form, you agree to receive communication from Liquid Lounge regarding your booking.
-                    </p>
-                  </div>
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="lg"
+                              className="w-full h-auto py-4 flex flex-col items-center gap-2"
+                              onClick={() => {
+                                form.trigger().then((isValid) => {
+                                  if (isValid) {
+                                    handleWhatsAppBooking();
+                                  }
+                                });
+                              }}
+                            >
+                              <div className="flex items-center gap-2">
+                                <MessageCircle className="h-5 w-5" />
+                                <span className="font-semibold">Quick WhatsApp Contact</span>
+                              </div>
+                              <span className="text-xs text-muted-foreground">
+                                Have WhatsApp? Get instant response
+                              </span>
+                            </Button>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Button
+                              type="submit"
+                              size="lg"
+                              className="w-full h-auto py-4 flex flex-col items-center gap-2"
+                              disabled={isSubmitting}
+                            >
+                              <div className="flex items-center gap-2">
+                                <Send className="h-5 w-5" />
+                                <span className="font-semibold">
+                                  {isSubmitting ? "Submitting..." : "Submit Booking Request"}
+                                </span>
+                              </div>
+                              <span className="text-xs opacity-90">
+                                We'll confirm within 24 hours
+                              </span>
+                            </Button>
+                          </div>
+                        </div>
+                        
+                        <p className="text-xs text-muted-foreground text-center mt-4">
+                          By submitting this form, you agree to receive communication from Liquid Lounge regarding your booking.
+                        </p>
+                      </div>
+                    </form>
+                  </Form>
                 </CardContent>
               </Card>
             </div>
