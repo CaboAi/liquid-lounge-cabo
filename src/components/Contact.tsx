@@ -84,11 +84,7 @@ Thank you!`;
       if (dbError) throw dbError;
 
       // Step 2: Call edge function to send notification
-      const webhookSecret = import.meta.env.VITE_BOOKING_WEBHOOK_SECRET;
       const { error: functionError } = await supabase.functions.invoke('send-booking-notification', {
-        headers: {
-          'x-webhook-secret': webhookSecret,
-        },
         body: {
           first_name: data.firstName,
           last_name: data.lastName,

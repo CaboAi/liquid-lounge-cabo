@@ -2,7 +2,7 @@ import notificationapi from 'npm:notificationapi-node-server-sdk@1.1.0'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-webhook-secret',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
 // Initialize NotificationAPI with environment variables
@@ -15,8 +15,8 @@ if (!clientId || !clientSecret) {
 
 notificationapi.init(clientId, clientSecret)
 
-// Simple rate limiting: track last request time per IP
-const rateLimitMap = new Map<string, number>()
+// Rate limiting: track request counts per IP (5 requests per minute)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 
 Deno.serve(async (req) => {
   // Handle CORS preflight requests
@@ -27,41 +27,33 @@ Deno.serve(async (req) => {
   try {
     console.log('Received booking notification request')
     
-    // Verify webhook secret
-    const webhookSecret = req.headers.get('x-webhook-secret')
-    const expectedSecret = Deno.env.get('BOOKING_WEBHOOK_SECRET')
-    
-    if (!webhookSecret || webhookSecret !== expectedSecret) {
-      console.log('Unauthorized: Invalid or missing webhook secret')
-      return new Response(
-        JSON.stringify({ success: false, error: 'Unauthorized' }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 401 
-        }
-      )
-    }
-    
     // Get client IP for rate limiting
     const clientIP = req.headers.get('x-forwarded-for') || 'unknown'
-    
-    // Rate limiting: check if IP has made a request in the last second
     const now = Date.now()
-    const lastRequestTime = rateLimitMap.get(clientIP)
     
-    if (lastRequestTime && now - lastRequestTime < 1000) {
-      console.log('Rate limit exceeded for IP:', clientIP)
-      return new Response(
-        JSON.stringify({ success: false, error: 'Too many requests. Please wait a moment.' }),
-        { 
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-          status: 429 
-        }
-      )
+    // Rate limiting: 5 requests per minute per IP
+    const rateLimit = rateLimitMap.get(clientIP)
+    const oneMinute = 60 * 1000
+    
+    if (rateLimit) {
+      // Reset counter if minute has passed
+      if (now > rateLimit.resetTime) {
+        rateLimitMap.set(clientIP, { count: 1, resetTime: now + oneMinute })
+      } else if (rateLimit.count >= 5) {
+        console.log('Rate limit exceeded for IP:', clientIP, 'Count:', rateLimit.count)
+        return new Response(
+          JSON.stringify({ success: false, error: 'Unable to process booking. Please try again later or contact us directly.' }),
+          { 
+            headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            status: 429 
+          }
+        )
+      } else {
+        rateLimit.count++
+      }
+    } else {
+      rateLimitMap.set(clientIP, { count: 1, resetTime: now + oneMinute })
     }
-    
-    // Update rate limit tracker
-    rateLimitMap.set(clientIP, now)
     
     // Clean up old entries (keep last 100)
     if (rateLimitMap.size > 100) {
@@ -81,7 +73,39 @@ Deno.serve(async (req) => {
       return new Response(
         JSON.stringify({ 
           success: false, 
-          error: `Missing required fields: ${missingFields.join(', ')}` 
+          error: 'Unable to process booking. Please ensure all required fields are filled out.' 
+        }),
+        { 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 400 
+        }
+      )
+    }
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(bookingData.email)) {
+      console.log('Invalid email format:', bookingData.email)
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: 'Unable to process booking. Please check your email address.' 
+        }),
+        { 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 400 
+        }
+      )
+    }
+    
+    // Validate phone number format (international format: +followed by digits)
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/
+    if (!phoneRegex.test(bookingData.phone_number.replace(/[\s\-\(\)]/g, ''))) {
+      console.log('Invalid phone format:', bookingData.phone_number)
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          error: 'Unable to process booking. Please check your phone number.' 
         }),
         { 
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -115,9 +139,19 @@ Deno.serve(async (req) => {
       }
     )
   } catch (error) {
-    console.error('Error sending notification:', error)
+    // Log detailed error server-side
+    console.error('Error in send-booking-notification:', {
+      error: error.message,
+      stack: error.stack,
+      timestamp: new Date().toISOString()
+    })
+    
+    // Return generic error to client
     return new Response(
-      JSON.stringify({ success: false, error: error.message }),
+      JSON.stringify({ 
+        success: false, 
+        error: 'Unable to process booking. Please try again or contact us directly.' 
+      }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 500 
