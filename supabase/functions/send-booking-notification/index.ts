@@ -2,14 +2,18 @@ import notificationapi from 'npm:notificationapi-node-server-sdk@1.1.0'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-webhook-secret',
 }
 
-// Initialize NotificationAPI
-notificationapi.init(
-  'qiq7v19j2hezwztv1ry0ndn6ph',
-  'hiu7poa906tc3tbrtexbrvtkbzdl3llt8tpuq27rdhkbubpdrkyo8gs4qy'
-)
+// Initialize NotificationAPI with environment variables
+const clientId = Deno.env.get('NOTIFICATIONAPI_CLIENT_ID')
+const clientSecret = Deno.env.get('NOTIFICATIONAPI_CLIENT_SECRET')
+
+if (!clientId || !clientSecret) {
+  throw new Error('Missing NotificationAPI credentials in environment variables')
+}
+
+notificationapi.init(clientId, clientSecret)
 
 // Simple rate limiting: track last request time per IP
 const rateLimitMap = new Map<string, number>()
@@ -22,6 +26,21 @@ Deno.serve(async (req) => {
 
   try {
     console.log('Received booking notification request')
+    
+    // Verify webhook secret
+    const webhookSecret = req.headers.get('x-webhook-secret')
+    const expectedSecret = Deno.env.get('BOOKING_WEBHOOK_SECRET')
+    
+    if (!webhookSecret || webhookSecret !== expectedSecret) {
+      console.log('Unauthorized: Invalid or missing webhook secret')
+      return new Response(
+        JSON.stringify({ success: false, error: 'Unauthorized' }),
+        { 
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 401 
+        }
+      )
+    }
     
     // Get client IP for rate limiting
     const clientIP = req.headers.get('x-forwarded-for') || 'unknown'

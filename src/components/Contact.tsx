@@ -84,17 +84,21 @@ Thank you!`;
       if (dbError) throw dbError;
 
       // Step 2: Call edge function to send notification
+      const webhookSecret = import.meta.env.VITE_BOOKING_WEBHOOK_SECRET;
       const { error: functionError } = await supabase.functions.invoke('send-booking-notification', {
+        headers: {
+          'x-webhook-secret': webhookSecret,
+        },
         body: {
-          firstName: data.firstName,
-          lastName: data.lastName,
+          first_name: data.firstName,
+          last_name: data.lastName,
           email: data.email,
-          phoneNumber: data.phoneNumber,
-          preferredTherapy: data.preferredTherapy,
-          preferredDate: data.preferredDate || 'Not specified',
-          preferredTime: data.preferredTime || 'Not specified',
-          serviceLocation: data.serviceLocation,
-          additionalInfo: data.additionalInfo || 'None',
+          phone_number: data.phoneNumber,
+          preferred_therapy: data.preferredTherapy,
+          preferred_date: data.preferredDate || 'Not specified',
+          preferred_time: data.preferredTime || 'Not specified',
+          service_location: data.serviceLocation,
+          additional_info: data.additionalInfo || 'None',
         },
       });
 
