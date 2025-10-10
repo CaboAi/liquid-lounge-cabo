@@ -120,16 +120,21 @@ Deno.serve(async (req) => {
       phone: bookingData.phone_number
     })
 
-    // Send SMS notification to Nate (admin)
-    console.log('Sending SMS notification to admin...')
+    // Send SMS notification to Nate (admin) with booking details
+    console.log('Sending SMS notification to admin with booking details...')
     await notificationapi.send({
       notificationId: 'new_booking',
       user: {
         id: 'nate_admin',
         number: '+526242287777'
+      },
+      mergeTags: {
+        name: `${bookingData.first_name} ${bookingData.last_name}`,
+        phone: bookingData.phone_number,
+        therapy: bookingData.preferred_therapy
       }
     })
-    console.log('SMS notification sent successfully')
+    console.log('SMS notification sent successfully with merge tags')
 
     return new Response(
       JSON.stringify({ success: true, message: 'Notification sent' }),
