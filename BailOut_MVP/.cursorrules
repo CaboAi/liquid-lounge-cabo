@@ -1,0 +1,861 @@
+# BailOut - AI-Powered Social Exit Strategy
+
+## Project Context
+
+BailOut is an AI-powered mobile application that helps users gracefully exit uncomfortable social situations through realistic AI-generated phone calls and text messages. The app uses voice synthesis, natural language processing, and contextual awareness to provide believable interruptions.
+
+## Tech Stack
+
+### Frontend (Mobile)
+- React Native 0.74+ with Expo SDK 50
+- TypeScript for type safety
+- React Navigation 6 for routing
+- React Query (TanStack Query) for server state
+- Zustand for local state management
+- NativeWind (Tailwind for React Native)
+- Expo Secure Store for secure storage
+
+### Backend
+- Node.js 18+ with Express.js
+- TypeScript
+- PostgreSQL for primary database
+- Redis for caching and sessions
+- JWT authentication
+- Zod for validation
+
+### Third-Party Services
+- Twilio (voice calls & SMS)
+- ElevenLabs (AI voice synthesis)
+- Stripe (payments)
+- Uber API (transportation)
+- Expo Push Notifications
+
+## Code Style Guidelines
+
+### General Principles
+- **TypeScript First**: Always use TypeScript with strict mode enabled
+- **Functional Components**: Use functional React components with hooks
+- **Async/Await**: Prefer async/await over callbacks or raw promises
+- **Error Handling**: Always handle errors appropriately with try/catch
+- **No Console Logs**: Remove all console.log statements before committing
+
+### Naming Conventions
+
+#### Variables & Functions
+```typescript
+// camelCase for variables and functions
+const userName = 'John';
+const getUserData = async () => {};
+
+// UPPER_SNAKE_CASE for constants
+const MAX_RETRY_ATTEMPTS = 3;
+const API_TIMEOUT = 30000;
+```
+
+#### Components & Types
+```typescript
+// PascalCase for components and types/interfaces
+const UserProfile: React.FC<UserProfileProps> = () => {};
+
+interface UserData {
+  id: string;
+  email: string;
+}
+
+type ButtonVariant = 'primary' | 'secondary';
+```
+
+#### Files & Directories
+```
+// React components: PascalCase
+UserProfile.tsx
+CallTrigger.tsx
+
+// Other files: kebab-case
+auth-service.ts
+user-utils.ts
+
+// Directories: lowercase
+screens/
+components/
+services/
+```
+
+### File Organization Patterns
+
+#### React Native Component Structure
+```typescript
+// 1. Imports
+import React, { useState, useEffect } from 'react';
+import { View, Text, Pressable } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+// 2. Types/Interfaces
+interface ComponentProps {
+  title: string;
+  onPress: () => void;
+}
+
+// 3. Component
+export const Component: React.FC<ComponentProps> = ({ title, onPress }) => {
+  // 3a. Hooks
+  const navigation = useNavigation();
+  const [loading, setLoading] = useState(false);
+
+  // 3b. Effects
+  useEffect(() => {
+    // Effect logic
+  }, []);
+
+  // 3c. Handlers
+  const handlePress = async () => {
+    // Handler logic
+  };
+
+  // 3d. Render
+  return (
+    <View>
+      <Text>{title}</Text>
+    </View>
+  );
+};
+```
+
+#### Service/Utility File Structure
+```typescript
+// 1. Imports
+import axios from 'axios';
+import { z } from 'zod';
+
+// 2. Types/Schemas
+const UserSchema = z.object({
+  id: z.string(),
+  email: z.string().email(),
+});
+
+type User = z.infer<typeof UserSchema>;
+
+// 3. Constants
+const API_BASE_URL = process.env.API_URL;
+
+// 4. Functions (exported)
+export const fetchUser = async (id: string): Promise<User> => {
+  // Implementation
+};
+
+// 5. Helper functions (private)
+const validateResponse = (data: unknown): User => {
+  return UserSchema.parse(data);
+};
+```
+
+### React Native Best Practices
+
+1. **Performance Optimization**
+   - Use React.memo for expensive components
+   - Implement useMemo and useCallback appropriately
+   - Use FlatList for long lists
+   - Lazy load screens and components
+
+2. **State Management**
+   ```typescript
+   // Local state for UI
+   const [isVisible, setIsVisible] = useState(false);
+
+   // Zustand for app state
+   const user = useUserStore((state) => state.user);
+
+   // React Query for server state
+   const { data, isLoading } = useQuery({
+     queryKey: ['user', userId],
+     queryFn: fetchUser,
+   });
+   ```
+
+3. **Styling with NativeWind**
+   ```typescript
+   <View className="flex-1 bg-white p-4">
+     <Text className="text-lg font-bold text-gray-800">Title</Text>
+     <Pressable className="bg-blue-500 px-4 py-2 rounded-lg">
+       <Text className="text-white">Button</Text>
+     </Pressable>
+   </View>
+   ```
+
+### Express/Backend Best Practices
+
+1. **Route Structure**
+   ```typescript
+   // routes/user.routes.ts
+   router.get('/:id', authenticate, validateRequest, userController.getUser);
+   router.post('/', authenticate, validateRequest, userController.createUser);
+   ```
+
+2. **Controller Pattern**
+   ```typescript
+   export const getUser = async (
+     req: Request,
+     res: Response,
+     next: NextFunction
+   ): Promise<void> => {
+     try {
+       const user = await userService.findById(req.params.id);
+       res.json(user);
+     } catch (error) {
+       next(error);
+     }
+   };
+   ```
+
+3. **Service Layer**
+   ```typescript
+   export class UserService {
+     async findById(id: string): Promise<User> {
+       const user = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+       if (!user) throw new NotFoundError('User not found');
+       return user;
+     }
+   }
+   ```
+
+### Database Queries
+
+1. **Use Parameterized Queries**
+   ```typescript
+   // Good
+   await db.query('SELECT * FROM users WHERE id = $1', [userId]);
+
+   // Bad - SQL injection risk
+   await db.query(`SELECT * FROM users WHERE id = '${userId}'`);
+   ```
+
+2. **Transaction Handling**
+   ```typescript
+   const client = await pool.connect();
+   try {
+     await client.query('BEGIN');
+     // Multiple queries
+     await client.query('COMMIT');
+   } catch (error) {
+     await client.query('ROLLBACK');
+     throw error;
+   } finally {
+     client.release();
+   }
+   ```
+
+### Error Handling
+
+1. **Custom Error Classes**
+   ```typescript
+   export class AppError extends Error {
+     constructor(
+       public statusCode: number,
+       public message: string,
+       public isOperational = true
+     ) {
+       super(message);
+       Object.setPrototypeOf(this, AppError.prototype);
+     }
+   }
+   ```
+
+2. **Global Error Handler**
+   ```typescript
+   app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+     if (err instanceof AppError) {
+       return res.status(err.statusCode).json({
+         status: 'error',
+         message: err.message,
+       });
+     }
+     // Log unexpected errors
+     logger.error(err);
+     res.status(500).json({
+       status: 'error',
+       message: 'Internal server error',
+     });
+   });
+   ```
+
+### Testing Patterns
+
+1. **Unit Test Structure**
+   ```typescript
+   describe('UserService', () => {
+     let service: UserService;
+
+     beforeEach(() => {
+       service = new UserService();
+     });
+
+     describe('findById', () => {
+       it('should return user when exists', async () => {
+         const user = await service.findById('123');
+         expect(user).toBeDefined();
+         expect(user.id).toBe('123');
+       });
+
+       it('should throw NotFoundError when user not exists', async () => {
+         await expect(service.findById('999')).rejects.toThrow(NotFoundError);
+       });
+     });
+   });
+   ```
+
+2. **Integration Test Pattern**
+   ```typescript
+   describe('POST /api/users', () => {
+     it('should create a new user', async () => {
+       const response = await request(app)
+         .post('/api/users')
+         .send({ email: 'test@example.com' })
+         .expect(201);
+
+       expect(response.body).toHaveProperty('id');
+       expect(response.body.email).toBe('test@example.com');
+     });
+   });
+   ```
+
+## Security Guidelines
+
+### Never Commit Sensitive Data
+- API keys, passwords, tokens must be in .env files
+- .env files must be in .gitignore
+- Use environment variables for all configuration
+
+### Input Validation
+```typescript
+// Always validate user input
+const CreateUserSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+  phone: z.string().regex(/^\+?[1-9]\d{1,14}$/),
+});
+
+const validateRequest = (schema: z.ZodSchema) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    try {
+      schema.parse(req.body);
+      next();
+    } catch (error) {
+      res.status(400).json({ error: 'Invalid request data' });
+    }
+  };
+};
+```
+
+### Authentication & Authorization
+```typescript
+// JWT middleware
+export const authenticate = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  const token = req.headers.authorization?.split(' ')[1];
+
+  if (!token) {
+    return res.status(401).json({ error: 'No token provided' });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    res.status(401).json({ error: 'Invalid token' });
+  }
+};
+```
+
+## Git Commit Conventions
+
+### Commit Message Format
+```
+<type>(<scope>): <subject>
+
+[optional body]
+
+[optional footer]
+```
+
+### Types
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation only
+- `style`: Code style changes
+- `refactor`: Code refactoring
+- `test`: Test additions/changes
+- `chore`: Maintenance tasks
+
+### Examples
+```bash
+feat(mobile): add voice synthesis settings screen
+fix(backend): resolve JWT token expiration issue
+docs(api): update authentication endpoint documentation
+refactor(shared): optimize type definitions
+```
+
+## Project Structure
+
+```
+bailout/
+├── apps/
+│   ├── mobile/          # React Native app
+│   │   ├── src/
+│   │   │   ├── screens/
+│   │   │   ├── components/
+│   │   │   ├── services/
+│   │   │   ├── store/
+│   │   │   ├── hooks/
+│   │   │   └── utils/
+│   │   └── assets/
+│   └── backend/         # Express API
+│       └── src/
+│           ├── controllers/
+│           ├── services/
+│           ├── middleware/
+│           ├── models/
+│           ├── routes/
+│           └── utils/
+├── packages/
+│   └── shared/          # Shared types/utils
+└── docs/
+```
+
+## Development Workflow
+
+1. **Before Starting**
+   - Pull latest from main branch
+   - Create feature branch: `feature/your-feature`
+   - Install dependencies: `pnpm install`
+
+2. **During Development**
+   - Write tests alongside code
+   - Run linter frequently: `pnpm lint`
+   - Test your changes: `pnpm test`
+   - Keep commits atomic and meaningful
+
+3. **Before Committing**
+   - Remove all console.logs
+   - Run formatter: `pnpm format`
+   - Ensure all tests pass
+   - Update documentation if needed
+
+4. **Submitting PR**
+   - Rebase on latest main
+   - Squash related commits
+   - Write clear PR description
+   - Link related issues
+
+## Common Patterns & Solutions
+
+### API Error Response Format
+```typescript
+{
+  status: 'error',
+  message: 'User-friendly error message',
+  code: 'ERROR_CODE',
+  details?: any // Optional debug information
+}
+```
+
+### Async Handler Wrapper
+```typescript
+export const asyncHandler = (fn: Function) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    Promise.resolve(fn(req, res, next)).catch(next);
+  };
+};
+```
+
+### React Native Safe Area
+```typescript
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+const Screen = () => {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <View style={{ paddingTop: insets.top }}>
+      {/* Content */}
+    </View>
+  );
+};
+```
+
+### Environment-based Configuration
+```typescript
+const config = {
+  development: {
+    apiUrl: 'http://localhost:3000',
+    enableDebug: true,
+  },
+  production: {
+    apiUrl: 'https://api.bailout.app',
+    enableDebug: false,
+  },
+};
+
+export default config[process.env.NODE_ENV || 'development'];
+```
+
+## Performance Considerations
+
+1. **Mobile App**
+   - Minimize re-renders with React.memo
+   - Use FlatList for long lists
+   - Implement image caching
+   - Optimize bundle size
+
+2. **Backend API**
+   - Implement response caching
+   - Use database indexes
+   - Implement pagination
+   - Use connection pooling
+
+3. **Database**
+   - Index frequently queried columns
+   - Use prepared statements
+   - Implement query result caching
+   - Monitor slow queries
+
+## Debugging Tips
+
+1. **React Native**
+   - Use Flipper for debugging
+   - Enable React DevTools
+   - Use `console.warn` for development warnings
+   - Implement error boundaries
+
+2. **Backend**
+   - Use debugger in VS Code
+   - Implement request logging
+   - Use error tracking (Sentry)
+   - Monitor performance metrics
+
+## AI Agents Development Patterns
+
+### Agent Architecture Overview
+BailOut implements a 6-agent architecture for specialized, parallel processing:
+
+1. **call-orchestrator**: Master coordinator for all bailout flows
+2. **voice-generator**: AI voice synthesis and audio processing
+3. **scenario-writer**: Dynamic scenario generation and personalization
+4. **payment-handler**: Subscription management and billing operations
+5. **user-profiler**: Privacy-compliant personalization and learning
+6. **safety-coordinator**: Safety protocols and emergency response
+
+### Agent Structure Guidelines
+All agents follow a consistent structure pattern:
+
+```
+agent-name/
+├── agent.md              # Purpose and responsibilities
+├── config.json           # Configuration settings
+├── prompts/
+│   ├── system.md         # Core system prompt
+│   ├── domain-specific.md # Domain knowledge and patterns
+│   └── [specialized].md  # Agent-specific prompt files
+└── README.md             # Documentation and integration guide
+```
+
+### Agent Development Best Practices
+
+1. **Single Responsibility**: Each agent should have one clear, focused purpose
+2. **Configuration-Driven**: Use config.json for all tunable parameters
+3. **Comprehensive Prompts**: Include detailed context and examples in system prompts
+4. **Error Handling**: Implement graceful fallbacks and error recovery
+5. **Performance Monitoring**: Track response times and success rates
+6. **Privacy Compliance**: Follow GDPR/CCPA requirements for data handling
+7. **Safety First**: Always consider safety implications in agent design
+
+### Agent Communication Patterns
+
+```typescript
+// Standard agent message format
+interface AgentMessage {
+  messageId: string;
+  sourceAgent: string;
+  targetAgent: string;
+  messageType: string;
+  payload: any;
+  timestamp: Date;
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  timeout?: number;
+  retryCount?: number;
+  maxRetries?: number;
+}
+
+// Standard response format
+interface AgentResponse {
+  responseId: string;
+  originalMessageId: string;
+  status: 'success' | 'error' | 'timeout' | 'retry';
+  data?: any;
+  error?: {
+    code: string;
+    message: string;
+    retryable: boolean;
+    fallbackAvailable: boolean;
+  };
+  processingTime: number;
+  agentVersion: string;
+}
+
+// Agent dependency configuration
+interface AgentDependency {
+  agent: string;
+  required: boolean;
+  timeout: number;
+  retryAttempts: number;
+  fallbackStrategy?: string;
+}
+```
+
+### Agent Configuration Standards
+
+```json
+{
+  "name": "agent-name",
+  "model": "claude-sonnet-4-20250514",
+  "temperature": 0.3,
+  "max_tokens": 2000,
+  "description": "Agent purpose description",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "tool_name",
+      "type": "function",
+      "description": "Tool description"
+    }
+  ],
+  "triggers": [
+    {
+      "source": "source_agent",
+      "event": "event_type",
+      "priority": "high"
+    }
+  ],
+  "dependencies": [
+    {
+      "agent": "dependency_agent",
+      "required": true,
+      "timeout": 5000
+    }
+  ],
+  "performance": {
+    "target_response_time_ms": 2000,
+    "max_concurrent_operations": 100,
+    "retry_attempts": 3,
+    "cache_ttl_seconds": 3600
+  },
+  "security": {
+    "require_authentication": true,
+    "rate_limit_per_user": 10,
+    "encrypt_context_data": true
+  },
+  "monitoring": {
+    "log_level": "info",
+    "metrics_enabled": true,
+    "health_check_interval_seconds": 30
+  }
+}
+```
+
+### Specialized Agent Patterns
+
+#### 1. Call Orchestrator Patterns
+```typescript
+// Master coordination flow
+interface OrchestrationRequest {
+  userId: string;
+  triggerType: 'manual' | 'scheduled' | 'emergency';
+  context: {
+    urgency: number; // 1-5
+    scenario_preference?: string;
+    voice_preference?: string;
+  };
+}
+
+// Parallel agent coordination
+const coordinateAgents = async (request: OrchestrationRequest) => {
+  const promises = [
+    scenarioWriter.generate(request),
+    voiceGenerator.prepare(request),
+    paymentHandler.verify(request.userId),
+    userProfiler.analyze(request.userId),
+    safetyCoordinator.assess(request)
+  ];
+
+  const results = await Promise.allSettled(promises);
+  // Handle results and fallbacks
+};
+```
+
+#### 2. Voice Generator Patterns
+```typescript
+// Voice synthesis configuration
+interface VoiceSynthesisRequest {
+  text: string;
+  voiceId: string;
+  settings: {
+    stability: number;    // 0-1
+    similarity: number;   // 0-1
+    style: number;       // 0-1
+    speed: number;       // 0.5-2.0
+  };
+  cacheKey?: string;
+  fallbackVoice?: string;
+}
+
+// Caching strategy
+const getCachedVoice = async (request: VoiceSynthesisRequest) => {
+  const cacheKey = generateCacheKey(request);
+  return await cache.get(cacheKey);
+};
+```
+
+#### 3. Safety Coordinator Patterns
+```typescript
+// Risk assessment interface
+interface RiskAssessment {
+  userId: string;
+  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  riskFactors: string[];
+  emergencyContactsNotified: boolean;
+  escalationRequired: boolean;
+  safetyRecommendations: string[];
+}
+
+// Emergency response protocol
+const handleEmergency = async (assessment: RiskAssessment) => {
+  if (assessment.riskLevel === 'critical') {
+    await notifyEmergencyContacts(assessment.userId);
+    await activateEmergencyProtocols(assessment);
+  }
+};
+```
+
+#### 4. Privacy-Compliant User Profiling
+```typescript
+// Privacy-first data structure
+interface UserProfile {
+  userId: string;
+  preferences: {
+    scenarios: string[];
+    voices: string[];
+    timing: TimePreferences;
+  };
+  consentLevel: 'minimal' | 'standard' | 'enhanced';
+  dataRetentionDays: number;
+  lastUpdated: Date;
+  anonymizedMetrics?: UserMetrics;
+}
+
+// Consent management
+const updateConsent = async (userId: string, consentType: string, granted: boolean) => {
+  await userProfiler.updateConsent(userId, consentType, granted);
+  if (!granted) {
+    await userProfiler.deleteRelatedData(userId, consentType);
+  }
+};
+```
+
+### Parallel Processing Implementation
+
+1. **Async by Default**: All agent operations should be asynchronous
+2. **Parallel Execution**: Use Promise.allSettled() for fault-tolerant concurrent operations
+3. **Timeout Handling**: Always implement proper timeout mechanisms with fallbacks
+4. **Circuit Breakers**: Prevent cascade failures between agents
+5. **Dependency Management**: Handle required vs optional agent dependencies
+6. **Resource Pooling**: Implement connection pooling for external services
+
+### Agent Testing Strategies
+
+1. **Unit Tests**: Test individual agent functions and logic
+2. **Integration Tests**: Test agent-to-agent communication flows
+3. **Load Tests**: Validate performance under high concurrent load
+4. **Chaos Engineering**: Test failure scenarios and recovery mechanisms
+5. **Privacy Tests**: Validate GDPR/CCPA compliance in data handling
+6. **Safety Tests**: Test emergency response and escalation procedures
+7. **End-to-End Tests**: Test complete user journey through all agents
+
+### Error Handling and Fallback Strategies
+
+```typescript
+// Agent fallback configuration
+const fallbackStrategies = {
+  'voice_generation_failure': 'use_prerecorded',
+  'scenario_generation_timeout': 'use_template',
+  'payment_verification_error': 'allow_free_tier',
+  'safety_assessment_failure': 'default_to_high_risk',
+  'user_profiling_unavailable': 'use_default_preferences'
+};
+
+// Implementation
+const executeWithFallback = async (primaryFunction: Function, fallbackKey: string) => {
+  try {
+    return await primaryFunction();
+  } catch (error) {
+    const fallbackStrategy = fallbackStrategies[fallbackKey];
+    return await executeFallback(fallbackStrategy, error);
+  }
+};
+```
+
+### Performance Monitoring and Metrics
+
+```typescript
+// Agent performance metrics
+interface AgentMetrics {
+  agentName: string;
+  responseTime: number;
+  successRate: number;
+  errorRate: number;
+  throughput: number;
+  resourceUsage: {
+    cpu: number;
+    memory: number;
+    apiCalls: number;
+  };
+  timestamp: Date;
+}
+
+// Health check implementation
+const performHealthCheck = async (agentName: string): Promise<HealthStatus> => {
+  const metrics = await getAgentMetrics(agentName);
+  return {
+    status: metrics.successRate > 0.95 ? 'healthy' : 'degraded',
+    responseTime: metrics.responseTime,
+    lastCheck: new Date(),
+    issues: identifyIssues(metrics)
+  };
+};
+```
+
+## Resources & Documentation
+
+- [React Native Docs](https://reactnative.dev/docs/getting-started)
+- [Expo Documentation](https://docs.expo.dev)
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
+- [Express.js Guide](https://expressjs.com/en/guide/routing.html)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+- [Redis Documentation](https://redis.io/documentation)
+- [BailOut Agents Architecture](./agents/README.md)
+- [Agent Workflow Guide](./agents/WORKFLOW.md)
+
+## Important Reminders
+
+- **NEVER** commit API keys or secrets
+- **ALWAYS** validate user input
+- **ALWAYS** handle errors appropriately
+- **ALWAYS** write tests for new features
+- **ALWAYS** update documentation
+- **PREFER** TypeScript strict mode
+- **PREFER** functional components
+- **PREFER** composition over inheritance
+- **AVOID** any TypeScript type
+- **AVOID** inline styles in React Native

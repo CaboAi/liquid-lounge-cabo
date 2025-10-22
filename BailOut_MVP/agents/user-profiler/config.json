@@ -1,0 +1,338 @@
+{
+  "name": "user-profiler",
+  "model": "claude-sonnet-4-20250514",
+  "temperature": 0.5,
+  "max_tokens": 1500,
+  "description": "Learns user preferences and personalizes bailout experiences through behavioral analysis",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "behavioral_analyzer",
+      "type": "function",
+      "description": "Analyzes user behavior patterns and usage data"
+    },
+    {
+      "name": "preference_learner",
+      "type": "function",
+      "description": "Identifies and adapts to user preferences"
+    },
+    {
+      "name": "pattern_recognizer",
+      "type": "function",
+      "description": "Recognizes successful bailout patterns and contexts"
+    },
+    {
+      "name": "personalization_engine",
+      "type": "function",
+      "description": "Generates personalized recommendations for other agents"
+    },
+    {
+      "name": "privacy_manager",
+      "type": "function",
+      "description": "Manages data collection and privacy compliance"
+    },
+    {
+      "name": "predictive_modeler",
+      "type": "function",
+      "description": "Predicts optimal bailout strategies and user needs"
+    }
+  ],
+  "triggers": [
+    {
+      "source": "call-orchestrator",
+      "event": "bailout_completed",
+      "priority": "medium"
+    },
+    {
+      "source": "mobile_app",
+      "event": "user_feedback_submitted",
+      "priority": "high"
+    },
+    {
+      "source": "scenario-writer",
+      "event": "scenario_performance_data",
+      "priority": "medium"
+    },
+    {
+      "source": "voice-generator",
+      "event": "voice_preference_data",
+      "priority": "medium"
+    },
+    {
+      "source": "scheduler",
+      "event": "daily_analysis_trigger",
+      "priority": "low"
+    }
+  ],
+  "dependencies": [
+    {
+      "service": "user_service",
+      "required": true,
+      "timeout": 2000
+    },
+    {
+      "service": "analytics_service",
+      "required": true,
+      "timeout": 3000
+    },
+    {
+      "service": "privacy_service",
+      "required": true,
+      "timeout": 1000
+    },
+    {
+      "agent": "call-orchestrator",
+      "required": false,
+      "timeout": 2000
+    }
+  ],
+  "learning_enabled": true,
+  "privacy_settings": {
+    "default_consent_level": "minimal",
+    "data_retention_days": 90,
+    "anonymization_enabled": true,
+    "anonymization_delay_hours": 24,
+    "gdpr_compliant": true,
+    "ccpa_compliant": true,
+    "data_minimization": true,
+    "explicit_consent_required": true
+  },
+  "data_collection": {
+    "behavioral_tracking": {
+      "enabled": true,
+      "requires_consent": true,
+      "retention_days": 90,
+      "types": [
+        "usage_patterns",
+        "timing_preferences",
+        "success_rates",
+        "feature_adoption"
+      ]
+    },
+    "preference_learning": {
+      "enabled": true,
+      "requires_consent": false,
+      "retention_days": 365,
+      "types": [
+        "voice_preferences",
+        "scenario_preferences",
+        "urgency_comfort",
+        "communication_style"
+      ]
+    },
+    "context_data": {
+      "enabled": false,
+      "requires_consent": true,
+      "retention_days": 30,
+      "types": [
+        "location_patterns",
+        "time_context",
+        "social_settings",
+        "usage_context"
+      ]
+    },
+    "satisfaction_data": {
+      "enabled": true,
+      "requires_consent": false,
+      "retention_days": 180,
+      "types": [
+        "bailout_ratings",
+        "feature_feedback",
+        "overall_satisfaction",
+        "improvement_suggestions"
+      ]
+    }
+  },
+  "personalization_config": {
+    "update_frequency": {
+      "real_time_updates": true,
+      "daily_pattern_analysis": true,
+      "weekly_model_updates": true,
+      "monthly_deep_analysis": true
+    },
+    "recommendation_weights": {
+      "recent_behavior": 0.6,
+      "historical_patterns": 0.3,
+      "explicit_preferences": 0.1
+    },
+    "learning_thresholds": {
+      "minimum_interactions": 3,
+      "confidence_threshold": 0.7,
+      "pattern_significance": 0.05,
+      "recommendation_accuracy": 0.8
+    }
+  },
+  "behavioral_analysis": {
+    "usage_patterns": {
+      "frequency_analysis": true,
+      "timing_analysis": true,
+      "context_analysis": true,
+      "urgency_analysis": true,
+      "seasonal_analysis": true
+    },
+    "preference_detection": {
+      "voice_persona_learning": true,
+      "scenario_type_learning": true,
+      "timing_preference_learning": true,
+      "communication_style_learning": true
+    },
+    "success_optimization": {
+      "effectiveness_tracking": true,
+      "improvement_identification": true,
+      "optimal_configuration_learning": true,
+      "predictive_success_modeling": true
+    }
+  },
+  "predictive_modeling": {
+    "churn_prediction": {
+      "enabled": true,
+      "model_type": "gradient_boosting",
+      "prediction_window_days": 30,
+      "accuracy_target": 0.85,
+      "features": [
+        "usage_decline",
+        "satisfaction_drop",
+        "support_interactions",
+        "payment_issues",
+        "feature_adoption_rate"
+      ]
+    },
+    "conversion_prediction": {
+      "enabled": true,
+      "model_type": "logistic_regression",
+      "prediction_window_days": 14,
+      "accuracy_target": 0.80,
+      "features": [
+        "usage_frequency",
+        "feature_requests",
+        "satisfaction_scores",
+        "limit_interactions",
+        "social_influence"
+      ]
+    },
+    "satisfaction_prediction": {
+      "enabled": true,
+      "model_type": "random_forest",
+      "prediction_accuracy_target": 0.75,
+      "features": [
+        "scenario_type",
+        "voice_persona",
+        "timing_context",
+        "urgency_level",
+        "user_stress_indicators"
+      ]
+    }
+  },
+  "recommendation_system": {
+    "scenario_recommendations": {
+      "personalization_factors": [
+        "historical_success_rates",
+        "cultural_preferences",
+        "communication_style",
+        "urgency_comfort_level",
+        "timing_patterns"
+      ],
+      "update_trigger": "after_each_bailout",
+      "confidence_threshold": 0.7
+    },
+    "voice_recommendations": {
+      "personalization_factors": [
+        "voice_persona_effectiveness",
+        "emotional_tone_preferences",
+        "believability_scores",
+        "cultural_appropriateness"
+      ],
+      "learning_rate": 0.1,
+      "adaptation_speed": "fast"
+    },
+    "timing_recommendations": {
+      "personalization_factors": [
+        "usage_patterns",
+        "success_correlation",
+        "stress_indicators",
+        "availability_patterns"
+      ],
+      "prediction_horizon_hours": 168,
+      "accuracy_target": 0.8
+    }
+  },
+  "privacy_compliance": {
+    "data_subject_rights": {
+      "access_request_response_hours": 72,
+      "deletion_request_completion_days": 30,
+      "rectification_response_hours": 24,
+      "portability_format": "JSON",
+      "objection_processing_hours": 48
+    },
+    "consent_management": {
+      "granular_consent": true,
+      "consent_withdrawal": true,
+      "consent_tracking": true,
+      "consent_renewal_days": 365
+    },
+    "data_protection": {
+      "encryption_standard": "AES-256",
+      "access_logging": true,
+      "data_breach_notification_hours": 72,
+      "privacy_impact_assessments": true
+    }
+  },
+  "performance": {
+    "target_response_time_ms": 1000,
+    "real_time_update_time_ms": 500,
+    "pattern_analysis_time_ms": 5000,
+    "recommendation_generation_time_ms": 2000,
+    "max_concurrent_analyses": 100,
+    "cache_hit_rate_target": 0.85
+  },
+  "quality_assurance": {
+    "data_quality_checks": {
+      "completeness_threshold": 0.95,
+      "accuracy_validation": true,
+      "outlier_detection": true,
+      "consistency_checks": true
+    },
+    "model_validation": {
+      "cross_validation_folds": 5,
+      "holdout_test_percentage": 0.2,
+      "performance_monitoring": true,
+      "model_drift_detection": true
+    },
+    "recommendation_quality": {
+      "accuracy_tracking": true,
+      "user_satisfaction_correlation": true,
+      "a_b_testing_enabled": true,
+      "continuous_improvement": true
+    }
+  },
+  "monitoring": {
+    "log_level": "info",
+    "metrics_enabled": true,
+    "performance_tracking": true,
+    "privacy_compliance_monitoring": true,
+    "user_satisfaction_tracking": true,
+    "model_performance_monitoring": true,
+    "alert_conditions": {
+      "prediction_accuracy_drop": 0.1,
+      "privacy_violation_detected": true,
+      "data_quality_degradation": 0.05,
+      "user_satisfaction_drop": 0.2
+    }
+  },
+  "feature_flags": {
+    "advanced_ml_models": false,
+    "cross_user_learning": false,
+    "emotional_intelligence": false,
+    "predictive_personalization": false,
+    "federated_learning": false,
+    "differential_privacy": false
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-21",
+    "owner": "bailout-ai-team",
+    "data_classification": "personal_data",
+    "privacy_review_date": "2025-01-21",
+    "next_privacy_review": "2025-07-21"
+  }
+}

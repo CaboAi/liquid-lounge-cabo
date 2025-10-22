@@ -1,0 +1,13 @@
+node_modules
+dist
+build
+coverage
+.turbo
+.expo
+.next
+*.config.js
+*.config.ts
+metro.config.js
+babel.config.js
+jest.config.js
+tailwind.config.js

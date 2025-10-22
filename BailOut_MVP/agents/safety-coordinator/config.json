@@ -1,0 +1,360 @@
+{
+  "name": "safety-coordinator",
+  "model": "claude-sonnet-4-20250514",
+  "temperature": 0.2,
+  "max_tokens": 1000,
+  "description": "Manages safety protocols, emergency contacts, and compliance for user protection",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "risk_assessor",
+      "type": "function",
+      "description": "Evaluates potential safety risks in user situations"
+    },
+    {
+      "name": "emergency_contact_manager",
+      "type": "function",
+      "description": "Manages emergency contacts and notification systems"
+    },
+    {
+      "name": "location_service_manager",
+      "type": "function",
+      "description": "Handles location-based safety features with privacy controls"
+    },
+    {
+      "name": "crisis_detector",
+      "type": "function",
+      "description": "Detects potential crisis situations requiring intervention"
+    },
+    {
+      "name": "compliance_monitor",
+      "type": "function",
+      "description": "Ensures compliance with safety and privacy regulations"
+    },
+    {
+      "name": "emergency_responder",
+      "type": "function",
+      "description": "Coordinates emergency response and crisis intervention"
+    }
+  ],
+  "triggers": [
+    {
+      "source": "call-orchestrator",
+      "event": "high_risk_bailout_request",
+      "priority": "critical"
+    },
+    {
+      "source": "trigger-detector",
+      "event": "emergency_trigger_detected",
+      "priority": "critical"
+    },
+    {
+      "source": "mobile_app",
+      "event": "panic_button_activated",
+      "priority": "critical"
+    },
+    {
+      "source": "mobile_app",
+      "event": "check_in_missed",
+      "priority": "high"
+    },
+    {
+      "source": "location_service",
+      "event": "unsafe_location_detected",
+      "priority": "high"
+    },
+    {
+      "source": "user_service",
+      "event": "emergency_contact_update",
+      "priority": "medium"
+    }
+  ],
+  "dependencies": [
+    {
+      "service": "user_service",
+      "required": true,
+      "timeout": 2000
+    },
+    {
+      "service": "location_service",
+      "required": false,
+      "timeout": 3000
+    },
+    {
+      "service": "notification_service",
+      "required": true,
+      "timeout": 5000
+    },
+    {
+      "service": "legal_compliance_service",
+      "required": true,
+      "timeout": 2000
+    },
+    {
+      "agent": "call-orchestrator",
+      "required": false,
+      "timeout": 3000
+    }
+  ],
+  "safety_features": {
+    "emergency_contacts": {
+      "enabled": true,
+      "max_primary_contacts": 3,
+      "max_secondary_contacts": 5,
+      "max_professional_contacts": 2,
+      "notification_methods": ["sms", "voice_call", "email", "app_notification"],
+      "escalation_timeout_seconds": 600
+    },
+    "location_services": {
+      "enabled": false,
+      "requires_explicit_consent": true,
+      "real_time_sharing": false,
+      "emergency_only_sharing": true,
+      "location_history_retention_hours": 24,
+      "precision_levels": ["approximate", "precise", "exact"]
+    },
+    "check_in_system": {
+      "enabled": false,
+      "requires_user_setup": true,
+      "default_check_in_interval_hours": 4,
+      "missed_check_in_grace_period_minutes": 30,
+      "escalation_enabled": true
+    },
+    "crisis_detection": {
+      "enabled": true,
+      "safe_word_system": true,
+      "panic_button": true,
+      "behavioral_analysis": false,
+      "ai_risk_assessment": true
+    }
+  },
+  "risk_assessment": {
+    "enabled": true,
+    "risk_factors": {
+      "location_based": {
+        "enabled": false,
+        "crime_data_integration": false,
+        "time_based_risk": true,
+        "user_familiarity": true
+      },
+      "contextual": {
+        "time_of_day": true,
+        "social_situation": true,
+        "user_stress_indicators": true,
+        "communication_patterns": false
+      },
+      "behavioral": {
+        "usage_anomalies": false,
+        "pattern_deviations": false,
+        "communication_analysis": false
+      }
+    },
+    "risk_levels": {
+      "low": {
+        "threshold": 0.2,
+        "actions": ["standard_monitoring"],
+        "notifications": []
+      },
+      "medium": {
+        "threshold": 0.5,
+        "actions": ["enhanced_monitoring", "safety_tips"],
+        "notifications": ["user_awareness"]
+      },
+      "high": {
+        "threshold": 0.8,
+        "actions": ["active_monitoring", "check_in_prompt", "emergency_contact_alert"],
+        "notifications": ["user_warning", "emergency_contact_notification"]
+      },
+      "critical": {
+        "threshold": 0.95,
+        "actions": ["immediate_intervention", "emergency_protocols", "location_sharing"],
+        "notifications": ["all_emergency_contacts", "emergency_services_if_authorized"]
+      }
+    }
+  },
+  "emergency_protocols": {
+    "escalation_hierarchy": {
+      "level_1": {
+        "timeout_seconds": 300,
+        "contacts": ["primary_emergency_contacts"],
+        "actions": ["sms_notification", "voice_call"],
+        "required_response": false
+      },
+      "level_2": {
+        "timeout_seconds": 600,
+        "contacts": ["secondary_emergency_contacts"],
+        "actions": ["sms_notification", "voice_call", "email"],
+        "required_response": false
+      },
+      "level_3": {
+        "timeout_seconds": 1800,
+        "contacts": ["professional_support_contacts"],
+        "actions": ["professional_notification"],
+        "required_response": false
+      },
+      "level_4": {
+        "timeout_seconds": 3600,
+        "contacts": ["emergency_services"],
+        "actions": ["emergency_service_contact"],
+        "required_response": true,
+        "requires_explicit_authorization": true
+      }
+    },
+    "crisis_response": {
+      "immediate_actions": [
+        "user_safety_verification",
+        "emergency_contact_notification",
+        "location_sharing_activation",
+        "crisis_documentation"
+      ],
+      "response_team_availability": "24_7",
+      "maximum_response_time_seconds": 180,
+      "documentation_required": true
+    }
+  },
+  "privacy_compliance": {
+    "gdpr_compliance": {
+      "enabled": true,
+      "lawful_basis": "vital_interests_and_consent",
+      "data_subject_rights": true,
+      "data_protection_impact_assessment": true,
+      "privacy_by_design": true
+    },
+    "ccpa_compliance": {
+      "enabled": true,
+      "consumer_rights": true,
+      "opt_out_mechanisms": true,
+      "data_sale_prohibition": true,
+      "disclosure_requirements": true
+    },
+    "consent_management": {
+      "granular_consent": true,
+      "consent_withdrawal": true,
+      "consent_documentation": true,
+      "periodic_consent_renewal": true,
+      "emergency_override_conditions": [
+        "imminent_threat_to_life",
+        "user_incapacitation",
+        "legal_obligation"
+      ]
+    },
+    "data_handling": {
+      "encryption_standard": "AES-256",
+      "access_logging": true,
+      "data_minimization": true,
+      "purpose_limitation": true,
+      "retention_periods": {
+        "emergency_contact_data": "duration_of_account",
+        "location_data": "24_hours_post_incident",
+        "crisis_logs": "7_years_legal_requirement",
+        "consent_records": "7_years_legal_requirement"
+      }
+    }
+  },
+  "legal_compliance": {
+    "duty_to_report": {
+      "enabled": true,
+      "jurisdiction_awareness": true,
+      "mandatory_reporting_conditions": [
+        "child_abuse_indicators",
+        "elder_abuse_indicators",
+        "imminent_threat_to_others",
+        "court_ordered_reporting"
+      ],
+      "professional_consultation": true
+    },
+    "emergency_service_integration": {
+      "authorized_contact": false,
+      "requires_explicit_consent": true,
+      "information_sharing_limits": "minimum_necessary",
+      "liability_protection": true
+    },
+    "documentation_requirements": {
+      "incident_reporting": true,
+      "consent_documentation": true,
+      "action_justification": true,
+      "outcome_tracking": true,
+      "legal_review": "for_complex_cases"
+    }
+  },
+  "performance": {
+    "target_response_time_ms": 30000,
+    "risk_assessment_time_ms": 5000,
+    "emergency_contact_success_rate": 0.95,
+    "false_positive_rate_threshold": 0.02,
+    "availability_target": 0.9999,
+    "concurrent_crisis_handling": 50
+  },
+  "monitoring": {
+    "log_level": "info",
+    "metrics_enabled": true,
+    "safety_metrics_tracking": true,
+    "compliance_monitoring": true,
+    "incident_tracking": true,
+    "performance_monitoring": true,
+    "alert_conditions": {
+      "emergency_response_failure": true,
+      "privacy_violation_detected": true,
+      "compliance_breach": true,
+      "system_availability_drop": 0.999,
+      "false_positive_spike": 0.05
+    }
+  },
+  "security": {
+    "encryption": {
+      "emergency_contact_data": "AES-256",
+      "location_data": "AES-256",
+      "crisis_communications": "end_to_end",
+      "audit_logs": "AES-256"
+    },
+    "access_control": {
+      "role_based_access": true,
+      "multi_factor_authentication": true,
+      "emergency_override_access": true,
+      "audit_logging": true
+    },
+    "data_protection": {
+      "backup_encryption": true,
+      "secure_deletion": true,
+      "breach_detection": true,
+      "incident_response_plan": true
+    }
+  },
+  "integration": {
+    "emergency_services": {
+      "local_911_systems": false,
+      "private_emergency_response": false,
+      "mental_health_crisis_lines": true,
+      "domestic_violence_hotlines": true
+    },
+    "location_services": {
+      "gps_integration": true,
+      "cell_tower_triangulation": false,
+      "wifi_location": false,
+      "bluetooth_beacons": false
+    },
+    "communication_channels": {
+      "sms_gateway": true,
+      "voice_calling": true,
+      "email_service": true,
+      "push_notifications": true,
+      "in_app_messaging": true
+    }
+  },
+  "feature_flags": {
+    "advanced_ai_risk_assessment": false,
+    "predictive_crisis_detection": false,
+    "biometric_monitoring": false,
+    "blockchain_safety_records": false,
+    "federated_safety_learning": false
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-21",
+    "owner": "bailout-safety-team",
+    "data_classification": "highly_sensitive",
+    "legal_review_date": "2025-01-21",
+    "next_legal_review": "2025-04-21",
+    "compliance_certification": "pending"
+  }
+}

@@ -1,0 +1,292 @@
+{
+  "name": "voice-generator",
+  "model": "claude-sonnet-4-20250514",
+  "temperature": 0.4,
+  "max_tokens": 1500,
+  "description": "Generates realistic AI voice content for bailout calls",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "elevenlabs_synthesizer",
+      "type": "function",
+      "description": "Generates voice audio using ElevenLabs API",
+      "timeout": 15000
+    },
+    {
+      "name": "playht_synthesizer",
+      "type": "function",
+      "description": "Alternative voice synthesis using PlayHT API",
+      "timeout": 12000
+    },
+    {
+      "name": "script_processor",
+      "type": "function",
+      "description": "Processes and adapts scenario scripts",
+      "timeout": 2000
+    },
+    {
+      "name": "voice_validator",
+      "type": "function",
+      "description": "Validates audio quality and characteristics",
+      "timeout": 3000
+    },
+    {
+      "name": "cache_manager",
+      "type": "function",
+      "description": "Manages voice clip caching and retrieval",
+      "timeout": 1000
+    }
+  ],
+  "triggers": [
+    {
+      "source": "call-orchestrator",
+      "event": "voice_generation_request",
+      "priority": "high"
+    },
+    {
+      "source": "pre_generation_service",
+      "event": "cache_warming_request",
+      "priority": "low"
+    },
+    {
+      "source": "quality_service",
+      "event": "quality_validation_request",
+      "priority": "medium"
+    }
+  ],
+  "dependencies": [
+    {
+      "service": "elevenlabs_api",
+      "required": true,
+      "timeout": 15000,
+      "fallback": "playht_api"
+    },
+    {
+      "service": "playht_api",
+      "required": false,
+      "timeout": 12000,
+      "fallback": "prerecorded_clips"
+    },
+    {
+      "service": "audio_storage",
+      "required": true,
+      "timeout": 5000
+    },
+    {
+      "service": "cdn_service",
+      "required": false,
+      "timeout": 3000
+    }
+  ],
+  "voice_providers": {
+    "primary": {
+      "name": "elevenlabs",
+      "api_version": "v1",
+      "models": [
+        "eleven_monolingual_v1",
+        "eleven_multilingual_v1",
+        "eleven_turbo_v2"
+      ],
+      "rate_limits": {
+        "requests_per_minute": 60,
+        "characters_per_month": 50000
+      }
+    },
+    "fallback": {
+      "name": "playht",
+      "api_version": "v2",
+      "models": [
+        "PlayHT2.0-turbo",
+        "Play3.0-mini"
+      ],
+      "rate_limits": {
+        "requests_per_minute": 30,
+        "characters_per_month": 25000
+      }
+    }
+  },
+  "voice_personas": {
+    "mom": {
+      "voice_id": "EXAVITQu4vr4xnSDxMaL",
+      "characteristics": {
+        "age_range": "40-55",
+        "tone": "caring",
+        "accent": "american_neutral"
+      },
+      "synthesis_settings": {
+        "stability": 0.85,
+        "similarity_boost": 0.80,
+        "style": 0.60,
+        "speed": 0.95
+      }
+    },
+    "dad": {
+      "voice_id": "pNInz6obpgDQGcFmaJgB",
+      "characteristics": {
+        "age_range": "45-60",
+        "tone": "authoritative",
+        "accent": "american_neutral"
+      },
+      "synthesis_settings": {
+        "stability": 0.90,
+        "similarity_boost": 0.85,
+        "style": 0.40,
+        "speed": 0.90
+      }
+    },
+    "boss": {
+      "voice_id": "21m00Tcm4TlvDq8ikWAM",
+      "characteristics": {
+        "age_range": "35-50",
+        "tone": "professional",
+        "accent": "american_neutral"
+      },
+      "synthesis_settings": {
+        "stability": 0.95,
+        "similarity_boost": 0.85,
+        "style": 0.30,
+        "speed": 1.05
+      }
+    },
+    "friend": {
+      "voice_id": "AZnzlk1XvdvUeBnXmlld",
+      "characteristics": {
+        "age_range": "25-40",
+        "tone": "casual",
+        "accent": "american_neutral"
+      },
+      "synthesis_settings": {
+        "stability": 0.75,
+        "similarity_boost": 0.75,
+        "style": 0.70,
+        "speed": 1.00
+      }
+    },
+    "doctor": {
+      "voice_id": "ErXwobaYiN019PkySvjV",
+      "characteristics": {
+        "age_range": "35-55",
+        "tone": "professional_caring",
+        "accent": "american_neutral"
+      },
+      "synthesis_settings": {
+        "stability": 0.90,
+        "similarity_boost": 0.80,
+        "style": 0.35,
+        "speed": 0.95
+      }
+    },
+    "colleague": {
+      "voice_id": "flq6f7yk4E4fJM5XTYuZ",
+      "characteristics": {
+        "age_range": "30-45",
+        "tone": "professional_friendly",
+        "accent": "american_neutral"
+      },
+      "synthesis_settings": {
+        "stability": 0.80,
+        "similarity_boost": 0.80,
+        "style": 0.50,
+        "speed": 1.00
+      }
+    }
+  },
+  "quality_settings": {
+    "output_format": "mp3",
+    "sample_rate": 22050,
+    "bitrate": 128,
+    "optimization": "streaming"
+  },
+  "performance": {
+    "target_generation_time_ms": 8000,
+    "max_concurrent_requests": 20,
+    "cache_ttl_seconds": {
+      "voice_clips": 86400,
+      "templates": 3600,
+      "personas": -1,
+      "user_preferences": 21600
+    },
+    "retry_attempts": 3,
+    "retry_delay_ms": 2000
+  },
+  "caching": {
+    "enabled": true,
+    "strategy": "multi_level",
+    "storage": {
+      "memory": {
+        "max_size_mb": 256,
+        "ttl_seconds": 1800
+      },
+      "redis": {
+        "ttl_seconds": 86400,
+        "compression": true
+      },
+      "cdn": {
+        "ttl_seconds": 604800,
+        "geographic_distribution": true
+      }
+    },
+    "pre_generation": {
+      "enabled": true,
+      "common_scenarios": [
+        "emergency_medical",
+        "work_meeting",
+        "family_obligation",
+        "transportation_issue"
+      ]
+    }
+  },
+  "quality_assurance": {
+    "validation_enabled": true,
+    "quality_thresholds": {
+      "clarity_score": 7.0,
+      "naturalness_score": 7.5,
+      "emotion_accuracy": 8.0,
+      "duration_tolerance_percent": 15
+    },
+    "auto_retry_on_failure": true,
+    "fallback_to_prerecorded": true
+  },
+  "security": {
+    "encrypt_audio_files": true,
+    "secure_api_communication": true,
+    "data_retention_days": 30,
+    "privacy_compliance": ["GDPR", "CCPA"],
+    "rate_limiting": {
+      "per_user_per_hour": 20,
+      "per_ip_per_minute": 10
+    }
+  },
+  "monitoring": {
+    "log_level": "info",
+    "metrics_enabled": true,
+    "performance_tracking": true,
+    "quality_monitoring": true,
+    "alert_thresholds": {
+      "error_rate_percent": 5.0,
+      "avg_generation_time_ms": 12000,
+      "cache_hit_rate_percent": 70.0
+    }
+  },
+  "fallback_options": {
+    "api_failure": "switch_to_fallback_provider",
+    "quality_failure": "retry_with_adjusted_parameters",
+    "timeout": "use_cached_similar_content",
+    "rate_limit": "queue_and_retry",
+    "critical_failure": "use_prerecorded_emergency_clips"
+  },
+  "script_processing": {
+    "max_length_characters": 500,
+    "natural_language_processing": true,
+    "personalization": {
+      "user_name_insertion": true,
+      "context_adaptation": true,
+      "relationship_formality": true
+    },
+    "speech_optimization": {
+      "add_natural_pauses": true,
+      "pronunciation_optimization": true,
+      "emphasis_markers": true
+    }
+  }
+}

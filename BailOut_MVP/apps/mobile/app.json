@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "BailOut",
+    "slug": "bailout",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.caboai.bailout",
+      "infoPlist": {
+        "NSContactsUsageDescription": "BailOut needs access to your contacts to help you select emergency contacts.",
+        "NSLocationWhenInUseUsageDescription": "BailOut needs your location to provide location-based bail-out scenarios.",
+        "NSMicrophoneUsageDescription": "BailOut needs microphone access for voice-activated features."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.caboai.bailout",
+      "permissions": [
+        "android.permission.RECORD_AUDIO",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.READ_CONTACTS"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-secure-store",
+      "expo-notifications",
+      "expo-av",
+      "expo-location",
+      "expo-contacts"
+    ]
+  }
+}

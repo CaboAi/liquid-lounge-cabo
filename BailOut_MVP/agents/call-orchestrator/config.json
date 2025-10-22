@@ -1,0 +1,143 @@
+{
+  "name": "call-orchestrator",
+  "model": "claude-sonnet-4-20250514",
+  "temperature": 0.3,
+  "max_tokens": 2000,
+  "description": "Central coordinator for bailout call operations",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "scenario_selector",
+      "type": "function",
+      "description": "Selects optimal bailout scenario based on context"
+    },
+    {
+      "name": "voice_request",
+      "type": "function",
+      "description": "Requests voice generation from voice-generator agent"
+    },
+    {
+      "name": "call_executor",
+      "type": "function",
+      "description": "Initiates Twilio call execution"
+    },
+    {
+      "name": "status_monitor",
+      "type": "function",
+      "description": "Monitors and updates call status"
+    },
+    {
+      "name": "user_notifier",
+      "type": "function",
+      "description": "Sends status notifications to user"
+    }
+  ],
+  "triggers": [
+    {
+      "source": "trigger-detector",
+      "event": "validated_trigger",
+      "priority": "high"
+    },
+    {
+      "source": "scheduler",
+      "event": "scheduled_call_time",
+      "priority": "medium"
+    },
+    {
+      "source": "twilio_webhook",
+      "event": "call_status_update",
+      "priority": "medium"
+    }
+  ],
+  "dependencies": [
+    {
+      "agent": "voice-generator",
+      "required": true,
+      "timeout": 15000
+    },
+    {
+      "agent": "scenario-writer",
+      "required": true,
+      "timeout": 5000
+    },
+    {
+      "agent": "payment-handler",
+      "required": true,
+      "timeout": 3000
+    },
+    {
+      "agent": "user-profiler",
+      "required": false,
+      "timeout": 2000
+    },
+    {
+      "agent": "safety-coordinator",
+      "required": false,
+      "timeout": 5000
+    },
+    {
+      "service": "twilio",
+      "required": true,
+      "timeout": 30000
+    },
+    {
+      "service": "user_service",
+      "required": true,
+      "timeout": 5000
+    },
+    {
+      "service": "subscription_service",
+      "required": true,
+      "timeout": 5000
+    }
+  ],
+  "performance": {
+    "target_response_time_ms": 2000,
+    "max_concurrent_calls": 100,
+    "retry_attempts": 3,
+    "retry_delay_ms": 1000,
+    "cache_ttl_seconds": 3600
+  },
+  "security": {
+    "require_authentication": true,
+    "rate_limit_per_user": 10,
+    "rate_limit_window_minutes": 1,
+    "encrypt_context_data": true
+  },
+  "monitoring": {
+    "log_level": "info",
+    "metrics_enabled": true,
+    "health_check_interval_seconds": 30,
+    "alert_on_failure_rate": 0.05
+  },
+  "scenario_weights": {
+    "emergency": 0.9,
+    "professional": 0.8,
+    "social": 0.7,
+    "personal": 0.6,
+    "custom": 1.0
+  },
+  "urgency_thresholds": {
+    "high": {
+      "execute_immediately": true,
+      "max_delay_seconds": 5,
+      "priority_boost": 0.3
+    },
+    "medium": {
+      "execute_immediately": false,
+      "max_delay_seconds": 30,
+      "priority_boost": 0.1
+    },
+    "low": {
+      "execute_immediately": false,
+      "max_delay_seconds": 300,
+      "priority_boost": 0.0
+    }
+  },
+  "fallback_options": {
+    "voice_generation_failure": "use_prerecorded",
+    "twilio_failure": "retry_with_delay",
+    "insufficient_credits": "graceful_decline",
+    "invalid_context": "use_default_scenario"
+  }
+}

@@ -1,0 +1,314 @@
+{
+  "name": "payment-handler",
+  "model": "claude-sonnet-4-20250514",
+  "temperature": 0.3,
+  "max_tokens": 1000,
+  "description": "Manages subscriptions, payments, and revenue optimization for BailOut platform",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "stripe_api",
+      "type": "integration",
+      "description": "Stripe payment processing and subscription management"
+    },
+    {
+      "name": "usage_tracker",
+      "type": "function",
+      "description": "Tracks user usage against subscription limits"
+    },
+    {
+      "name": "conversion_optimizer",
+      "type": "function",
+      "description": "Optimizes freemium to paid conversions"
+    },
+    {
+      "name": "fraud_detector",
+      "type": "function",
+      "description": "Detects and prevents fraudulent payment activity"
+    },
+    {
+      "name": "revenue_analytics",
+      "type": "function",
+      "description": "Generates revenue insights and forecasts"
+    },
+    {
+      "name": "billing_manager",
+      "type": "function",
+      "description": "Handles billing cycles and invoice generation"
+    }
+  ],
+  "triggers": [
+    {
+      "source": "call-orchestrator",
+      "event": "usage_validation_request",
+      "priority": "high"
+    },
+    {
+      "source": "stripe_webhooks",
+      "event": "subscription_event",
+      "priority": "high"
+    },
+    {
+      "source": "mobile_app",
+      "event": "upgrade_request",
+      "priority": "medium"
+    },
+    {
+      "source": "scheduler",
+      "event": "billing_cycle",
+      "priority": "medium"
+    }
+  ],
+  "dependencies": [
+    {
+      "service": "stripe",
+      "required": true,
+      "timeout": 5000
+    },
+    {
+      "service": "user_service",
+      "required": true,
+      "timeout": 2000
+    },
+    {
+      "agent": "user-profiler",
+      "required": false,
+      "timeout": 3000
+    },
+    {
+      "service": "analytics_service",
+      "required": false,
+      "timeout": 5000
+    }
+  ],
+  "subscription_tiers": {
+    "free": {
+      "monthly_limit": 3,
+      "features": ["basic_scenarios", "standard_voices"],
+      "price": 0,
+      "trial_period_days": 30
+    },
+    "pro": {
+      "monthly_limit": "unlimited",
+      "features": ["premium_scenarios", "all_voices", "priority_support", "scheduling"],
+      "price": 9.99,
+      "currency": "USD",
+      "billing_cycle": "monthly"
+    },
+    "premium": {
+      "monthly_limit": "unlimited",
+      "features": ["custom_scenarios", "voice_cloning", "vip_support", "analytics"],
+      "price": 19.99,
+      "currency": "USD",
+      "billing_cycle": "monthly"
+    },
+    "enterprise": {
+      "monthly_limit": "unlimited",
+      "features": ["team_management", "api_access", "dedicated_support", "compliance"],
+      "price": "custom",
+      "billing_cycle": "annual"
+    }
+  },
+  "limits": {
+    "free_tier": {
+      "calls_per_month": 3,
+      "calls_per_day": 1,
+      "concurrent_calls": 1,
+      "scenario_types": ["basic"],
+      "voice_personas": ["standard"]
+    },
+    "pro_tier": {
+      "calls_per_month": "unlimited",
+      "calls_per_day": 20,
+      "concurrent_calls": 3,
+      "scenario_types": ["all"],
+      "voice_personas": ["all"]
+    },
+    "premium_tier": {
+      "calls_per_month": "unlimited",
+      "calls_per_day": 50,
+      "concurrent_calls": 5,
+      "scenario_types": ["all", "custom"],
+      "voice_personas": ["all", "custom"]
+    }
+  },
+  "conversion_optimization": {
+    "triggers": {
+      "usage_threshold": 0.8,
+      "satisfaction_threshold": 4.0,
+      "feature_request_frequency": 3,
+      "social_influence_events": ["friend_upgrade", "referral_signup"]
+    },
+    "messaging": {
+      "usage_based": {
+        "timing": "at_80_percent_usage",
+        "discount": 0.2,
+        "trial_days": 7
+      },
+      "feature_based": {
+        "timing": "on_premium_feature_access",
+        "trial_days": 14,
+        "feature_unlock": "temporary"
+      },
+      "social_based": {
+        "timing": "friend_upgrade_notification",
+        "discount": 0.15,
+        "referral_bonus": true
+      }
+    }
+  },
+  "payment_processing": {
+    "supported_methods": ["card", "paypal", "apple_pay", "google_pay"],
+    "currencies": ["USD", "EUR", "GBP", "CAD", "AUD"],
+    "retry_logic": {
+      "max_attempts": 3,
+      "retry_intervals": [1, 3, 7],
+      "grace_period_days": 7
+    },
+    "fraud_detection": {
+      "enabled": true,
+      "risk_thresholds": {
+        "low": 0.3,
+        "medium": 0.6,
+        "high": 0.8
+      },
+      "actions": {
+        "low": "monitor",
+        "medium": "verify",
+        "high": "block"
+      }
+    }
+  },
+  "billing_cycles": {
+    "monthly": {
+      "billing_day": "subscription_start_date",
+      "proration": true,
+      "grace_period_days": 3
+    },
+    "annual": {
+      "billing_day": "subscription_start_date",
+      "discount": 0.15,
+      "grace_period_days": 7
+    }
+  },
+  "revenue_optimization": {
+    "pricing_experiments": {
+      "enabled": true,
+      "test_duration_days": 30,
+      "traffic_split": 0.1
+    },
+    "churn_prevention": {
+      "warning_signals": [
+        "declining_usage",
+        "support_tickets",
+        "low_satisfaction",
+        "payment_issues"
+      ],
+      "interventions": [
+        "personalized_outreach",
+        "usage_education",
+        "retention_discount",
+        "feature_recommendations"
+      ]
+    },
+    "upselling": {
+      "triggers": [
+        "high_usage_pattern",
+        "feature_requests",
+        "satisfaction_scores",
+        "engagement_metrics"
+      ],
+      "timing": [
+        "post_successful_bailout",
+        "before_hitting_limits",
+        "during_onboarding",
+        "renewal_period"
+      ]
+    }
+  },
+  "analytics_tracking": {
+    "revenue_metrics": [
+      "mrr",
+      "arr",
+      "clv",
+      "cac",
+      "churn_rate",
+      "upgrade_rate",
+      "rpu"
+    ],
+    "conversion_metrics": [
+      "trial_to_paid_rate",
+      "free_to_pro_rate",
+      "pro_to_premium_rate",
+      "time_to_conversion"
+    ],
+    "user_behavior": [
+      "usage_patterns",
+      "feature_adoption",
+      "support_interactions",
+      "satisfaction_scores"
+    ]
+  },
+  "compliance": {
+    "pci_dss": {
+      "level": 1,
+      "audit_frequency": "annual",
+      "certification_required": true
+    },
+    "data_protection": {
+      "gdpr_compliant": true,
+      "ccpa_compliant": true,
+      "data_retention_days": 2555,
+      "consent_management": true
+    },
+    "financial_regulations": {
+      "sox_compliant": false,
+      "revenue_recognition": "subscription_model",
+      "tax_compliance": "automated"
+    }
+  },
+  "performance": {
+    "target_response_time_ms": 3000,
+    "usage_validation_time_ms": 500,
+    "payment_processing_time_ms": 5000,
+    "uptime_target": 0.9995,
+    "concurrent_transactions": 1000
+  },
+  "monitoring": {
+    "log_level": "info",
+    "metrics_enabled": true,
+    "alert_conditions": {
+      "payment_failure_rate": 0.05,
+      "fraud_detection_rate": 0.01,
+      "churn_rate_spike": 0.02,
+      "revenue_target_deviation": 0.1
+    },
+    "business_intelligence": {
+      "dashboard_refresh_minutes": 5,
+      "reporting_frequency": "daily",
+      "forecasting_enabled": true
+    }
+  },
+  "security": {
+    "encryption": {
+      "payment_data": "AES-256",
+      "user_data": "AES-256",
+      "transmission": "TLS-1.3"
+    },
+    "access_control": {
+      "rbac_enabled": true,
+      "mfa_required": true,
+      "session_timeout_minutes": 30
+    },
+    "audit_logging": {
+      "enabled": true,
+      "retention_days": 2555,
+      "compliance_ready": true
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-21",
+    "owner": "bailout-payments-team"
+  }
+}

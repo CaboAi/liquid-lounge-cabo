@@ -1,0 +1,162 @@
+{
+  "name": "scenario-writer",
+  "model": "claude-sonnet-4-20250514",
+  "temperature": 0.9,
+  "max_tokens": 1000,
+  "description": "Dynamic scenario generation for personalized bailout calls",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "template_selector",
+      "type": "function",
+      "description": "Selects appropriate scenario template based on context"
+    },
+    {
+      "name": "scenario_personalizer",
+      "type": "function",
+      "description": "Personalizes scenarios with user-specific details"
+    },
+    {
+      "name": "urgency_calibrator",
+      "type": "function",
+      "description": "Adjusts scenario urgency based on context"
+    },
+    {
+      "name": "cultural_adapter",
+      "type": "function",
+      "description": "Adapts scenarios for cultural context"
+    },
+    {
+      "name": "quality_validator",
+      "type": "function",
+      "description": "Validates scenario quality and appropriateness"
+    }
+  ],
+  "triggers": [
+    {
+      "source": "call-orchestrator",
+      "event": "scenario_request",
+      "priority": "high"
+    },
+    {
+      "source": "scheduler",
+      "event": "template_optimization",
+      "priority": "low"
+    }
+  ],
+  "dependencies": [
+    {
+      "agent": "user-profiler",
+      "required": true,
+      "timeout": 2000
+    },
+    {
+      "service": "user_service",
+      "required": true,
+      "timeout": 1000
+    },
+    {
+      "service": "analytics_service",
+      "required": false,
+      "timeout": 3000
+    }
+  ],
+  "scenario_types": [
+    "emergency",
+    "work",
+    "family",
+    "casual",
+    "safety"
+  ],
+  "personalization": {
+    "enabled": true,
+    "weight": 0.8,
+    "variables": [
+      "userName",
+      "familyMember",
+      "petName",
+      "workPlace",
+      "timeContext",
+      "locationContext"
+    ]
+  },
+  "performance": {
+    "target_response_time_ms": 3000,
+    "template_cache_size": 1000,
+    "max_concurrent_generations": 50,
+    "retry_attempts": 2,
+    "retry_delay_ms": 500
+  },
+  "quality_thresholds": {
+    "minimum_believability_score": 4.0,
+    "context_accuracy_threshold": 0.85,
+    "cultural_sensitivity_required": true,
+    "offensive_content_filter": "strict"
+  },
+  "template_settings": {
+    "total_templates": 200,
+    "proven_templates": 120,
+    "experimental_templates": 50,
+    "seasonal_templates": 20,
+    "cultural_templates": 10,
+    "refresh_cycle_days": 30
+  },
+  "urgency_levels": {
+    "emergency": {
+      "level": 5,
+      "immediate_execution": true,
+      "persona_types": ["family", "medical", "authority"]
+    },
+    "high": {
+      "level": 4,
+      "immediate_execution": true,
+      "persona_types": ["family", "professional", "service"]
+    },
+    "medium": {
+      "level": 3,
+      "immediate_execution": false,
+      "persona_types": ["family", "friend", "professional"]
+    },
+    "low": {
+      "level": 2,
+      "immediate_execution": false,
+      "persona_types": ["friend", "service", "social"]
+    },
+    "scheduled": {
+      "level": 1,
+      "immediate_execution": false,
+      "persona_types": ["family", "friend", "professional"]
+    }
+  },
+  "persona_compatibility": {
+    "family": ["emergency", "personal", "care", "medical"],
+    "professional": ["work", "client", "business", "authority"],
+    "friend": ["social", "support", "casual", "transportation"],
+    "service": ["professional", "utility", "financial", "medical"],
+    "authority": ["emergency", "legal", "safety", "official"]
+  },
+  "cultural_settings": {
+    "default_culture": "neutral",
+    "supported_cultures": ["US", "UK", "CA", "AU", "MX", "ES"],
+    "language_support": ["en", "es", "fr"],
+    "cultural_adaptation": true
+  },
+  "monitoring": {
+    "log_level": "info",
+    "metrics_enabled": true,
+    "success_tracking": true,
+    "user_feedback_integration": true,
+    "a_b_testing_enabled": true
+  },
+  "learning": {
+    "feedback_integration_enabled": true,
+    "preference_learning": true,
+    "success_pattern_analysis": true,
+    "template_optimization_frequency": "weekly"
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2025-01-21",
+    "owner": "bailout-ai-team"
+  }
+}

@@ -1,0 +1,336 @@
+{
+  "name": "trigger-detector",
+  "model": "claude-sonnet-4-20250514",
+  "temperature": 0.2,
+  "max_tokens": 1500,
+  "description": "Monitors and validates user trigger signals for bailout assistance",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "signal_analyzer",
+      "type": "function",
+      "description": "Analyzes incoming trigger signals for authenticity and urgency",
+      "timeout": 3000
+    },
+    {
+      "name": "context_evaluator",
+      "type": "function",
+      "description": "Evaluates environmental and social context for trigger appropriateness",
+      "timeout": 5000
+    },
+    {
+      "name": "voice_processor",
+      "type": "function",
+      "description": "Processes voice cues and keyword detection",
+      "timeout": 8000
+    },
+    {
+      "name": "risk_assessor",
+      "type": "function",
+      "description": "Evaluates risk factors and safety considerations",
+      "timeout": 2000
+    },
+    {
+      "name": "pattern_matcher",
+      "type": "function",
+      "description": "Matches triggers against user patterns and preferences",
+      "timeout": 4000
+    },
+    {
+      "name": "authentication_validator",
+      "type": "function",
+      "description": "Validates user identity and permissions",
+      "timeout": 2000
+    }
+  ],
+  "triggers": [
+    {
+      "source": "mobile_app",
+      "event": "manual_button_press",
+      "priority": "high"
+    },
+    {
+      "source": "mobile_app",
+      "event": "voice_command_detected",
+      "priority": "high"
+    },
+    {
+      "source": "scheduler",
+      "event": "scheduled_trigger_time",
+      "priority": "medium"
+    },
+    {
+      "source": "sms_service",
+      "event": "text_keyword_detected",
+      "priority": "medium"
+    },
+    {
+      "source": "wearable_device",
+      "event": "emergency_button",
+      "priority": "critical"
+    },
+    {
+      "source": "context_monitor",
+      "event": "anomaly_detected",
+      "priority": "low"
+    }
+  ],
+  "dependencies": [
+    {
+      "service": "user_authentication",
+      "required": true,
+      "timeout": 3000
+    },
+    {
+      "service": "location_service",
+      "required": false,
+      "timeout": 5000
+    },
+    {
+      "service": "voice_recognition",
+      "required": false,
+      "timeout": 10000
+    },
+    {
+      "service": "user_profile",
+      "required": true,
+      "timeout": 2000
+    },
+    {
+      "agent": "call-orchestrator",
+      "required": true,
+      "timeout": 1000
+    }
+  ],
+  "detection_methods": {
+    "manual_triggers": {
+      "enabled": true,
+      "validation_required": true,
+      "rate_limit_per_hour": 10,
+      "confirmation_timeout": 30000
+    },
+    "voice_cues": {
+      "enabled": true,
+      "confidence_threshold": 0.85,
+      "supported_languages": ["en-US", "en-GB", "es-ES"],
+      "noise_tolerance": "medium",
+      "speaker_verification": true
+    },
+    "text_triggers": {
+      "enabled": true,
+      "keyword_matching": "strict",
+      "context_analysis": true,
+      "sender_verification": true
+    },
+    "scheduled_triggers": {
+      "enabled": true,
+      "advance_confirmation": true,
+      "context_validation": true,
+      "location_verification": false
+    },
+    "contextual_triggers": {
+      "enabled": false,
+      "confidence_threshold": 0.90,
+      "multiple_signal_required": true,
+      "user_consent_required": true
+    }
+  },
+  "trigger_keywords": {
+    "emergency": {
+      "primary": ["bailout now", "emergency exit", "help me out", "SOS bailout"],
+      "secondary": ["need rescue", "emergency call", "urgent help"],
+      "confidence_boost": 0.2
+    },
+    "casual": {
+      "primary": ["save me", "rescue call", "phone excuse", "bail me out"],
+      "secondary": ["help escape", "need exit", "call me out"],
+      "confidence_boost": 0.1
+    },
+    "professional": {
+      "primary": ["work emergency", "client crisis", "meeting urgent"],
+      "secondary": ["office emergency", "business urgent", "work crisis"],
+      "confidence_boost": 0.15
+    },
+    "code_words": {
+      "customizable": true,
+      "max_phrases": 10,
+      "min_confidence": 0.95
+    }
+  },
+  "validation_criteria": {
+    "authentication": {
+      "user_verification": "required",
+      "device_verification": "preferred",
+      "biometric_verification": "optional"
+    },
+    "rate_limiting": {
+      "triggers_per_hour": 5,
+      "triggers_per_day": 20,
+      "cooldown_period_seconds": 300,
+      "burst_allowance": 3
+    },
+    "context_requirements": {
+      "location_verification": "preferred",
+      "time_appropriateness": "required",
+      "social_context": "optional",
+      "historical_patterns": "considered"
+    },
+    "signal_integrity": {
+      "min_confidence_score": 0.75,
+      "max_noise_level": 0.3,
+      "signal_freshness_seconds": 60,
+      "duplicate_prevention": true
+    }
+  },
+  "urgency_assessment": {
+    "factors": {
+      "trigger_type_weight": 0.3,
+      "keyword_urgency_weight": 0.25,
+      "context_weight": 0.2,
+      "user_history_weight": 0.15,
+      "time_factors_weight": 0.1
+    },
+    "thresholds": {
+      "low": 0.3,
+      "medium": 0.6,
+      "high": 0.8,
+      "critical": 0.95
+    },
+    "modifiers": {
+      "first_time_user": 0.1,
+      "late_night_hours": 0.2,
+      "unknown_location": 0.15,
+      "emergency_keywords": 0.3
+    }
+  },
+  "risk_factors": {
+    "location_based": {
+      "unfamiliar_location": 0.2,
+      "high_crime_area": 0.3,
+      "isolated_location": 0.25,
+      "public_transport": 0.1
+    },
+    "temporal": {
+      "late_night_hours": 0.2,
+      "unusual_timing": 0.15,
+      "prolonged_stay": 0.1,
+      "work_hours_trigger": -0.1
+    },
+    "behavioral": {
+      "first_time_user": 0.15,
+      "frequent_activations": -0.2,
+      "panic_indicators": 0.3,
+      "normal_pattern_deviation": 0.2
+    },
+    "social_context": {
+      "alone_with_stranger": 0.25,
+      "large_group_setting": 0.1,
+      "business_meeting": -0.15,
+      "social_event": -0.1
+    }
+  },
+  "safety_protocols": {
+    "emergency_escalation": {
+      "enabled": true,
+      "risk_threshold": 0.8,
+      "auto_contact_emergency": false,
+      "emergency_contacts_notify": true
+    },
+    "abuse_prevention": {
+      "pattern_monitoring": true,
+      "account_flagging": true,
+      "automated_restrictions": true,
+      "human_review_threshold": 10
+    },
+    "privacy_protection": {
+      "data_encryption": true,
+      "location_obfuscation": true,
+      "automatic_data_deletion": true,
+      "retention_period_days": 30
+    }
+  },
+  "performance": {
+    "target_detection_time_ms": 1500,
+    "max_concurrent_detections": 500,
+    "signal_processing_timeout": 10000,
+    "context_analysis_timeout": 8000,
+    "batch_processing_enabled": true
+  },
+  "machine_learning": {
+    "pattern_recognition": {
+      "enabled": true,
+      "learning_rate": 0.01,
+      "model_update_frequency": "daily",
+      "personalization_enabled": true
+    },
+    "anomaly_detection": {
+      "enabled": true,
+      "sensitivity": "medium",
+      "baseline_period_days": 14,
+      "alert_threshold": 2.5
+    },
+    "continuous_improvement": {
+      "feedback_integration": true,
+      "success_rate_tracking": true,
+      "false_positive_learning": true,
+      "context_optimization": true
+    }
+  },
+  "monitoring": {
+    "log_level": "info",
+    "metrics_enabled": true,
+    "performance_tracking": true,
+    "error_tracking": true,
+    "alert_thresholds": {
+      "false_positive_rate": 0.05,
+      "detection_latency_ms": 3000,
+      "error_rate": 0.02,
+      "queue_depth": 100
+    }
+  },
+  "fallback_options": {
+    "authentication_failure": "allow_with_reduced_confidence",
+    "context_unavailable": "proceed_with_basic_validation",
+    "voice_recognition_failure": "fallback_to_manual",
+    "system_overload": "queue_and_delay",
+    "critical_failure": "emergency_bypass_mode"
+  },
+  "customization": {
+    "user_configurable": {
+      "detection_sensitivity": true,
+      "trigger_methods": true,
+      "custom_keywords": true,
+      "emergency_contacts": true,
+      "privacy_settings": true
+    },
+    "admin_configurable": {
+      "rate_limits": true,
+      "validation_thresholds": true,
+      "safety_protocols": true,
+      "monitoring_settings": true,
+      "ml_parameters": true
+    }
+  },
+  "integration": {
+    "mobile_sdk": {
+      "version": "1.0",
+      "platforms": ["iOS", "Android"],
+      "offline_mode": true
+    },
+    "wearable_devices": {
+      "apple_watch": true,
+      "android_wear": true,
+      "fitness_trackers": false
+    },
+    "smart_home": {
+      "alexa_integration": false,
+      "google_assistant": false,
+      "homekit": false
+    },
+    "third_party": {
+      "calendar_apps": true,
+      "messaging_apps": false,
+      "social_media": false
+    }
+  }
+}
