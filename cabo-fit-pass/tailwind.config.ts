@@ -9,6 +9,7 @@ const config: Config = {
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './lib/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   
   // Prefix for all Tailwind classes (optional)
@@ -59,18 +60,31 @@ const config: Config = {
           foreground: 'var(--card-foreground)',
         },
         // Custom colors for Cabo Fit Pass brand
-        brand: {
-          50: '#f0f9ff',
-          100: '#e0f2fe',
-          200: '#bae6fd',
-          300: '#7dd3fc',
-          400: '#38bdf8',
-          500: '#0ea5e9',
-          600: '#0284c7',
-          700: '#0369a1',
+        'cabo-gold': {
+          DEFAULT: '#FF9F43',
+          50:  '#FFF5EB',
+          100: '#FFEAD6',
+          200: '#FFD5AD',
+          300: '#FFBF85',
+          400: '#FFAF5C',
+          500: '#FF9F43',
+          600: '#FF8510',
+          700: '#CC6800',
+          800: '#994E00',
+          900: '#663400',
+        },
+        'ocean-blue': {
+          DEFAULT: '#0EA5E9',
+          50:  '#F0F9FF',
+          100: '#E0F2FE',
+          200: '#BAE6FD',
+          300: '#7DD3FC',
+          400: '#38BDF8',
+          500: '#0EA5E9',
+          600: '#0284C7',
+          700: '#0369A1',
           800: '#075985',
-          900: '#0c4a6e',
-          950: '#082f49',
+          900: '#0C4A6E',
         },
         success: {
           50: '#f0fdf4',
@@ -109,8 +123,8 @@ const config: Config = {
       
       // Typography
       fontFamily: {
-        sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],
-        mono: ['var(--font-geist-mono)', 'Consolas', 'monospace'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-roboto-mono)', 'Consolas', 'monospace'],
       },
       
       fontSize: {
