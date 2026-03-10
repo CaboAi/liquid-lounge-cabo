@@ -37,7 +37,7 @@
 Plans:
 - [x] 01-01-PLAN.md — Write and apply canonical migrations (001_schema, 002_rls, 003_indexes, 004_seed) — COMPLETE 2026-03-10 (db push deferred: Supabase project unreachable)
 - [ ] 01-02-PLAN.md — Auth pages: Google OAuth, sign-out route, reset-password page + auth unit tests
-- [ ] 01-03-PLAN.md — Auto-profile-creation trigger + RLS unit tests
+- [x] 01-03-PLAN.md — Auto-profile-creation trigger + RLS unit tests — tasks COMPLETE 2026-03-10 (checkpoint:human-verify pending; db push deferred: migration history mismatch)
 
 ---
 
