@@ -1,24 +1,38 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
+const mockRpc = vi.fn().mockResolvedValue({ data: null, error: null })
+const mockMaybySingle = vi.fn().mockResolvedValue({ data: null, error: null })
+const mockSingle = vi.fn().mockResolvedValue({ data: null, error: null })
+const mockEq = vi.fn()
+const mockSelect = vi.fn()
+const mockFrom = vi.fn()
+
+// Build the chain: from().select().eq().maybeSingle() / single()
+mockEq.mockReturnValue({ maybeSingle: mockMaybySingle, single: mockSingle, eq: mockEq })
+mockSelect.mockReturnValue({ eq: mockEq, maybeSingle: mockMaybySingle, single: mockSingle })
+mockFrom.mockReturnValue({ select: mockSelect })
+
 vi.mock('@/lib/stripe', () => ({
   stripe: { webhooks: { constructEvent: vi.fn() } },
 }))
 
 vi.mock('@supabase/supabase-js', () => ({
   createClient: vi.fn(() => ({
-    from: vi.fn(() => ({
-      select: vi.fn().mockReturnThis(),
-      eq: vi.fn().mockReturnThis(),
-      maybeSingle: vi.fn().mockResolvedValue({ data: null, error: null }),
-      single: vi.fn().mockResolvedValue({ data: null, error: null }),
-    })),
-    rpc: vi.fn().mockResolvedValue({ data: null, error: null }),
+    from: mockFrom,
+    rpc: mockRpc,
   })),
 }))
 
 describe('POST /api/webhooks/stripe', () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    // Re-setup chain after clearAllMocks
+    mockEq.mockReturnValue({ maybeSingle: mockMaybySingle, single: mockSingle, eq: mockEq })
+    mockSelect.mockReturnValue({ eq: mockEq, maybeSingle: mockMaybySingle, single: mockSingle })
+    mockFrom.mockReturnValue({ select: mockSelect })
+    mockRpc.mockResolvedValue({ data: null, error: null })
+    mockMaybySingle.mockResolvedValue({ data: null, error: null })
+    mockSingle.mockResolvedValue({ data: null, error: null })
   })
 
   it('returns 400 when stripe-signature is invalid', async () => {
@@ -41,19 +55,9 @@ describe('POST /api/webhooks/stripe', () => {
 
   it('returns 200 and calls add_credits RPC on checkout.session.completed', async () => {
     const { stripe } = await import('@/lib/stripe')
-    const { createClient } = await import('@supabase/supabase-js')
 
-    const mockRpc = vi.fn().mockResolvedValue({ data: null, error: null })
-    const mockMaybeSingle = vi.fn().mockResolvedValue({ data: null, error: null })
-    ;(createClient as ReturnType<typeof vi.fn>).mockReturnValue({
-      from: vi.fn(() => ({
-        select: vi.fn().mockReturnThis(),
-        eq: vi.fn().mockReturnThis(),
-        maybeSingle: mockMaybeSingle,
-        single: vi.fn().mockResolvedValue({ data: null, error: null }),
-      })),
-      rpc: mockRpc,
-    })
+    // No existing transaction (idempotency check returns null)
+    mockMaybySingle.mockResolvedValue({ data: null, error: null })
 
     const fakeSession = {
       id: 'cs_test_123',
@@ -85,18 +89,11 @@ describe('POST /api/webhooks/stripe', () => {
 
   it('returns 200 without calling add_credits when reference_id already exists (idempotency guard)', async () => {
     const { stripe } = await import('@/lib/stripe')
-    const { createClient } = await import('@supabase/supabase-js')
 
-    const mockRpc = vi.fn().mockResolvedValue({ data: null, error: null })
-    const existingTransaction = { id: 'txn_existing', reference_id: 'cs_test_duplicate' }
-    ;(createClient as ReturnType<typeof vi.fn>).mockReturnValue({
-      from: vi.fn(() => ({
-        select: vi.fn().mockReturnThis(),
-        eq: vi.fn().mockReturnThis(),
-        maybeSingle: vi.fn().mockResolvedValue({ data: existingTransaction, error: null }),
-        single: vi.fn().mockResolvedValue({ data: null, error: null }),
-      })),
-      rpc: mockRpc,
+    // Existing transaction found
+    mockMaybySingle.mockResolvedValue({
+      data: { id: 'txn_existing', reference_id: 'cs_test_duplicate' },
+      error: null,
     })
 
     const fakeSession = {
@@ -124,35 +121,26 @@ describe('POST /api/webhooks/stripe', () => {
 
   it('returns 200 and calls add_credits RPC on invoice.paid when subscription and plan are found', async () => {
     const { stripe } = await import('@/lib/stripe')
-    const { createClient } = await import('@supabase/supabase-js')
 
-    const mockRpc = vi.fn().mockResolvedValue({ data: null, error: null })
-
-    const subscriptionData = { user_id: 'user-xyz', plan_id: 'plan-2' }
-    const planData = { credits: 20 }
-
-    let fromCallCount = 0
-    ;(createClient as ReturnType<typeof vi.fn>).mockReturnValue({
-      from: vi.fn(() => {
-        fromCallCount++
-        const callNum = fromCallCount
-        return {
-          select: vi.fn().mockReturnThis(),
-          eq: vi.fn().mockReturnThis(),
-          maybeSingle: vi.fn().mockResolvedValue(
-            callNum === 1 ? { data: subscriptionData, error: null } : { data: null, error: null }
-          ),
-          single: vi.fn().mockResolvedValue(
-            callNum === 2 ? { data: planData, error: null } : { data: null, error: null }
-          ),
-        }
-      }),
-      rpc: mockRpc,
+    // First maybeSingle: subscription found
+    // Second single: plan found
+    mockMaybySingle.mockResolvedValue({
+      data: { user_id: 'user-xyz', plan_id: 'plan-2' },
+      error: null,
+    })
+    mockSingle.mockResolvedValue({
+      data: { credits: 20 },
+      error: null,
     })
 
+    // Stripe API 2026-02-25.clover: subscription info moved to invoice.parent.subscription_details
     const fakeInvoice = {
       id: 'inv_test_456',
-      subscription: 'sub_stripe_789',
+      parent: {
+        subscription_details: {
+          subscription: 'sub_stripe_789',
+        },
+      },
     }
 
     ;(stripe.webhooks.constructEvent as ReturnType<typeof vi.fn>).mockReturnValue({
