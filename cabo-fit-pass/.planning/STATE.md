@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: Not started
+current_plan: Plan 02 (03-02-PLAN.md)
 status: unknown
-last_updated: "2026-03-10T22:35:46.644Z"
+last_updated: "2026-03-10T22:37:25.724Z"
 progress:
   total_phases: 5
   completed_phases: 2
   total_plans: 10
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -26,8 +26,8 @@ See: .planning/PROJECT.md (updated 2026-03-09)
 **Phase 3: Booking Engine + Stripe**
 Goal: Users can book classes atomically, cancel with credit refund, and purchase credit packs via Stripe.
 
-**Current Plan:** Plan 02 (03-02-PLAN.md)
-**Last session stopped at:** Completed 03-01-PLAN.md — Atomic Booking RPC + useBookClass Mutation (2026-03-10)
+**Current Plan:** Plan 04 (03-04-PLAN.md)
+**Last session stopped at:** Completed 03-02-PLAN.md — Cancel Booking RPC + useCancelBooking + useTransactions (2026-03-10)
 
 ## Phase Status
 
@@ -36,7 +36,7 @@ Goal: Users can book classes atomically, cancel with credit refund, and purchase
 | 0 | Foundation | ✓ Complete |
 | 1 | Schema + Auth | ✓ Complete (3/3 plans done) |
 | 2 | Component System + Data Layer | ✓ Complete (3/3 plans done) |
-| 3 | Booking Engine + Stripe | ◑ In Progress (1/4 plans done) |
+| 3 | Booking Engine + Stripe | ◑ In Progress (3/4 plans done) |
 | 4 | Studio Partner Portal | ○ Pending |
 | 5 | Quality + Ship | ○ Pending |
 
@@ -168,4 +168,6 @@ Goal: Users can book classes atomically, cancel with credit refund, and purchase
 | Phase 02-component-system-data-layer P01 | 8 | 2 tasks | 3 files |
 | Phase 02-component-system-data-layer P02 | 18 | 2 tasks | 11 files |
 | Phase 03-booking-engine-stripe P01 | 9 | 3 tasks | 7 files |
+| Phase 03-booking-engine-stripe P03-03 | 25 | 2 tasks | 5 files |
+| Phase 03-booking-engine-stripe P03-02 | 15 | 2 tasks | 8 files |
 

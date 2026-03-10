@@ -13,7 +13,7 @@
 | 0 | Foundation | Build passes, CI green, auth scaffolded | ✓ Complete | Done |
 | 1 | Schema + Auth | Complete    | 2026-03-10 | ✓ Complete |
 | 2 | Component System + Data Layer | Complete    | 2026-03-10 | ✓ Complete |
-| 3 | 1/4 | In Progress|  | Week 6–7 |
+| 3 | 2/4 | In Progress|  | Week 6–7 |
 | 4 | Studio Partner Portal | Studio owner can manage classes, view real analytics | STUD-01–05 | Week 8–9 |
 | 5 | Quality + Ship | All tests pass, Lighthouse ≥90, email notifications sent | NOTF-01–03, QUAL-01–05 | Week 10 |
 
@@ -77,7 +77,7 @@ Plans:
 5. Cancel <2 hours before → no refund → UI shows "cancellation window passed"
 
 **Plans:**
-1/4 plans executed
+2/4 plans executed
 - 3.2: Create Supabase Edge Function `cancel-booking` (refund window check + credit refund)
 - 3.3: Implement Stripe checkout session API route + webhook handler (`/api/stripe/create-checkout-session`, `/api/webhooks/stripe`)
 - 3.4: Wire BookingModal and CreditPurchaseModal to real Edge Functions with optimistic updates
