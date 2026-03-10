@@ -54,10 +54,12 @@ Plans:
 4. Credit balance pulses orange when ≤2 credits
 5. Tailwind config has Cabo Gold (#FF9F43) as primary, Ocean Blue (#0EA5E9) as secondary
 
-**Plans:**
-- 2.1: Update tailwind.config.ts with full Tropical Sunset design system + Inter/Roboto Mono fonts
-- 2.2: Build canonical components (class-card, booking-card, credit-balance, studio-card, mobile-bottom-nav)
-- 2.3: Implement TanStack Query hooks (use-classes, use-bookings, use-credits, use-profile) with filters
+**Plans:** 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Tailwind design system + Inter/Roboto Mono font migration (UI-01, UI-02)
+- [ ] 02-02-PLAN.md — Canonical components: class-card, credit-balance, booking-card, studio-card, mobile-bottom-nav, /classes page (CLASS-02, CLASS-04, UI-03, UI-04, UI-05)
+- [ ] 02-03-PLAN.md — TanStack Query hooks: use-classes, use-bookings, use-credits, use-profile + ClassesClient wiring (CLASS-01, CLASS-02, CLASS-03, CLASS-04, UI-04)
 
 ---
 
@@ -125,4 +127,4 @@ Plans:
 
 ---
 
-*Created: 2026-03-09 | Phase 0 complete | Phase 1 planned 2026-03-09*
+*Created: 2026-03-09 | Phase 0 complete | Phase 1 planned 2026-03-09 | Phase 2 planned 2026-03-10*
