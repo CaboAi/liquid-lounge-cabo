@@ -33,9 +33,9 @@
 
 ### Booking Engine
 
-- [ ] **BOOK-01**: User can book a class (atomic: capacity check + credit debit in one transaction)
-- [ ] **BOOK-02**: System prevents double-booking (same user, same class)
-- [ ] **BOOK-03**: System prevents overbooking (max_capacity enforced)
+- [x] **BOOK-01**: User can book a class (atomic: capacity check + credit debit in one transaction)
+- [x] **BOOK-02**: System prevents double-booking (same user, same class)
+- [x] **BOOK-03**: System prevents overbooking (max_capacity enforced)
 - [ ] **BOOK-04**: User can cancel a booking ≥2 hours before class start
 - [ ] **BOOK-05**: Credits are refunded on eligible cancellation
 - [ ] **BOOK-06**: User can view upcoming and past bookings

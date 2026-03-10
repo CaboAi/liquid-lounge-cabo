@@ -4,12 +4,12 @@ milestone: v1.0
 milestone_name: milestone
 current_plan: Not started
 status: unknown
-last_updated: "2026-03-10T19:16:38.935Z"
+last_updated: "2026-03-10T22:35:46.644Z"
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 10
+  completed_plans: 7
 ---
 
 # Project State
@@ -23,11 +23,11 @@ See: .planning/PROJECT.md (updated 2026-03-09)
 
 ## Current Phase
 
-**Phase 1: Schema + Auth**
-Goal: Real users can sign up, verify email, sign in, and their data is secure behind RLS.
+**Phase 3: Booking Engine + Stripe**
+Goal: Users can book classes atomically, cancel with credit refund, and purchase credit packs via Stripe.
 
-**Current Plan:** Not started
-**Last session stopped at:** Completed 02-03-PLAN.md — TanStack Query hooks + ClassesClient data layer (2026-03-10)
+**Current Plan:** Plan 02 (03-02-PLAN.md)
+**Last session stopped at:** Completed 03-01-PLAN.md — Atomic Booking RPC + useBookClass Mutation (2026-03-10)
 
 ## Phase Status
 
@@ -36,7 +36,7 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 | 0 | Foundation | ✓ Complete |
 | 1 | Schema + Auth | ✓ Complete (3/3 plans done) |
 | 2 | Component System + Data Layer | ✓ Complete (3/3 plans done) |
-| 3 | Booking Engine + Stripe | ○ Pending |
+| 3 | Booking Engine + Stripe | ◑ In Progress (1/4 plans done) |
 | 4 | Studio Partner Portal | ○ Pending |
 | 5 | Quality + Ship | ○ Pending |
 
@@ -104,6 +104,19 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 - Auto-fix Rule 1: button "Full" text collision with span — changed to "Class Full"
 - Commits: 6da60ef (RED tests), 7d1ec02 (GREEN implementations)
 
+## Phase 3 Plan 01 Completion Notes (2026-03-10)
+
+- book_class PL/pgSQL function created in 006_rpc.sql: SECURITY DEFINER, 7 atomic steps, SELECT FOR UPDATE
+- 4 pure booking logic functions: isClassFull, isAlreadyBooked, isCancellationAllowed, computeNewCredits
+- lib/booking-logic.spec.ts: 12 tests (parameterized + fast-check fc.nat() property test) — all GREEN
+- useBookClass TanStack Query v5 mutation: RPC call, error code mapping, optimistic rollback, cache invalidation
+- hooks/use-book-class.spec.ts: 4 tests (success + 3 error codes) — all GREEN
+- lib/booking-errors.ts: BookingErrorCode type (6 codes) + ERROR_MESSAGES record
+- 008_rpc_grant.sql: REVOKE PUBLIC + GRANT authenticated on book_class
+- fast-check 4.6.0 installed as devDependency
+- 69 unit tests pass (all tests owned by 03-01 green; 1 pre-existing stripe-webhook test deferred to 03-03)
+- Commits: 858da63 (RED→GREEN booking-logic), 2d589eb (useBookClass hook), 30f2ce6 (SQL migration)
+
 ## Phase 2 Plan 01 Completion Notes (2026-03-10)
 
 - cabo-gold (#FF9F43) and ocean-blue (#0EA5E9) named color scales replace brand placeholder
@@ -131,6 +144,9 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 | 2026-03-10 | Google OAuth redirectTo uses window.location.origin for portable localhost and production URL support |
 | 2026-03-10 | Sign-out route is POST-only to prevent CSRF via GET — callers must use a form or fetch |
 | 2026-03-10 | Reset-password validates password match and minimum 8 chars client-side before calling supabase.auth.updateUser |
+| 2026-03-10 | fast-check fc.nat() for computeNewCredits property test — natural numbers guarantee non-negative sum without special-casing negatives |
+| 2026-03-10 | 006_rpc.sql contains ONLY book_class (not add_credits) to prevent parallel write conflict with Plan 03-03 which owns 007_add_credits.sql |
+| 2026-03-10 | SECURITY DEFINER SET search_path = '' required in book_class so INSERT into credit_transactions succeeds (no authenticated INSERT RLS policy) |
 
 ## Blockers / Open Items
 
@@ -151,4 +167,5 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 *Last updated: 2026-03-10 after Phase 1 Plan 02 completion (all Phase 1 plans complete)*
 | Phase 02-component-system-data-layer P01 | 8 | 2 tasks | 3 files |
 | Phase 02-component-system-data-layer P02 | 18 | 2 tasks | 11 files |
+| Phase 03-booking-engine-stripe P01 | 9 | 3 tasks | 7 files |
 
