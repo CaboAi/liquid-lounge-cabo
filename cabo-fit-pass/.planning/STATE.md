@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 02-03
+current_plan: 03-01
 status: in_progress
-last_updated: "2026-03-10T19:04:55.731Z"
+last_updated: "2026-03-10T20:00:00.000Z"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 6
-  completed_plans: 5
+  completed_plans: 6
 ---
 
 # Project State
@@ -26,8 +26,8 @@ See: .planning/PROJECT.md (updated 2026-03-09)
 **Phase 1: Schema + Auth**
 Goal: Real users can sign up, verify email, sign in, and their data is secure behind RLS.
 
-**Current Plan:** 02-02
-**Last session stopped at:** Completed 02-02-PLAN.md — canonical component library (2026-03-10)
+**Current Plan:** 03-01
+**Last session stopped at:** Completed 02-03-PLAN.md — TanStack Query hooks + ClassesClient data layer (2026-03-10)
 
 ## Phase Status
 
@@ -35,7 +35,7 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 |-------|------|--------|
 | 0 | Foundation | ✓ Complete |
 | 1 | Schema + Auth | ✓ Complete (3/3 plans done) |
-| 2 | Component System + Data Layer | ~ In Progress (2/3) |
+| 2 | Component System + Data Layer | ✓ Complete (3/3 plans done) |
 | 3 | Booking Engine + Stripe | ○ Pending |
 | 4 | Studio Partner Portal | ○ Pending |
 | 5 | Quality + Ship | ○ Pending |
@@ -80,6 +80,18 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 - Commits: fcef2b6 (trigger SQL), 9f8f6c6 (rls tests)
 - Checkpoint: human-verify pending
 
+## Phase 2 Plan 03 Completion Notes (2026-03-10)
+
+- Four TanStack Query v5 hooks created: use-classes, use-bookings, use-credits, use-profile
+- All hooks use queryOptions factory pattern with typed queryKeys
+- createClient() called inside queryFn (SSR safety); staleTime 30s classes / 60s profile+credits
+- ClassesClient wired to useClasses(filters): skeleton/error/empty/data branches implemented
+- spots_remaining computed from max_capacity - bookings[0].count (CLASS-04)
+- ClassFilters supports class_type, difficulty_level, studio_id, from/to (CLASS-03 weekly range)
+- Auto-fix Rule 1: ClassWithRelations type cast added to handle Supabase joined result (TypeScript inferred never)
+- 49 unit tests pass (7 new); pnpm typecheck + pnpm build clean
+- Commits: ea14b52 (RED tests), d852190 (GREEN hooks + ClassesClient)
+
 ## Phase 2 Plan 02 Completion Notes (2026-03-10)
 
 - ClassCard replaced entirely: uses credit_cost/scheduled_at/spots_remaining (DB column names), isPending skeleton
@@ -104,6 +116,10 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 
 | Date | Decision |
 |------|----------|
+| 2026-03-10 | createClient() called inside queryFn (not module level) for SSR safety across all 4 hooks |
+| 2026-03-10 | staleTime 30s for classes (changes occasionally), 60s for profile/credits (changes rarely) |
+| 2026-03-10 | ClassWithRelations type cast in ClassesClient resolves TypeScript `never` inference on Supabase joined queries |
+| 2026-03-10 | instructor_name left empty string in ClassesClient pending Phase 3 instructors table join |
 | 2026-03-10 | ClassCard button text "Class Full" (not "Full") avoids duplicate text nodes; spots_remaining is a computed prop (max_capacity - confirmed_count), not a DB column |
 | 2026-03-10 | cabo-gold (#FF9F43) and ocean-blue (#0EA5E9) replace brand placeholder; Inter/Roboto Mono via CSS variables on html element — required for Tailwind var() fontFamily resolution |
 | 2026-03-10 | credit_transactions has no authenticated INSERT/UPDATE policy — enforces audit log immutability at DB level matching Update: Record<string, never> in types.ts |
@@ -129,6 +145,7 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 | 01-schema-auth | 03 | 2 min | 2/2 | 2 |
 | 02-component-system-data-layer | 01 | 8 min | 2/2 | 3 |
 | 02-component-system-data-layer | 02 | 18 min | 2/2 | 11 |
+| 02-component-system-data-layer | 03 | 15 min | 2/2 | 7 |
 
 ---
 *Last updated: 2026-03-10 after Phase 1 Plan 02 completion (all Phase 1 plans complete)*
