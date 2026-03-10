@@ -58,8 +58,8 @@
 
 ### UI & Design System
 
-- [ ] **UI-01**: Tailwind config matches Tropical Sunset design system (Cabo Gold #FF9F43, Ocean Blue #0EA5E9)
-- [ ] **UI-02**: Inter + Roboto Mono fonts loaded
+- [x] **UI-01**: Tailwind config matches Tropical Sunset design system (Cabo Gold #FF9F43, Ocean Blue #0EA5E9)
+- [x] **UI-02**: Inter + Roboto Mono fonts loaded
 - [ ] **UI-03**: Mobile bottom nav (Browse, Bookings, Credits, Profile) works at 375px
 - [ ] **UI-04**: All views have loading / error / empty states
 - [ ] **UI-05**: Credit balance pulses when low (≤2 credits)
