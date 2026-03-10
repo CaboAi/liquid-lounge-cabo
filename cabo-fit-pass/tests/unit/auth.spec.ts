@@ -138,7 +138,7 @@ describe('ResetPasswordPage', () => {
     )
     render(React.createElement(ResetPasswordPage))
 
-    expect(screen.getByLabelText(/new password/i)).toBeDefined()
+    expect(screen.getByLabelText(/^new password$/i)).toBeDefined()
     expect(
       screen.getByRole('button', { name: /update password/i })
     ).toBeDefined()
