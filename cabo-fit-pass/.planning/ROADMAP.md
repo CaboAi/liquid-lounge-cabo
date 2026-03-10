@@ -11,7 +11,7 @@
 | # | Phase | Goal | Requirements | Est. Effort |
 |---|-------|------|--------------|-------------|
 | 0 | Foundation | Build passes, CI green, auth scaffolded | ✓ Complete | Done |
-| 1 | Schema + Auth | Real sign-up/sign-in, secure DB with RLS | AUTH-01–06, DB-01–07 | Week 2–3 |
+| 1 | Schema + Auth | Real sign-up/sign-in, secure DB with RLS | AUTH-01–06, DB-01–07 | ✓ Complete |
 | 2 | Component System + Data Layer | All views load real data via TanStack Query | CLASS-01–04, UI-01–05 | Week 4–5 |
 | 3 | Booking Engine + Stripe | Credits purchasable, booking atomic, cancel/refund works | BOOK-01–06, CRED-01–05 | Week 6–7 |
 | 4 | Studio Partner Portal | Studio owner can manage classes, view real analytics | STUD-01–05 | Week 8–9 |
@@ -36,8 +36,8 @@
 
 Plans:
 - [x] 01-01-PLAN.md — Write and apply canonical migrations (001_schema, 002_rls, 003_indexes, 004_seed) — COMPLETE 2026-03-10 (db push deferred: Supabase project unreachable)
-- [ ] 01-02-PLAN.md — Auth pages: Google OAuth, sign-out route, reset-password page + auth unit tests
-- [x] 01-03-PLAN.md — Auto-profile-creation trigger + RLS unit tests — tasks COMPLETE 2026-03-10 (checkpoint:human-verify pending; db push deferred: migration history mismatch)
+- [x] 01-02-PLAN.md — Auth pages: Google OAuth, sign-out route, reset-password page + auth unit tests — COMPLETE 2026-03-10
+- [x] 01-03-PLAN.md — Auto-profile-creation trigger + RLS unit tests — COMPLETE 2026-03-10 (db push deferred: migration history mismatch)
 
 ---
 

@@ -7,12 +7,12 @@
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can sign up with email and password
-- [ ] **AUTH-02**: User receives email verification and must confirm before accessing dashboard
-- [ ] **AUTH-03**: User can reset password via email link
-- [ ] **AUTH-04**: User session persists across browser refresh
-- [ ] **AUTH-05**: User can sign in with Google OAuth
-- [ ] **AUTH-06**: User can sign out from any page
+- [x] **AUTH-01**: User can sign up with email and password
+- [x] **AUTH-02**: User receives email verification and must confirm before accessing dashboard
+- [x] **AUTH-03**: User can reset password via email link
+- [x] **AUTH-04**: User session persists across browser refresh
+- [x] **AUTH-05**: User can sign in with Google OAuth
+- [x] **AUTH-06**: User can sign out from any page
 
 ### Database Schema
 
@@ -106,7 +106,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 to AUTH-06 | Phase 1 | Pending |
+| AUTH-01 to AUTH-06 | Phase 1 | ✓ Complete (auth pages + OAuth + sign-out + reset-password implemented; live Supabase project pending) |
 | DB-01 to DB-07 | Phase 1 | ✓ Complete (migrations written; db push deferred pending new Supabase project) |
 | CLASS-01 to CLASS-04 | Phase 2 | Pending |
 | UI-01 to UI-05 | Phase 2 | Pending |

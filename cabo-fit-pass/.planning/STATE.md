@@ -12,15 +12,15 @@ See: .planning/PROJECT.md (updated 2026-03-09)
 **Phase 1: Schema + Auth**
 Goal: Real users can sign up, verify email, sign in, and their data is secure behind RLS.
 
-**Current Plan:** 1-03 (complete — checkpoint:human-verify pending)
-**Last session stopped at:** Completed 01-schema-auth-01-03-PLAN.md tasks 1+2, awaiting human verification checkpoint (2026-03-10)
+**Current Plan:** All Phase 1 plans complete (01, 02, 03)
+**Last session stopped at:** Completed 01-02-PLAN.md — human-verify checkpoint approved, SUMMARY created (2026-03-10)
 
 ## Phase Status
 
 | Phase | Name | Status |
 |-------|------|--------|
 | 0 | Foundation | ✓ Complete |
-| 1 | Schema + Auth | ◑ In Progress (2/3 plans done — plan 03 checkpoint pending) |
+| 1 | Schema + Auth | ✓ Complete (3/3 plans done) |
 | 2 | Component System + Data Layer | ○ Pending |
 | 3 | Booking Engine + Stripe | ○ Pending |
 | 4 | Studio Partner Portal | ○ Pending |
@@ -47,6 +47,15 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 - tailwind.config.ts missing @tailwindcss/typography plugin removed (Rule 1)
 - Commits: 84ecbe6 (schema + RLS), 9ff2846 (indexes + seed)
 
+## Phase 1 Plan 02 Completion Notes (2026-03-10)
+
+- Google OAuth button ("Continue with Google") added to sign-in form via supabase.auth.signInWithOAuth
+- POST /auth/signout route handler created — clears session, redirects to /auth/signin
+- /auth/reset-password page created with password/confirm fields, client validation, updateUser call
+- Wave 0 TDD: 6-test auth.spec.ts scaffold written RED then turned GREEN; all 17 unit tests pass
+- pnpm build passes; human-verify checkpoint approved
+- Commits: 5c01ba8 (test scaffold), 04a7f6c (OAuth + signout), 072809b (reset-password)
+
 ## Phase 1 Plan 03 Completion Notes (2026-03-10)
 
 - 005_trigger.sql created: handle_new_user() SECURITY DEFINER function + on_auth_user_created trigger
@@ -67,6 +76,9 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 | 2026-03-10 | 005_trigger.sql uses EXECUTE PROCEDURE (not EXECUTE FUNCTION) for broader Postgres version compatibility |
 | 2026-03-10 | extractTriggerInsert() is a test-only pure function mirroring PL/pgSQL trigger logic — not exported for production use |
 | 2026-03-10 | RLS policy inventory in rls.spec.ts serves as living documentation — policy name changes force test failure and explicit acknowledgment |
+| 2026-03-10 | Google OAuth redirectTo uses window.location.origin for portable localhost and production URL support |
+| 2026-03-10 | Sign-out route is POST-only to prevent CSRF via GET — callers must use a form or fetch |
+| 2026-03-10 | Reset-password validates password match and minimum 8 chars client-side before calling supabase.auth.updateUser |
 
 ## Blockers / Open Items
 
@@ -77,7 +89,8 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 | Phase | Plan | Duration | Tasks | Files |
 |-------|------|----------|-------|-------|
 | 01-schema-auth | 01 | 12 min | 2/2 | 7 |
+| 01-schema-auth | 02 | 45 min | 3/3 | 4 |
 | 01-schema-auth | 03 | 2 min | 2/2 | 2 |
 
 ---
-*Last updated: 2026-03-10 after Phase 1 Plan 01 completion*
+*Last updated: 2026-03-10 after Phase 1 Plan 02 completion (all Phase 1 plans complete)*
