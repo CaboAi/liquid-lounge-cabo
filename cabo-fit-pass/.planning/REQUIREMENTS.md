@@ -26,9 +26,9 @@
 
 ### Class Discovery
 
-- [ ] **CLASS-01**: User can browse available classes with filters (type, difficulty, time, studio)
+- [x] **CLASS-01**: User can browse available classes with filters (type, difficulty, time, studio)
 - [x] **CLASS-02**: User can see class details (instructor, duration, credits, capacity remaining)
-- [ ] **CLASS-03**: User can see a weekly schedule view
+- [x] **CLASS-03**: User can see a weekly schedule view
 - [x] **CLASS-04**: Classes show real-time availability (spots remaining)
 
 ### Booking Engine
