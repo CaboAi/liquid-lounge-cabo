@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-current_plan: 02-02
+current_plan: 02-03
 status: in_progress
-last_updated: "2026-03-10T18:54:19.832Z"
+last_updated: "2026-03-10T19:04:55.731Z"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 6
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-03-09)
 Goal: Real users can sign up, verify email, sign in, and their data is secure behind RLS.
 
 **Current Plan:** 02-02
-**Last session stopped at:** Completed 02-01-PLAN.md — design tokens + font migration (2026-03-10)
+**Last session stopped at:** Completed 02-02-PLAN.md — canonical component library (2026-03-10)
 
 ## Phase Status
 
@@ -35,7 +35,7 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 |-------|------|--------|
 | 0 | Foundation | ✓ Complete |
 | 1 | Schema + Auth | ✓ Complete (3/3 plans done) |
-| 2 | Component System + Data Layer | ~ In Progress (1/3) |
+| 2 | Component System + Data Layer | ~ In Progress (2/3) |
 | 3 | Booking Engine + Stripe | ○ Pending |
 | 4 | Studio Partner Portal | ○ Pending |
 | 5 | Quality + Ship | ○ Pending |
@@ -80,6 +80,18 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 - Commits: fcef2b6 (trigger SQL), 9f8f6c6 (rls tests)
 - Checkpoint: human-verify pending
 
+## Phase 2 Plan 02 Completion Notes (2026-03-10)
+
+- ClassCard replaced entirely: uses credit_cost/scheduled_at/spots_remaining (DB column names), isPending skeleton
+- CreditBalance: animate-pulse + text-cabo-gold at credits <= 2, Low credits badge
+- BookingCard: confirmed/cancelled/waitlisted status badge variants, class title, booked_at formatted date
+- StudioCard: name/address/description, active badge, Link to /studios/{slug}
+- MobileBottomNav: 'use client', usePathname active state, 4 links at correct hrefs
+- app/classes/page.tsx: Server Component shell with ClassesClient placeholder
+- 42 unit tests pass (19 new); pnpm typecheck + pnpm build clean
+- Auto-fix Rule 1: button "Full" text collision with span — changed to "Class Full"
+- Commits: 6da60ef (RED tests), 7d1ec02 (GREEN implementations)
+
 ## Phase 2 Plan 01 Completion Notes (2026-03-10)
 
 - cabo-gold (#FF9F43) and ocean-blue (#0EA5E9) named color scales replace brand placeholder
@@ -92,6 +104,7 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 
 | Date | Decision |
 |------|----------|
+| 2026-03-10 | ClassCard button text "Class Full" (not "Full") avoids duplicate text nodes; spots_remaining is a computed prop (max_capacity - confirmed_count), not a DB column |
 | 2026-03-10 | cabo-gold (#FF9F43) and ocean-blue (#0EA5E9) replace brand placeholder; Inter/Roboto Mono via CSS variables on html element — required for Tailwind var() fontFamily resolution |
 | 2026-03-10 | credit_transactions has no authenticated INSERT/UPDATE policy — enforces audit log immutability at DB level matching Update: Record<string, never> in types.ts |
 | 2026-03-10 | studios.owner_id REFERENCES profiles(id) ON DELETE SET NULL (nullable) to allow seeding studios without owners |
@@ -115,8 +128,10 @@ Goal: Real users can sign up, verify email, sign in, and their data is secure be
 | 01-schema-auth | 02 | 45 min | 3/3 | 4 |
 | 01-schema-auth | 03 | 2 min | 2/2 | 2 |
 | 02-component-system-data-layer | 01 | 8 min | 2/2 | 3 |
+| 02-component-system-data-layer | 02 | 18 min | 2/2 | 11 |
 
 ---
 *Last updated: 2026-03-10 after Phase 1 Plan 02 completion (all Phase 1 plans complete)*
 | Phase 02-component-system-data-layer P01 | 8 | 2 tasks | 3 files |
+| Phase 02-component-system-data-layer P02 | 18 | 2 tasks | 11 files |
 

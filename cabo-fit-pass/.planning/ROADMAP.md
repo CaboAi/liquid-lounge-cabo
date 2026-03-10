@@ -12,7 +12,7 @@
 |---|-------|------|--------------|-------------|
 | 0 | Foundation | Build passes, CI green, auth scaffolded | ✓ Complete | Done |
 | 1 | Schema + Auth | Complete    | 2026-03-10 | ✓ Complete |
-| 2 | 1/3 | In Progress|  | Week 4–5 |
+| 2 | 2/3 | In Progress|  | Week 4–5 |
 | 3 | Booking Engine + Stripe | Credits purchasable, booking atomic, cancel/refund works | BOOK-01–06, CRED-01–05 | Week 6–7 |
 | 4 | Studio Partner Portal | Studio owner can manage classes, view real analytics | STUD-01–05 | Week 8–9 |
 | 5 | Quality + Ship | All tests pass, Lighthouse ≥90, email notifications sent | NOTF-01–03, QUAL-01–05 | Week 10 |
@@ -54,7 +54,7 @@ Plans:
 4. Credit balance pulses orange when ≤2 credits
 5. Tailwind config has Cabo Gold (#FF9F43) as primary, Ocean Blue (#0EA5E9) as secondary
 
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 
 Plans:
 - [ ] 02-01-PLAN.md — Tailwind design system + Inter/Roboto Mono font migration (UI-01, UI-02)

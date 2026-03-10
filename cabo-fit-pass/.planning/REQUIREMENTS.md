@@ -27,9 +27,9 @@
 ### Class Discovery
 
 - [ ] **CLASS-01**: User can browse available classes with filters (type, difficulty, time, studio)
-- [ ] **CLASS-02**: User can see class details (instructor, duration, credits, capacity remaining)
+- [x] **CLASS-02**: User can see class details (instructor, duration, credits, capacity remaining)
 - [ ] **CLASS-03**: User can see a weekly schedule view
-- [ ] **CLASS-04**: Classes show real-time availability (spots remaining)
+- [x] **CLASS-04**: Classes show real-time availability (spots remaining)
 
 ### Booking Engine
 
@@ -60,9 +60,9 @@
 
 - [x] **UI-01**: Tailwind config matches Tropical Sunset design system (Cabo Gold #FF9F43, Ocean Blue #0EA5E9)
 - [x] **UI-02**: Inter + Roboto Mono fonts loaded
-- [ ] **UI-03**: Mobile bottom nav (Browse, Bookings, Credits, Profile) works at 375px
-- [ ] **UI-04**: All views have loading / error / empty states
-- [ ] **UI-05**: Credit balance pulses when low (≤2 credits)
+- [x] **UI-03**: Mobile bottom nav (Browse, Bookings, Credits, Profile) works at 375px
+- [x] **UI-04**: All views have loading / error / empty states
+- [x] **UI-05**: Credit balance pulses when low (≤2 credits)
 
 ### Notifications
 
