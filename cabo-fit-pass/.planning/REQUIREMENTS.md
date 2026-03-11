@@ -42,11 +42,11 @@
 
 ### Credits & Payments
 
-- [ ] **CRED-01**: User can purchase a credit pack via Stripe Checkout
-- [ ] **CRED-02**: Stripe webhook updates credits after successful payment
-- [ ] **CRED-03**: User can see current credit balance
+- [x] **CRED-01**: User can purchase a credit pack via Stripe Checkout
+- [x] **CRED-02**: Stripe webhook updates credits after successful payment
+- [x] **CRED-03**: User can see current credit balance
 - [ ] **CRED-04**: User can see full credit transaction history
-- [ ] **CRED-05**: Stripe webhook handles subscription renewal
+- [x] **CRED-05**: Stripe webhook handles subscription renewal
 
 ### Studio Partner Portal
 
