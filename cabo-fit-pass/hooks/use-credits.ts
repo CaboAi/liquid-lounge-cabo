@@ -13,7 +13,7 @@ export const creditsQueryOptions = (userId: string) =>
         .eq('id', userId)
         .single()
       if (error) throw error
-      return data?.credits ?? 0
+      return (data as { credits: number } | null)?.credits ?? 0
     },
     staleTime: 60_000,
     enabled: !!userId,
