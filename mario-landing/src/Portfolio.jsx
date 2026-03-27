@@ -728,7 +728,7 @@ export default function Portfolio() {
             {t.contact.cta}
           </a>
           <p style={{ fontSize: 13, color: "#666", marginTop: 20 }}>
-            {t.contact.or}: <a href="mailto:mario@marioai.co" style={{ color: "#FAFAF7", borderBottom: "1px solid #444", textDecoration: "none" }}>mario@marioai.co</a>
+            {t.contact.or}: <a href="mailto:mario@mariointegrates.co" style={{ color: "#FAFAF7", borderBottom: "1px solid #444", textDecoration: "none" }}>mario@mariointegrates.co</a>
           </p>
         </div>
       </section>
