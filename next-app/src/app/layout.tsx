@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Montserrat, Cormorant_Garamond } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/sonner";
@@ -7,7 +7,7 @@ import GoogleAnalytics from "@/components/GoogleAnalytics";
 import StructuredData, { localBusinessSchema } from "@/components/StructuredData";
 import "./globals.css";
 
-const inter = Inter({
+const montserrat = Montserrat({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${cormorant.variable}`}>
       <body className="font-sans antialiased">
         <StructuredData data={localBusinessSchema} />
         <GoogleAnalytics />

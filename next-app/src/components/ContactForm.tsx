@@ -107,11 +107,11 @@ export default function ContactForm() {
 
       setSubmittedData(data);
       setSubmitted(true);
-      toast.success("Booking submitted! Nate will confirm within 1 hour.");
+      toast.success("Booking submitted! Our team will confirm within 1 hour.");
       reset();
     } catch (err) {
       console.error("Booking submission error:", err);
-      toast.error("Something went wrong. Please try again or WhatsApp Nate directly.");
+      toast.error("Something went wrong. Please try again or message us on WhatsApp.");
     }
   };
 
@@ -123,7 +123,7 @@ export default function ContactForm() {
           Booking Request Submitted!
         </h2>
         <p className="mt-3 text-muted-foreground">
-          Thanks, {submittedData.first_name}! Nate will confirm your{" "}
+          Thanks, {submittedData.first_name}! Our team will confirm your{" "}
           {submittedData.preferred_therapy} session within 1 hour.
         </p>
         <p className="mt-2 text-sm text-muted-foreground">
@@ -140,7 +140,7 @@ export default function ContactForm() {
               rel="noopener noreferrer"
             >
               <Phone className="mr-2 h-4 w-4" />
-              WhatsApp Nate
+              Message Us on WhatsApp
             </a>
           </Button>
         </div>
@@ -287,7 +287,7 @@ export default function ContactForm() {
             </Label>
             <Select onValueChange={(v) => setValue("service_location", v)}>
               <SelectTrigger className="mt-1.5">
-                <SelectValue placeholder="Where should Nate come?" />
+                <SelectValue placeholder="Where should we come?" />
               </SelectTrigger>
               <SelectContent>
                 {locationOptions.map((opt) => (
@@ -340,7 +340,7 @@ export default function ContactForm() {
                 {
                   icon: Clock,
                   title: "Fast Response",
-                  desc: "Nate confirms within 1 hour of booking",
+                  desc: "We confirm within 1 hour of booking",
                 },
                 {
                   icon: MapPin,
@@ -382,7 +382,7 @@ export default function ContactForm() {
                   className="flex items-center gap-2 rounded-xl bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90"
                 >
                   <Phone className="h-4 w-4" />
-                  WhatsApp Nate
+                  Message Us on WhatsApp
                 </a>
                 <a
                   href={contactInfo.phoneHref}

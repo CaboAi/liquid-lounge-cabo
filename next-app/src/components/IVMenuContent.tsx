@@ -142,7 +142,7 @@ export default function IVMenuContent() {
           </h2>
           <p className="mt-3 text-muted-foreground">
             Take our quick quiz to get a personalized recommendation, or contact
-            Nate directly for a consultation.
+            us directly for a consultation.
           </p>
           <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
             <Button variant="default" size="lg" asChild>
@@ -150,11 +150,11 @@ export default function IVMenuContent() {
             </Button>
             <Button variant="outline" size="lg" asChild>
               <a
-                href="https://wa.me/526242287777?text=Hi%20Nate!%20I%20need%20help%20choosing%20an%20IV."
+                href="https://wa.me/526242287777?text=Hi!%20I%20need%20help%20choosing%20an%20IV."
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                WhatsApp Nate
+                Message Us on WhatsApp
               </a>
             </Button>
           </div>
@@ -175,7 +175,7 @@ export default function IVMenuContent() {
               },
               {
                 q: "Is it safe?",
-                a: "Yes. All treatments are administered by Nathan Brown, a licensed BSN RN with years of clinical experience. We use medical-grade equipment, pharmaceutical-quality ingredients, and follow strict sterile protocols.",
+                a: "Yes. All treatments are administered by licensed BSN RN nurses with years of clinical experience. We use medical-grade equipment, pharmaceutical-quality ingredients, and follow strict sterile protocols.",
               },
               {
                 q: "How long does a treatment take?",
@@ -187,11 +187,11 @@ export default function IVMenuContent() {
               },
               {
                 q: "Do I need a prescription?",
-                a: "No prescription is needed. Nate will do a brief health assessment before your treatment to ensure the selected IV is appropriate for you.",
+                a: "No prescription is needed. Your nurse will do a brief health assessment before your treatment to ensure the selected IV is appropriate for you.",
               },
               {
                 q: "What should I expect during treatment?",
-                a: "Nate arrives with everything needed, sets up in a clean area, and inserts a small IV catheter (similar to a blood draw). You\u2019ll feel the cool fluid entering and most people feel relief within minutes.",
+                a: "Your nurse arrives with everything needed, sets up in a clean area, and inserts a small IV catheter (similar to a blood draw). You\u2019ll feel the cool fluid entering and most people feel relief within minutes.",
               },
             ].map((faq) => (
               <AccordionItem key={faq.q} value={faq.q} className="rounded-xl border bg-white px-4">

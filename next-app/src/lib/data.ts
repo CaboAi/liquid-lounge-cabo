@@ -130,7 +130,7 @@ export const ivPackages: IVPackage[] = [
     category: "custom",
     tagline: "Tailored to your needs",
     description:
-      "Work directly with Nate to create a personalized IV blend based on your specific health goals and needs. Consultation included.",
+      "Work directly with our nurse to create a personalized IV blend based on your specific health goals and needs. Consultation included.",
     ingredients: [
       "Custom base fluid",
       "Vitamins (your choice)",
@@ -384,7 +384,7 @@ export const contactInfo = {
   phone: "+52 624 228 7777",
   phoneHref: "tel:+526242287777",
   whatsappHref:
-    "https://wa.me/526242287777?text=Hi%20Nate!%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session.",
+    "https://wa.me/526242287777?text=Hi!%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session.",
   email: "info@liquidloungeiv.com",
   instagram: "https://instagram.com/liquidloungeiv",
   facebook: "https://facebook.com/liquidloungeiv",

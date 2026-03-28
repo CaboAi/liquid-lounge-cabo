@@ -13,7 +13,7 @@ const steps = [
     icon: MapPin,
     title: "We Come to You",
     description:
-      "Nate arrives at your hotel, villa, or yacht with everything needed for your treatment.",
+      "Our nurse arrives at your hotel, villa, or yacht with everything needed for your treatment.",
   },
   {
     number: 3,

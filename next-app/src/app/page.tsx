@@ -12,7 +12,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Liquid Lounge - Mobile IV Therapy in Los Cabos | Cabo's Best IV Service",
   description:
-    "Premium mobile IV therapy in Cabo San Lucas & San Jos\u00e9 del Cabo. Licensed RN Nathan Brown delivers hospital-grade hydration, vitamins & wellness treatments to your villa, resort, or yacht. Book today.",
+    "Premium mobile IV therapy in Cabo San Lucas & San Jos\u00e9 del Cabo. Our licensed nurses deliver hospital-grade hydration, vitamins & wellness treatments to your villa, resort, or yacht. Book today.",
   keywords: [
     "mobile IV therapy Cabo",
     "IV drip Los Cabos",

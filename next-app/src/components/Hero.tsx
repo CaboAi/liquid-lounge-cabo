@@ -55,30 +55,27 @@ export default function Hero() {
                 className="inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
               >
                 <Phone className="h-4 w-4" />
-                Or WhatsApp Nate directly: {contactInfo.phone}
+                Or message us on WhatsApp: {contactInfo.phone}
               </a>
             </div>
           </div>
 
-          {/* Right side — can hold CompactQuiz or image */}
-          <div className="hidden lg:block">
-            <div className="rounded-3xl bg-white/10 p-8 backdrop-blur-sm">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[hsl(43_74%_66%)]">
-                Quick Match
-              </p>
-              <h3 className="text-2xl font-heading font-semibold text-white">
-                Find Your Perfect IV
-              </h3>
-              <p className="mt-2 text-sm text-white/60">
-                Answer 3 quick questions and get a personalized recommendation.
-              </p>
-              <Button
-                variant="medical"
-                className="mt-6 w-full"
-                asChild
+          {/* Right side — vertical video */}
+          <div className="hidden lg:flex justify-center">
+            <div
+              className="relative w-[280px] overflow-hidden rounded-3xl shadow-2xl"
+              style={{ aspectRatio: "9/16" }}
+            >
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                className="h-full w-full object-cover"
               >
-                <Link href="/find-your-iv">Take the Quiz</Link>
-              </Button>
+                <source src="/hero-video.mp4" type="video/mp4" />
+              </video>
             </div>
           </div>
         </div>

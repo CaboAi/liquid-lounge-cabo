@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "Book IV Therapy in Cabo | Schedule Your Session - Liquid Lounge",
   description:
-    "Book your mobile IV therapy session in Los Cabos. Same-day availability. WhatsApp or call +52 624 228 7777. Nate confirms within 1 hour.",
+    "Book your mobile IV therapy session in Los Cabos. Same-day availability. WhatsApp or call +52 624 228 7777. We confirm within 1 hour.",
   alternates: { canonical: "https://liquidloungeiv.com/contact" },
 };
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
               Book Your IV Therapy
             </h1>
             <p className="mt-4 text-lg text-white/80">
-              Fill out the form below and Nate will confirm your appointment
+              Fill out the form below and our team will confirm your appointment
               within 1 hour. Same-day availability.
             </p>
           </div>
