@@ -60,10 +60,10 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Right side — vertical video */}
-          <div className="hidden lg:flex justify-center">
+          {/* Vertical video — stacks below text on mobile, beside on desktop */}
+          <div className="flex justify-center">
             <div
-              className="relative w-[280px] overflow-hidden rounded-3xl shadow-2xl"
+              className="relative w-[220px] sm:w-[240px] lg:w-[280px] overflow-hidden rounded-3xl shadow-2xl"
               style={{ aspectRatio: "9/16" }}
             >
               <video
