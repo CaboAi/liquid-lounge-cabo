@@ -175,7 +175,7 @@ export default function IVMenuContent() {
               },
               {
                 q: "Is it safe?",
-                a: "Yes. All treatments are administered by Nathan Brown, a licensed BSN RN with years of clinical experience. We use medical-grade equipment, pharmaceutical-quality ingredients, and follow strict sterile protocols.",
+                a: "Yes. All treatments are administered by a licensed medical professional with over 10 years of clinical experience. We use medical-grade equipment, pharmaceutical-quality ingredients, and follow strict sterile protocols.",
               },
               {
                 q: "How long does a treatment take?",

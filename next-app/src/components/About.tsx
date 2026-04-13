@@ -15,7 +15,7 @@ export default function About() {
           <div className="order-2 lg:order-1">
             <Image
               src="/images/nate-headshot.jpg"
-              alt="Nathan Brown BSN RN — Licensed nurse and founder of Liquid Lounge IV"
+              alt="Nathan Brown — Licensed medical professional and founder of Liquid Lounge IV"
               width={448}
               height={560}
               className="mx-auto w-full max-w-md rounded-2xl object-cover shadow-lg"
@@ -24,20 +24,20 @@ export default function About() {
 
           {/* Content */}
           <div className="order-1 lg:order-2">
-            <p className="overline mb-2">YOUR NURSE</p>
+            <p className="overline mb-2">THE FOUNDER</p>
             <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-              Meet Nathan Brown, BSN RN
+              Meet Nurse Nate, Founder, BSN
             </h2>
             <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
-              Nathan is a Board Certified Registered Nurse with years of clinical
-              experience. After relocating to Los Cabos, he founded Liquid Lounge
-              to bring hospital-grade IV therapy directly to visitors and
-              residents in the comfort of their own space.
+              Nate is a licensed medical professional with over 10 years of
+              clinical experience. After relocating to Los Cabos, he founded
+              Liquid Lounge to bring hospital-grade IV therapies and mobile
+              treatments to visitors and residents in the comfort of their spaces.
             </p>
             <p className="mt-4 text-muted-foreground">
-              Every treatment is personally administered by Nate using medical-grade
-              equipment and pharmaceutical-quality vitamins and nutrients. Your safety
-              and comfort are his top priorities.
+              Every treatment is administered by a licensed medical professional using
+              medical-grade equipment and pharmaceutical-quality vitamins and nutrients.
+              Your safety and comfort are his top priorities.
             </p>
 
             {/* Credentials */}

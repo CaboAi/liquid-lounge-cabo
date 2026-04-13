@@ -16,7 +16,7 @@ export const localBusinessSchema = {
   "@type": ["LocalBusiness", "MedicalBusiness"],
   name: "Liquid Lounge Mobile IV Therapy",
   description:
-    "Premium mobile IV therapy services in Los Cabos, Mexico. Licensed RN delivering hospital-grade hydration, vitamin, and wellness treatments.",
+    "Premium mobile IV therapy services in Los Cabos, Mexico. Licensed medical professionals delivering hospital-grade hydration, vitamin, and wellness treatments.",
   url: "https://liquidloungeiv.com",
   telephone: "+526242287777",
   email: "liquidloungeiv@gmail.com",
@@ -62,9 +62,9 @@ export const localBusinessSchema = {
   founder: {
     "@type": "Person",
     name: "Nathan Brown",
-    jobTitle: "BSN RN",
+    jobTitle: "Founder & Licensed Medical Professional",
     description:
-      "Licensed Registered Nurse specializing in mobile IV therapy in Los Cabos",
+      "Licensed medical professional specializing in mobile IV therapy in Los Cabos",
   },
   sameAs: [
     "https://www.instagram.com/liquidlounge.iv/",

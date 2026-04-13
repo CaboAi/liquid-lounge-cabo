@@ -335,7 +335,7 @@ export default function ContactForm() {
                 {
                   icon: Shield,
                   title: "Licensed Professional",
-                  desc: "BSN RN — Board Certified Registered Nurse",
+                  desc: "Licensed Medical Professional",
                 },
                 {
                   icon: Clock,

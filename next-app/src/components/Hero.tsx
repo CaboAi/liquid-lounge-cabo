@@ -31,7 +31,7 @@ export default function Hero() {
               Hydration &amp; Wellness Delivered to Your Door
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/80">
-              Licensed nurse-administered IV therapy at your hotel, villa, or
+              Professional IV therapy administered at your hotel, villa, or
               yacht. Recovery, energy, immunity — on your schedule.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row">

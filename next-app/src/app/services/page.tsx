@@ -7,7 +7,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "IV Therapy Services | Blood Work, Consultations & Group Events - Liquid Lounge",
   description:
-    "Mobile IV therapy services in Los Cabos. Hangover recovery, immune boost, energy & wellness, and custom formulations delivered by a licensed BSN RN.",
+    "Mobile IV therapy services in Los Cabos. Hangover recovery, immune boost, energy & wellness, and custom formulations delivered by a licensed medical professional.",
   alternates: { canonical: "https://liquidloungeiv.com/services" },
 };
 
@@ -27,7 +27,7 @@ export default function ServicesPage() {
             </h1>
             <p className="mt-4 text-lg text-white/80">
               Professional mobile IV therapy delivered to your location in Los Cabos.
-              Every treatment administered by a licensed BSN RN.
+              Every treatment administered by a licensed medical professional.
             </p>
           </div>
         </section>

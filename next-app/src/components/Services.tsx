@@ -20,7 +20,7 @@ export default function Services() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
             Professional mobile IV therapy delivered directly to your location in
-            Los Cabos. Every treatment administered by a licensed BSN RN.
+            Los Cabos. Every treatment administered by a licensed medical professional.
           </p>
         </div>
 

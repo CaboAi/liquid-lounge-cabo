@@ -17,7 +17,7 @@ export default function Footer() {
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               Professional mobile IV therapy in Los Cabos. Hydration, recovery,
-              and wellness delivered to your door by a licensed BSN RN nurse.
+              and wellness delivered to your door by a licensed medical professional.
             </p>
           </div>
 
@@ -96,6 +96,7 @@ export default function Footer() {
                 Hours
               </h4>
               <p className="text-sm text-white/60">{contactInfo.hours}</p>
+              <p className="mt-1 text-xs text-white/40">*Private and after-hours bookings available</p>
             </div>
           </div>
         </div>

@@ -395,7 +395,7 @@ export const contactInfo = {
     "The Corridor",
     "Puerto Los Cabos",
   ],
-  hours: "7:00 AM - 10:00 PM, 7 days a week",
+  hours: "9:00 AM - 5:00 PM",
 };
 
 // ── Navigation ────────────────────────────────────────────────────────

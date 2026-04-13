@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | Liquid Lounge IV",
   },
   description:
-    "Professional mobile IV therapy in Los Cabos, Mexico. Hydration, recovery, and wellness delivered to your door by a licensed BSN RN nurse.",
+    "Professional mobile IV therapy in Los Cabos, Mexico. Hydration, recovery, and wellness delivered to your door by a licensed medical professional.",
   metadataBase: new URL("https://liquidloungeiv.com"),
   openGraph: {
     type: "website",
