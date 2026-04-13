@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Droplets } from "lucide-react";
+import Image from "next/image";
+import { Mail, Phone, MapPin } from "lucide-react";
 import { navLinks, contactInfo } from "@/lib/data";
 
 export default function Footer() {
@@ -9,11 +10,15 @@ export default function Footer() {
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <Link href="/" className="flex items-center gap-2">
-              <Droplets className="h-7 w-7 text-[hsl(43_74%_66%)]" />
-              <span className="text-xl font-heading font-semibold tracking-tight">
-                Liquid Lounge
-              </span>
+            <Link href="/">
+              <Image
+                src="/images/logo-horizontal-stack.svg"
+                alt="Liquid Lounge Mobile IV Therapy"
+                width={795}
+                height={350}
+                unoptimized
+                className="w-[160px] h-auto"
+              />
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               Professional mobile IV therapy in Los Cabos. Hydration, recovery,

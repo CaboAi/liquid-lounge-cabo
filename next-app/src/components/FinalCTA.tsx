@@ -32,7 +32,7 @@ export default function FinalCTA() {
               rel="noopener noreferrer"
             >
               <Phone className="mr-2 h-4 w-4" />
-              WhatsApp Nate
+              Message Us on WhatsApp
             </a>
           </Button>
         </div>

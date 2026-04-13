@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Phone, Droplets } from "lucide-react";
+import Image from "next/image";
+import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { navLinks, contactInfo } from "@/lib/data";
 import { cn } from "@/lib/utils";
@@ -16,11 +17,16 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[hsl(164_44%_28%/0.95)] backdrop-blur-md">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-90">
-          <Droplets className="h-7 w-7 text-[hsl(43_74%_66%)]" />
-          <span className="text-xl font-heading font-semibold text-white tracking-tight">
-            Liquid Lounge
-          </span>
+        <Link href="/" className="transition-opacity hover:opacity-90">
+          <Image
+            src="/images/logo-horizontal-stack.svg"
+            alt="Liquid Lounge Mobile IV Therapy"
+            width={795}
+            height={350}
+            priority
+            unoptimized
+            className="w-[140px] h-auto"
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -101,7 +107,7 @@ export default function Header() {
               >
                 <a href={contactInfo.whatsappHref} target="_blank" rel="noopener noreferrer">
                   <Phone className="mr-2 h-4 w-4" />
-                  WhatsApp Nate
+                  Message Us on WhatsApp
                 </a>
               </Button>
             </div>

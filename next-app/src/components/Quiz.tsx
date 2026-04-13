@@ -102,7 +102,7 @@ export default function Quiz({ variant = "full" }: QuizProps) {
                   rel="noopener noreferrer"
                 >
                   <Phone className="mr-2 h-4 w-4" />
-                  WhatsApp Nate
+                  Message Us on WhatsApp
                 </a>
               </Button>
               <Button variant="ghost" onClick={handleRetake}>
