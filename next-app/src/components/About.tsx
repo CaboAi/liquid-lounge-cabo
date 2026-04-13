@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Shield, Award, Heart, Phone } from "lucide-react";
+import { Shield, Award, Phone } from "lucide-react";
 import { contactInfo } from "@/lib/data";
 
 export default function About() {
@@ -48,11 +48,7 @@ export default function About() {
               </span>
               <span className="trust-badge">
                 <Award className="h-4 w-4" />
-                Board Certified
-              </span>
-              <span className="trust-badge">
-                <Heart className="h-4 w-4" />
-                500+ Treatments
+                10+ Years Experience
               </span>
             </div>
 

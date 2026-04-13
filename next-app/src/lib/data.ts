@@ -5,6 +5,9 @@ import {
   Sparkles,
   Pill,
   Heart,
+  TestTube,
+  Users,
+  Stethoscope,
   type LucideIcon,
 } from "lucide-react";
 
@@ -155,25 +158,25 @@ export interface Service {
 
 export const services: Service[] = [
   {
-    title: "Hangover Recovery",
+    title: "Blood Work Diagnostics",
     description:
-      "Rehydrate and recover fast with our signature IV drip. Get back to enjoying Cabo in under an hour.",
-    icon: Droplets,
+      "Comprehensive lab testing and health assessments",
+    icon: TestTube,
+    link: "/contact",
+  },
+  {
+    title: "IV Therapies",
+    description:
+      "Personalized and group IV therapy sessions",
+    icon: Users,
     link: "/iv-menu",
   },
   {
-    title: "Immune Support",
+    title: "Consults for Health",
     description:
-      "Boost your immune system with high-dose Vitamin C, Zinc, and essential nutrients before or after your trip.",
-    icon: Shield,
-    link: "/iv-menu",
-  },
-  {
-    title: "Energy & Wellness",
-    description:
-      "Feel your best with a customized blend of B vitamins, amino acids, and hydration tailored to your goals.",
-    icon: Zap,
-    link: "/iv-menu",
+      "Professional health consultations and guidance",
+    icon: Stethoscope,
+    link: "/contact",
   },
 ];
 
@@ -385,7 +388,7 @@ export const contactInfo = {
   phoneHref: "tel:+526242287777",
   whatsappHref:
     "https://wa.me/526242287777?text=Hi!%20I%27d%20like%20to%20book%20an%20IV%20therapy%20session.",
-  email: "info@liquidloungeiv.com",
+  email: "liquidloungeiv@gmail.com",
   instagram: "https://instagram.com/liquidloungeiv",
   facebook: "https://facebook.com/liquidloungeiv",
   googleReviews: "https://g.page/liquidloungeiv",
@@ -420,6 +423,7 @@ export const timeOptions = [
   { value: "midday", label: "Midday (11am - 2pm)" },
   { value: "afternoon", label: "Afternoon (2pm - 5pm)" },
   { value: "evening", label: "Evening (5pm - 10pm)" },
+  { value: "after-hours", label: "Private/After-Hours Booking" },
 ];
 
 export const locationOptions = [

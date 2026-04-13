@@ -4,9 +4,9 @@ import IVMenuContent from "@/components/IVMenuContent";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "IV Therapy Menu & Pricing | Myers Cocktail, Hydration - Liquid Lounge Cabo",
+  title: "IV Therapy Menu | Nutrients & Packages - Liquid Lounge Cabo",
   description:
-    "Browse our IV therapy menu with pricing. Recovery, wellness, beauty, and custom formulations starting at $250. All treatments by a licensed medical professional in Los Cabos.",
+    "Browse our IV therapy menu. Premium nutrients and treatment packages tailored to your wellness goals. All treatments by a licensed medical professional in Los Cabos.",
   alternates: { canonical: "https://liquidloungeiv.com/iv-menu" },
 };
 
@@ -25,8 +25,8 @@ export default function IVMenuPage() {
               Our IV Menu
             </h1>
             <p className="mt-4 text-lg text-white/80">
-              Premium IV therapy formulations, each tailored to specific wellness
-              goals. All treatments administered by a licensed medical professional.
+              Choose from our expertly crafted IV therapy packages or let us
+              create a custom blend tailored to your specific needs.
             </p>
           </div>
         </section>
