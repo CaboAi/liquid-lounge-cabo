@@ -21,12 +21,11 @@ export default function Header() {
           <Image
             src="/images/logo-horizontal-stack.svg"
             alt="Liquid Lounge Mobile IV Therapy"
-            width={0}
-            height={60}
-            sizes="100vw"
+            width={795}
+            height={350}
             priority
             unoptimized
-            className="h-[60px] w-auto"
+            className="w-[140px] h-auto"
           />
         </Link>
 
