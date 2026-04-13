@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Liquid Lounge IV Design System */
+/* Source of truth: design-system/MASTER.md */
+
+@layer base {
+  :root {
+    /* === Core shadcn/ui tokens mapped to Liquid Lounge brand === */
+    --background: 43 36% 95%;          /* wellness-cream */
+    --foreground: 200 20% 12%;         /* neutral-900 */
+    --card: 0 0% 100%;                 /* white */
+    --card-foreground: 200 20% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 200 20% 12%;
+    --primary: 164 44% 28%;            /* medical-teal */
+    --primary-foreground: 0 0% 100%;   /* white on teal */
+    --secondary: 43 36% 95%;           /* wellness-cream */
+    --secondary-foreground: 200 20% 12%;
+    --muted: 200 10% 96%;              /* neutral-100 */
+    --muted-foreground: 200 8% 50%;    /* neutral-500 */
+    --accent: 43 74% 66%;              /* wellness-gold */
+    --accent-foreground: 200 20% 12%;  /* dark text on gold */
+    --destructive: 0 65% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 200 10% 80%;             /* neutral-300 */
+    --input: 200 10% 80%;
+    --ring: 164 44% 28%;               /* medical-teal */
+    --radius: 0.75rem;
+
+    /* === Liquid Lounge Extended Tokens === */
+    --medical-teal: 164 44% 28%;
+    --medical-teal-light: 164 35% 40%;
+    --medical-teal-dark: 164 50% 20%;
+    --wellness-gold: 43 74% 66%;
+    --wellness-gold-light: 43 74% 76%;
+    --wellness-gold-dark: 43 74% 50%;
+    --wellness-cream: 43 36% 95%;
+    --wellness-cream-dark: 43 20% 90%;
+
+    /* Semantic */
+    --success: 152 60% 40%;
+    --warning: 38 92% 55%;
+    --error: 0 65% 55%;
+    --info: 210 70% 55%;
+
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(164 44% 28%) 0%, hsl(164 50% 20%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(43 74% 66%) 0%, hsl(43 74% 50%) 100%);
+    --gradient-cream: linear-gradient(180deg, hsl(43 36% 95%) 0%, hsl(0 0% 100%) 100%);
+    --gradient-trust: linear-gradient(135deg, hsl(164 44% 28%) 0%, hsl(164 35% 40%) 100%);
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px hsl(200 20% 12% / 0.06);
+    --shadow-card: 0 4px 16px hsl(200 20% 12% / 0.06);
+    --shadow-lg: 0 8px 30px hsl(200 20% 12% / 0.08);
+    --shadow-gold-glow: 0 4px 20px hsl(43 74% 66% / 0.3);
+    --shadow-teal-glow: 0 4px 20px hsl(164 44% 28% / 0.2);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  /* Heading defaults — Cormorant Garamond */
+  h1, h2, h3 {
+    @apply font-heading;
+  }
+
+  h4, h5, h6 {
+    @apply font-sans font-semibold;
+  }
+}
+
+@layer components {
+  /* Liquid Lounge button styles */
+  .btn-cta {
+    @apply rounded-xl px-6 py-3 font-sans font-semibold shadow-gold-glow
+           transition-all duration-300;
+    background-color: hsl(var(--wellness-gold));
+    color: hsl(var(--foreground));
+  }
+  .btn-cta:hover {
+    background-color: hsl(var(--wellness-gold-dark));
+  }
+
+  .btn-secondary-ll {
+    @apply rounded-xl px-6 py-3 font-sans font-semibold text-white
+           transition-all duration-300;
+    background-color: hsl(var(--medical-teal));
+  }
+  .btn-secondary-ll:hover {
+    background-color: hsl(var(--medical-teal-light));
+  }
+
+  /* Card pattern */
+  .card-ll {
+    @apply rounded-2xl bg-card shadow-card
+           transition-all duration-300;
+  }
+  .card-ll:hover {
+    @apply shadow-lg -translate-y-1;
+  }
+
+  /* Section alternation */
+  .section-white {
+    @apply bg-white py-16 md:py-20;
+  }
+
+  .section-cream {
+    @apply py-16 md:py-20;
+    background-color: hsl(var(--wellness-cream));
+  }
+
+  .section-teal {
+    @apply py-16 md:py-20 text-white;
+    background: var(--gradient-hero);
+  }
+
+  /* Overline label */
+  .overline {
+    @apply font-sans text-xs font-semibold uppercase tracking-widest;
+    color: hsl(var(--medical-teal));
+  }
+
+  /* Trust badge */
+  .trust-badge {
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold;
+    background-color: hsl(var(--medical-teal) / 0.1);
+    color: hsl(var(--medical-teal));
+  }
+}
