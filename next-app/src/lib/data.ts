@@ -398,7 +398,7 @@ export const contactInfo = {
     "The Corridor",
     "Puerto Los Cabos",
   ],
-  hours: "9:00 AM - 5:00 PM",
+  hours: "7:00 AM – 10:00 PM",
 };
 
 // ── Navigation ────────────────────────────────────────────────────────
@@ -407,6 +407,7 @@ export const navLinks = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "IV Menu", href: "/iv-menu" },
+  { label: "Find Your IV", href: "/find-your-iv" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];

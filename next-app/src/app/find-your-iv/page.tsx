@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description:
     "Take our quick quiz to find the perfect IV therapy for your needs. Personalized recommendations in under a minute based on how you feel.",
   alternates: { canonical: "https://liquidloungeiv.com/find-your-iv" },
+  openGraph: {
+    url: "https://liquidloungeiv.com/find-your-iv",
+  },
 };
 
 export default function FindYourIVPage() {

@@ -2,7 +2,7 @@ import { Shield, Award, Droplets, Star } from "lucide-react";
 
 const stats = [
   { icon: Shield, value: "Licensed", label: "Medical Professional" },
-  { icon: Award, value: "5+ Years", label: "Experience" },
+  { icon: Award, value: "10+ Years", label: "Experience" },
   { icon: Droplets, value: "500+", label: "Treatments Delivered" },
   { icon: Star, value: "4.9\u2605", label: "Client Rating" },
 ];

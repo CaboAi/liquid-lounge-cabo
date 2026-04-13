@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   description:
     "Mobile IV therapy services in Los Cabos. Hangover recovery, immune boost, energy & wellness, and custom formulations delivered by a licensed medical professional.",
   alternates: { canonical: "https://liquidloungeiv.com/services" },
+  openGraph: {
+    url: "https://liquidloungeiv.com/services",
+  },
 };
 
 export default function ServicesPage() {

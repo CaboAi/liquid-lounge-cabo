@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   description:
     "Meet the licensed medical professionals behind Liquid Lounge. Over 10 years of clinical experience delivering premium IV therapy in Los Cabos.",
   alternates: { canonical: "https://liquidloungeiv.com/about" },
+  openGraph: {
+    url: "https://liquidloungeiv.com/about",
+  },
 };
 
 export default function AboutPage() {

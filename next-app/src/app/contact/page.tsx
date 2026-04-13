@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   description:
     "Book your mobile IV therapy session in Los Cabos. Same-day availability. WhatsApp or call +52 624 228 7777. We confirm within 1 hour.",
   alternates: { canonical: "https://liquidloungeiv.com/contact" },
+  openGraph: {
+    url: "https://liquidloungeiv.com/contact",
+  },
 };
 
 export default function ContactPage() {

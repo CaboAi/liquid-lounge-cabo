@@ -28,7 +28,7 @@ export default function Hero() {
               Mobile IV Therapy in Los Cabos
             </p>
             <h1 className="text-4xl font-semibold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
-              Hydration &amp; Wellness Delivered to Your Door
+              Hydration &amp; Wellness in Los Cabos, Delivered to Your Door
             </h1>
             <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/80">
               Professional IV therapy administered at your hotel, villa, or
