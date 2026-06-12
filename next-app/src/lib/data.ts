@@ -447,7 +447,7 @@ export const contactInfo = {
     "The Corridor",
     "Puerto Los Cabos",
   ],
-  hours: "7:00 AM – 10:00 PM",
+  hours: "9 AM–5 PM",
 };
 
 // ── Navigation ────────────────────────────────────────────────────────
