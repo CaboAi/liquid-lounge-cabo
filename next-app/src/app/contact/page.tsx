@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
+import { contactBreadcrumbSchema } from "@/lib/schema/contact";
 
 export const metadata: Metadata = {
-  title: "Book IV Therapy in Cabo | Schedule Your Session - Liquid Lounge",
+  title: "Book Mobile IV Therapy in Cabo",
   description:
     "Book your mobile IV therapy session in Los Cabos. Same-day availability. WhatsApp or call +52 624 228 7777. We confirm within 1 hour.",
   alternates: { canonical: "https://liquidloungeiv.com/contact" },
-  openGraph: {
-    url: "https://liquidloungeiv.com/contact",
-  },
 };
 
 export default function ContactPage() {
   return (
     <>
+      <StructuredData data={contactBreadcrumbSchema} />
       <Header />
       <main className="pt-20">
         {/* Page Header */}

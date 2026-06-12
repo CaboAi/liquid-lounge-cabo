@@ -152,6 +152,7 @@ export const ivPackages: IVPackage[] = [
 export interface Service {
   title: string;
   description: string;
+  details: string;
   icon: LucideIcon;
   link: string;
 }
@@ -161,6 +162,8 @@ export const services: Service[] = [
     title: "Blood Work Diagnostics",
     description:
       "Comprehensive lab testing and health assessments",
+    details:
+      "Comprehensive on-site lab testing and health assessments administered by a licensed BSN RN. Includes a full panel of biomarkers to evaluate your current health status — ideal before starting an IV therapy protocol, checking in on your wellness while traveling, or getting a baseline before a major event. Results reviewed and explained by Nurse Nate during your session. Available as a standalone service or bundled with any IV therapy package.",
     icon: TestTube,
     link: "/contact",
   },
@@ -168,6 +171,8 @@ export const services: Service[] = [
     title: "IV Therapies",
     description:
       "Personalized and group IV therapy sessions",
+    details:
+      "Personalized intravenous vitamin and nutrient infusions delivered directly to your hotel room, villa, or yacht. Each drip is formulated based on your goals — hangover recovery, immune support, energy, anti-aging, or athletic performance. All ingredients are pharmaceutical-grade. Every session is administered by a licensed medical professional with 10+ years of clinical experience. Group sessions available for bachelorette parties, sports teams, corporate events, and villa gatherings.",
     icon: Users,
     link: "/iv-menu",
   },
@@ -175,8 +180,52 @@ export const services: Service[] = [
     title: "Consults for Health",
     description:
       "Professional health consultations and guidance",
+    details:
+      "One-on-one wellness consultations with Nurse Nate to assess your health needs and recommend the right treatment protocol. Whether you are new to IV therapy or looking to optimize an existing wellness routine, the consultation covers your health history, current symptoms, goals, and any contraindications. Consultations can be conducted at your location or via WhatsApp prior to your appointment.",
     icon: Stethoscope,
     link: "/contact",
+  },
+];
+
+// ── IV Menu FAQ ───────────────────────────────────────────────────────
+// Single source of truth: renders the visible accordion AND the FAQPage
+// JSON-LD so structured data always matches on-page content.
+
+export interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+export const ivMenuFaqs: FaqItem[] = [
+  {
+    question: "What is IV therapy?",
+    answer:
+      "IV (intravenous) therapy is the direct delivery of vitamins, minerals, electrolytes, and other nutrients into your bloodstream through a small catheter. Unlike oral supplements, which must pass through your digestive system and lose potency in the process, IV therapy achieves near 100% bioavailability — meaning your cells receive the full dose immediately. Liquid Lounge brings this clinical-grade service directly to your hotel, villa, yacht, or residence anywhere in Los Cabos.",
+  },
+  {
+    question: "Is IV therapy safe?",
+    answer:
+      "Yes. All Liquid Lounge IV therapies are administered by Nathan Brown, a licensed BSN Registered Nurse with over 10 years of clinical experience. Every session begins with a brief health intake to screen for contraindications. We use sterile, pharmaceutical-grade ingredients and single-use IV supplies. Serious adverse events are extremely rare when administered by a licensed clinician using proper protocols.",
+  },
+  {
+    question: "How long does a treatment take?",
+    answer:
+      "Most IV therapy sessions take between 45 and 60 minutes from setup to completion. The infusion itself typically runs 30 to 45 minutes depending on the formula selected. NAD+ infusions may take longer — up to 90 minutes — due to the slower infusion rate required for comfort. You can relax, watch TV, work, or socialize throughout the session.",
+  },
+  {
+    question: "Where can you come?",
+    answer:
+      "Liquid Lounge is a fully mobile service. We come to wherever you are in Los Cabos — including hotels and resorts in Cabo San Lucas and San Jose del Cabo, private villas, vacation rentals, boats and yachts in the marina, offices, and private residences throughout The Corridor. Contact us at +52 624 228 7777 or liquidloungeiv@gmail.com to confirm your location.",
+  },
+  {
+    question: "Do I need a prescription?",
+    answer:
+      "No prescription is required to book a session. Our licensed RN conducts a brief health intake and consent process before each treatment to ensure the selected formula is appropriate for you. If your health history requires medical clearance, we will let you know during the intake.",
+  },
+  {
+    question: "What should I expect during treatment?",
+    answer:
+      "After booking, our RN arrives at your location with all necessary equipment. You will complete a short health intake form and sign a consent document. The nurse will insert a small IV catheter — typically in the forearm or hand — and start the infusion. Most clients feel relaxed or energized within minutes. Once the infusion is complete, the catheter is removed and the site is dressed. Most guests report feeling noticeably better within an hour of treatment.",
   },
 ];
 
