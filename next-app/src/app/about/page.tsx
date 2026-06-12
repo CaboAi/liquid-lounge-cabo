@@ -5,20 +5,21 @@ import About from "@/components/About";
 import ReviewsCarousel from "@/components/ReviewsCarousel";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
+import { personSchema, aboutBreadcrumbSchema } from "@/lib/schema/about";
 
 export const metadata: Metadata = {
-  title: "Meet the Team | About Liquid Lounge IV Therapy Cabo",
+  title: { absolute: "About Us | Liquid Lounge IV Therapy Cabo" },
   description:
     "Meet the licensed medical professionals behind Liquid Lounge. Over 10 years of clinical experience delivering premium IV therapy in Los Cabos.",
   alternates: { canonical: "https://liquidloungeiv.com/about" },
-  openGraph: {
-    url: "https://liquidloungeiv.com/about",
-  },
 };
 
 export default function AboutPage() {
   return (
     <>
+      <StructuredData data={personSchema} />
+      <StructuredData data={aboutBreadcrumbSchema} />
       <Header />
       <main className="pt-20">
         {/* Page Header */}

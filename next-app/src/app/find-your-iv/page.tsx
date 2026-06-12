@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Quiz from "@/components/Quiz";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
+import { findYourIvBreadcrumbSchema } from "@/lib/schema/find-your-iv";
 
 export const metadata: Metadata = {
-  title: "Find Your Perfect IV Therapy | Personalized Quiz - Liquid Lounge Cabo",
+  title: "Find Your IV | Personalized Recommendations",
   description:
     "Take our quick quiz to find the perfect IV therapy for your needs. Personalized recommendations in under a minute based on how you feel.",
   alternates: { canonical: "https://liquidloungeiv.com/find-your-iv" },
-  openGraph: {
-    url: "https://liquidloungeiv.com/find-your-iv",
-  },
 };
 
 export default function FindYourIVPage() {
   return (
     <>
+      <StructuredData data={findYourIvBreadcrumbSchema} />
       <Header />
       <main className="pt-20">
         {/* Page Header */}

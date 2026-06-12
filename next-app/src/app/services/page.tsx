@@ -3,20 +3,21 @@ import Header from "@/components/Header";
 import Services from "@/components/Services";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
+import { servicesSchema, servicesBreadcrumbSchema } from "@/lib/schema/services";
 
 export const metadata: Metadata = {
-  title: "IV Therapy Services | Blood Work, Consultations & Group Events - Liquid Lounge",
+  title: "IV Therapy Services in Los Cabos",
   description:
     "Mobile IV therapy services in Los Cabos. Hangover recovery, immune boost, energy & wellness, and custom formulations delivered by a licensed medical professional.",
   alternates: { canonical: "https://liquidloungeiv.com/services" },
-  openGraph: {
-    url: "https://liquidloungeiv.com/services",
-  },
 };
 
 export default function ServicesPage() {
   return (
     <>
+      <StructuredData data={servicesSchema} />
+      <StructuredData data={servicesBreadcrumbSchema} />
       <Header />
       <main className="pt-20">
         {/* Page Header */}
@@ -34,7 +35,7 @@ export default function ServicesPage() {
             </p>
           </div>
         </section>
-        <Services />
+        <Services detailed />
         <FinalCTA />
       </main>
       <Footer />

@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "@/components/ui/sonner";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
-import StructuredData, { localBusinessSchema } from "@/components/StructuredData";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -22,7 +21,7 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: "Liquid Lounge - Mobile IV Therapy Cabo",
+    default: "Mobile IV Therapy in Cabo San Lucas | Liquid Lounge IV",
     template: "%s | Liquid Lounge IV",
   },
   description:
@@ -34,12 +33,16 @@ export const metadata: Metadata = {
     siteName: "Liquid Lounge IV",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "https://liquidloungeiv.com/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Liquid Lounge Mobile IV Therapy in Los Cabos",
+        alt: "Liquid Lounge IV — Mobile IV Therapy in Los Cabos",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["https://liquidloungeiv.com/images/og-image.jpg"],
   },
 };
 
@@ -51,7 +54,6 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${montserrat.variable} ${cormorant.variable}`}>
       <body className="font-sans antialiased">
-        <StructuredData data={localBusinessSchema} />
         <GoogleAnalytics />
         {children}
         <Toaster />

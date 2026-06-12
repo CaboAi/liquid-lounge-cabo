@@ -5,11 +5,12 @@ import {
   CardHeader,
   CardTitle,
   CardDescription,
+  CardContent,
   CardFooter,
 } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 
-export default function Services() {
+export default function Services({ detailed = false }: { detailed?: boolean }) {
   return (
     <section className="section-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -39,6 +40,13 @@ export default function Services() {
                       {service.description}
                     </CardDescription>
                   </CardHeader>
+                  {detailed && (
+                    <CardContent>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {service.details}
+                      </p>
+                    </CardContent>
+                  )}
                   <CardFooter>
                     <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors group-hover:text-[hsl(164_35%_40%)]">
                       Learn More

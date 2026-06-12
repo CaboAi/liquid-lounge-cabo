@@ -13,6 +13,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { Clock, ArrowRight } from "lucide-react";
+import { ivMenuFaqs } from "@/lib/data";
 
 const nutrients = [
   {
@@ -312,38 +313,19 @@ export default function IVMenuContent() {
             Frequently Asked Questions
           </h2>
           <Accordion type="single" collapsible className="space-y-2">
-            {[
-              {
-                q: "What is IV therapy?",
-                a: "IV therapy delivers vitamins, minerals, and hydration directly into your bloodstream through an intravenous drip. This bypasses the digestive system for 100% absorption and faster results than oral supplements.",
-              },
-              {
-                q: "Is it safe?",
-                a: "Yes. All treatments are administered by a licensed medical professional. We use medical-grade equipment, pharmaceutical-quality ingredients, and follow strict sterile protocols.",
-              },
-              {
-                q: "How long does a treatment take?",
-                a: "Most treatments take 30-60 minutes depending on the IV selected. You can relax, read, or even work during your session.",
-              },
-              {
-                q: "Where can you come?",
-                a: "Serving all of Los Cabos including San Jose del Cabo, the Corridor, and Cabo San Lucas. Tailored travel available upon request.",
-              },
-              {
-                q: "Do I need a prescription?",
-                a: "No prescription is needed. Your Liquid Lounge team member will do a brief health assessment before your treatment to ensure the selected IV is appropriate for you.",
-              },
-              {
-                q: "What should I expect during treatment?",
-                a: "Your licensed medical professional arrives with everything needed, sets up in a clean area, and inserts a small IV catheter (similar to a blood draw). You\u2019ll feel the cool fluid entering and most people feel relief within minutes.",
-              },
-            ].map((faq) => (
-              <AccordionItem key={faq.q} value={faq.q} className="rounded-xl border bg-white px-4">
+            {ivMenuFaqs.map((faq) => (
+              <AccordionItem
+                key={faq.question}
+                value={faq.question}
+                className="rounded-xl border bg-white px-4"
+              >
                 <AccordionTrigger className="text-left font-medium hover:no-underline">
-                  {faq.q}
+                  {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  {faq.a}
+                {/* forceMount keeps answer text in the server-rendered HTML so
+                    it is crawlable on first render (hidden until expanded). */}
+                <AccordionContent forceMount className="text-muted-foreground">
+                  {faq.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}

@@ -8,18 +8,12 @@ import ReviewsCarousel from "@/components/ReviewsCarousel";
 import About from "@/components/About";
 import FinalCTA from "@/components/FinalCTA";
 import Footer from "@/components/Footer";
+import StructuredData from "@/components/StructuredData";
+import { medicalBusinessSchema, webSiteSchema } from "@/lib/schema/home";
 
 export const metadata: Metadata = {
-  title: "Liquid Lounge - Mobile IV Therapy in Los Cabos | Cabo's Best IV Service",
   description:
     "Premium mobile IV therapy in Cabo San Lucas & San Jos\u00e9 del Cabo. Licensed medical professionals deliver hospital-grade hydration, vitamins & wellness treatments to your villa, resort, or yacht. Book today.",
-  keywords: [
-    "mobile IV therapy Cabo",
-    "IV drip Los Cabos",
-    "hangover IV Cabo San Lucas",
-    "mobile nurse Cabo",
-    "IV hydration Cabo",
-  ],
   openGraph: {
     title: "Liquid Lounge - Mobile IV Therapy in Los Cabos",
     description:
@@ -47,6 +41,8 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <StructuredData data={medicalBusinessSchema} />
+      <StructuredData data={webSiteSchema} />
       <Header />
       <main className="pt-20">
         <Hero />

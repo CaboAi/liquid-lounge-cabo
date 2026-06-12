@@ -107,9 +107,17 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-white/40">
-          &copy; {new Date().getFullYear()} Liquid Lounge IV. All rights
-          reserved.
+        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-8 text-sm text-white/40 sm:flex-row">
+          <p>
+            &copy; {new Date().getFullYear()} Liquid Lounge IV. All rights
+            reserved.
+          </p>
+          <Link
+            href="/privacy"
+            className="text-white/60 transition-colors hover:text-white"
+          >
+            Privacy Policy
+          </Link>
         </div>
       </div>
     </footer>
