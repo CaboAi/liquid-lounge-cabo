@@ -20,6 +20,8 @@ export const metadata: Metadata = {
     url: "https://liquidloungeiv.com/blog",
   },
   alternates: { canonical: "https://liquidloungeiv.com/blog" },
+  // Temporary: hide blog from indexing until content review is complete.
+  robots: { index: false, follow: false },
 };
 
 export default function BlogIndexPage() {

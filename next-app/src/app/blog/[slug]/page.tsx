@@ -24,6 +24,8 @@ export function generateMetadata({ params }: Props): Metadata {
     // the brand suffix is not appended twice.
     title: { absolute: `${post.title} | Liquid Lounge IV Therapy` },
     description: post.description,
+    // Temporary: hide blog from indexing until content review is complete.
+    robots: { index: false, follow: false },
     authors: [{ name: post.author }],
     openGraph: {
       title: post.title,
