@@ -8,8 +8,8 @@ export default function NotFound() {
     <>
       <Header />
       <main className="flex min-h-[70vh] flex-col items-center justify-center gap-6 px-4 pt-20">
-        <p className="overline">404</p>
-        <h1 className="text-4xl font-semibold">Page Not Found</h1>
+        <p className="eyebrow justify-center">404</p>
+        <h1 className="text-4xl font-medium sm:text-5xl">Page not found</h1>
         <p className="max-w-md text-center text-muted-foreground">
           The page you&apos;re looking for doesn&apos;t exist. Let&apos;s get
           you back on track.

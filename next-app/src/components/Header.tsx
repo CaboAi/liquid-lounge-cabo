@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
@@ -11,10 +11,28 @@ import { cn } from "@/lib/utils";
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Transparent only while resting over the homepage hero.
+  const solid = !(pathname === "/" && !scrolled && !mobileOpen);
+
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-[hsl(164_44%_28%/0.95)] backdrop-blur-md">
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        solid
+          ? "border-b border-white/10 bg-[hsl(164_44%_28%/0.92)] backdrop-blur-md"
+          : "border-b border-transparent bg-transparent"
+      )}
+    >
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="transition-opacity hover:opacity-90">
@@ -25,7 +43,7 @@ export default function Header() {
             height={643}
             priority
             unoptimized
-            className="w-[126px] h-auto"
+            className="h-auto w-[126px]"
           />
         </Link>
 
@@ -55,7 +73,11 @@ export default function Header() {
             className="text-white/80 hover:bg-white/10 hover:text-white"
             asChild
           >
-            <a href={contactInfo.whatsappHref} target="_blank" rel="noopener noreferrer">
+            <a
+              href={contactInfo.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Phone className="mr-2 h-4 w-4" />
               WhatsApp
             </a>
@@ -105,7 +127,11 @@ export default function Header() {
                 className="w-full text-white/80 hover:bg-white/10 hover:text-white"
                 asChild
               >
-                <a href={contactInfo.whatsappHref} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={contactInfo.whatsappHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Phone className="mr-2 h-4 w-4" />
                   Message Us on WhatsApp
                 </a>

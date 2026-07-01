@@ -163,7 +163,7 @@ export const services: Service[] = [
     description:
       "Comprehensive lab testing and health assessments",
     details:
-      "Comprehensive on-site lab testing and health assessments administered by a licensed BSN RN. Includes a full panel of biomarkers to evaluate your current health status — ideal before starting an IV therapy protocol, checking in on your wellness while traveling, or getting a baseline before a major event. Results reviewed and explained by Nurse Nate during your session. Available as a standalone service or bundled with any IV therapy package.",
+      "Comprehensive on-site lab testing and health assessments administered by licensed medical professionals. Includes a full panel of biomarkers to evaluate your current health status — ideal before starting an IV therapy protocol, checking in on your wellness while traveling, or getting a baseline before a major event. Results reviewed and explained by Nurse Nate and his team during your session. Available as a standalone service or bundled with any IV therapy package.",
     icon: TestTube,
     link: "/contact",
   },
@@ -172,7 +172,7 @@ export const services: Service[] = [
     description:
       "Personalized and group IV therapy sessions",
     details:
-      "Personalized intravenous vitamin and nutrient infusions delivered directly to your hotel room, villa, or yacht. Each drip is formulated based on your goals — hangover recovery, immune support, energy, anti-aging, or athletic performance. All ingredients are pharmaceutical-grade. Every session is administered by a licensed medical professional with 10+ years of clinical experience. Group sessions available for bachelorette parties, sports teams, corporate events, and villa gatherings.",
+      "Personalized intravenous vitamin and nutrient infusions delivered directly to your hotel room, villa, or yacht. Each drip is formulated based on your goals — hangover recovery, immune support, energy, anti-aging, or athletic performance. All ingredients are pharmaceutical-grade. Every session is guided by the team's collective clinical experience. Group sessions available for bachelorette parties, sports teams, corporate events, and villa gatherings.",
     icon: Users,
     link: "/iv-menu",
   },
@@ -181,7 +181,7 @@ export const services: Service[] = [
     description:
       "Professional health consultations and guidance",
     details:
-      "One-on-one wellness consultations with Nurse Nate to assess your health needs and recommend the right treatment protocol. Whether you are new to IV therapy or looking to optimize an existing wellness routine, the consultation covers your health history, current symptoms, goals, and any contraindications. Consultations can be conducted at your location or via WhatsApp prior to your appointment.",
+      "One-on-one wellness consultations with Nurse Nate and his team to assess your health needs and recommend the right treatment protocol. Whether you are new to IV therapy or looking to optimize an existing wellness routine, the consultation covers your health history, current symptoms, goals, and any contraindications. Consultations can be conducted at your location or via WhatsApp prior to your appointment.",
     icon: Stethoscope,
     link: "/contact",
   },
@@ -205,7 +205,7 @@ export const ivMenuFaqs: FaqItem[] = [
   {
     question: "Is IV therapy safe?",
     answer:
-      "Yes. All Liquid Lounge IV therapies are administered by Nathan Brown, a licensed BSN Registered Nurse with over 10 years of clinical experience. Every session begins with a brief health intake to screen for contraindications. We use sterile, pharmaceutical-grade ingredients and single-use IV supplies. Serious adverse events are extremely rare when administered by a licensed clinician using proper protocols.",
+      "Yes. All Liquid Lounge IV therapies are administered by licensed medical professionals. Every session begins with a brief health intake to screen for contraindications. Liquid Lounge uses sterile, pharmaceutical-grade ingredients and single-use IV supplies. Serious adverse events are extremely rare when administered by licensed clinicians using proper protocols.",
   },
   {
     question: "How long does a treatment take?",
@@ -215,17 +215,17 @@ export const ivMenuFaqs: FaqItem[] = [
   {
     question: "Where can you come?",
     answer:
-      "Liquid Lounge is a fully mobile service. We come to wherever you are in Los Cabos — including hotels and resorts in Cabo San Lucas and San Jose del Cabo, private villas, vacation rentals, boats and yachts in the marina, offices, and private residences throughout The Corridor. Contact us at +52 624 228 7777 or liquidloungeiv@gmail.com to confirm your location.",
+      "Liquid Lounge is a fully mobile service, coming to wherever you are in Los Cabos — including hotels and resorts in Cabo San Lucas and San Jose del Cabo, private villas, vacation rentals, boats and yachts in the marina, offices, and private residences throughout The Corridor. Contact the team at +52 624 228 7777 or liquidloungeiv@gmail.com to confirm your location.",
   },
   {
     question: "Do I need a prescription?",
     answer:
-      "No prescription is required to book a session. Our licensed RN conducts a brief health intake and consent process before each treatment to ensure the selected formula is appropriate for you. If your health history requires medical clearance, we will let you know during the intake.",
+      "No prescription is required to book a session. A licensed medical professional conducts a brief health intake and consent process before each treatment to ensure the selected formula is appropriate for you. If your health history requires medical clearance, the team will let you know during the intake.",
   },
   {
     question: "What should I expect during treatment?",
     answer:
-      "After booking, our RN arrives at your location with all necessary equipment. You will complete a short health intake form and sign a consent document. The nurse will insert a small IV catheter — typically in the forearm or hand — and start the infusion. Most clients feel relaxed or energized within minutes. Once the infusion is complete, the catheter is removed and the site is dressed. Most guests report feeling noticeably better within an hour of treatment.",
+      "After booking, a licensed medical professional arrives at your location with all necessary equipment. You will complete a short health intake form and sign a consent document. They will insert a small IV catheter — typically in the forearm or hand — and start the infusion. Most clients feel relaxed or energized within minutes. Once the infusion is complete, the catheter is removed and the site is dressed. Most guests report feeling noticeably better within an hour of treatment.",
   },
 ];
 
@@ -458,6 +458,7 @@ export const navLinks = [
   { label: "IV Menu", href: "/iv-menu" },
   { label: "Find Your IV", href: "/find-your-iv" },
   { label: "About", href: "/about" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 

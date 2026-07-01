@@ -22,7 +22,7 @@ export const servicesSchema = {
       name: "Mobile Blood Work Diagnostics",
       url: "https://liquidloungeiv.com/services",
       description:
-        "Comprehensive on-site laboratory testing and health assessments performed at your location throughout Los Cabos. Our licensed RN collects samples and provides detailed health panels to give you a complete picture of your wellness.",
+        "Comprehensive on-site laboratory testing and health assessments performed at your location throughout Los Cabos. Licensed medical professionals collect samples and provide detailed health panels to give you a complete picture of your wellness.",
       provider: { "@id": "https://liquidloungeiv.com/#organization" },
       areaServed,
       availableChannel,
@@ -46,7 +46,7 @@ export const servicesSchema = {
       name: "Wellness Health Consultations",
       url: "https://liquidloungeiv.com/services",
       description:
-        "Professional one-on-one wellness consultations with a licensed BSN Registered Nurse. Discuss your health goals, review lab results, and receive a personalized treatment plan for IV therapy and ongoing wellness.",
+        "Professional one-on-one wellness consultations with licensed medical professionals. Discuss your health goals, review lab results, and receive a personalized treatment plan for IV therapy and ongoing wellness.",
       provider: { "@id": "https://liquidloungeiv.com/#organization" },
       areaServed,
       availableChannel,

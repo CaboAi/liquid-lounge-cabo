@@ -1,60 +1,52 @@
 import Link from "next/link";
 import { services } from "@/lib/data";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
+import Reveal from "@/components/Reveal";
 
 export default function Services({ detailed = false }: { detailed?: boolean }) {
   return (
     <section className="section-cream">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 text-center">
-          <p className="overline mb-2">WHAT WE OFFER</p>
-          <h2 className="text-3xl font-semibold tracking-tight sm:text-4xl">
-            Our Services
+        <Reveal className="mb-16 max-w-2xl">
+          <p className="eyebrow">What we offer</p>
+          <h2 className="mt-4 text-4xl font-medium sm:text-5xl">
+            Care that comes to you
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+          <p className="mt-5 text-lg leading-relaxed text-muted-foreground">
             Professional mobile IV therapy delivered directly to your location in
-            Los Cabos. Every treatment administered by a licensed medical professional.
+            Los Cabos. Every treatment administered by licensed medical
+            professionals.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => {
+        <div className="grid gap-6 md:grid-cols-3">
+          {services.map((service, i) => {
             const Icon = service.icon;
             return (
-              <Link key={service.title} href={service.link} className="group">
-                <Card className="h-full border-none bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                  <CardHeader>
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[hsl(164_44%_28%/0.1)]">
-                      <Icon className="h-6 w-6 text-primary" />
+              <Reveal key={service.title} delay={i * 110}>
+                <Link href={service.link} className="group block h-full">
+                  <article className="card-lux flex h-full flex-col">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[hsl(164_44%_28%/0.08)] transition-colors duration-500 group-hover:bg-[hsl(43_74%_66%/0.18)]">
+                      <Icon className="h-7 w-7 text-primary" strokeWidth={1.5} />
                     </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                    <CardDescription className="text-base leading-relaxed">
+                    <h3 className="mt-6 font-heading text-2xl font-semibold">
+                      {service.title}
+                    </h3>
+                    <p className="mt-3 leading-relaxed text-muted-foreground">
                       {service.description}
-                    </CardDescription>
-                  </CardHeader>
-                  {detailed && (
-                    <CardContent>
-                      <p className="text-sm leading-relaxed text-muted-foreground">
+                    </p>
+                    {detailed && (
+                      <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
                         {service.details}
                       </p>
-                    </CardContent>
-                  )}
-                  <CardFooter>
-                    <span className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors group-hover:text-[hsl(164_35%_40%)]">
-                      Learn More
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    )}
+                    <span className="mt-auto inline-flex items-center gap-2 pt-8 text-sm font-semibold text-primary">
+                      Learn more
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
-                  </CardFooter>
-                </Card>
-              </Link>
+                  </article>
+                </Link>
+              </Reveal>
             );
           })}
         </div>

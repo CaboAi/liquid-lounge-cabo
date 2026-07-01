@@ -18,6 +18,8 @@ export const metadata: Metadata = {
     title: "Liquid Lounge - Mobile IV Therapy in Los Cabos",
     description:
       "Cabo's Best Mobile IV Therapy. Private, Professional, Premium. Licensed medical professionals delivering hospital-grade treatments to your location.",
+    type: "website",
+    siteName: "Liquid Lounge IV",
     url: "https://liquidloungeiv.com",
     images: [
       {
@@ -44,7 +46,7 @@ export default function HomePage() {
       <StructuredData data={medicalBusinessSchema} />
       <StructuredData data={webSiteSchema} />
       <Header />
-      <main className="pt-20">
+      <main>
         <Hero />
         <TrustBar />
         <Services />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
+import PageHero from "@/components/PageHero";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
@@ -14,20 +15,11 @@ export default function PrivacyPolicyPage() {
     <>
       <Header />
       <main className="pt-20">
-        {/* Page Header */}
-        <section className="section-teal">
-          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[hsl(43_74%_66%)]">
-              YOUR PRIVACY
-            </p>
-            <h1 className="text-4xl font-heading font-semibold text-white sm:text-5xl">
-              Privacy Policy
-            </h1>
-            <p className="mt-4 text-lg text-white/80">
-              How we collect, use, and protect your personal information.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Your privacy"
+          title="Privacy policy"
+          subtitle="How we collect, use, and protect your personal information."
+        />
 
         {/* Body */}
         <section className="section-white">

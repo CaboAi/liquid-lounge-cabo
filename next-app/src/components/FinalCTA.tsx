@@ -7,23 +7,26 @@ import { contactInfo } from "@/lib/data";
 
 export default function FinalCTA() {
   return (
-    <section className="section-teal">
-      <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
-        <h2 className="text-3xl font-heading font-semibold tracking-tight text-white sm:text-4xl">
-          Ready to Feel Your Best?
-        </h2>
-        <p className="mt-4 text-lg text-white/80">
-          Book your mobile IV therapy session today. Same-day availability in all
-          of Los Cabos.
+    <section className="section-teal aurora">
+      <div className="bg-grain pointer-events-none absolute inset-0 opacity-[0.05]" />
+      <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6">
+        <p className="eyebrow justify-center text-[hsl(43_74%_72%)]">
+          Book your visit
         </p>
-        <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
+        <h2 className="mt-5 text-4xl font-medium text-white sm:text-5xl lg:text-6xl">
+          Ready to enjoy more of Cabo?
+        </h2>
+        <p className="mx-auto mt-5 max-w-xl text-lg text-white/75">
+          Professional, personalized medical care delivered directly to you.
+        </p>
+        <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
           <Button variant="medical" size="lg" asChild>
-            <Link href="/contact">Book Now</Link>
+            <Link href="/contact">Book now</Link>
           </Button>
           <Button
             variant="ghost"
             size="lg"
-            className="border-2 border-white/30 text-white hover:bg-white/10"
+            className="border border-white/25 text-white hover:bg-white/10"
             asChild
           >
             <a
@@ -32,7 +35,7 @@ export default function FinalCTA() {
               rel="noopener noreferrer"
             >
               <Phone className="mr-2 h-4 w-4" />
-              Message Us on WhatsApp
+              Message us on WhatsApp
             </a>
           </Button>
         </div>
