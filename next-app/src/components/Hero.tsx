@@ -46,8 +46,8 @@ export default function Hero() {
               style={{ animationDelay: "180ms", animationFillMode: "both" }}
             >
               Private IV therapy administered by licensed medical professionals —
-              at your villa, resort, or yacht across Los Cabos. Recovery, energy,
-              and immunity on your schedule.
+              at your villa, resort, or yacht across Los Cabos. Recover faster,
+              feel your best, enjoy more of Cabo.
             </p>
 
             <div
