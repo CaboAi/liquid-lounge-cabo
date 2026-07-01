@@ -3,8 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Accordion,
@@ -18,43 +16,45 @@ import { ivMenuFaqs } from "@/lib/data";
 const nutrients = [
   {
     category: "Vitamins",
-    items: ["Vitamin B1-12", "Vitamin C", "Magnesium", "Zinc", "Vitamin D", "Vitamin A & Vitamin E"],
+    items: [
+      "Vitamin B1-12",
+      "Vitamin C",
+      "Magnesium",
+      "Zinc",
+      "Vitamin D",
+      "Vitamin A & Vitamin E",
+    ],
     description: "Essential vitamins for optimal health and energy",
-    color: "bg-blue-100 text-blue-800",
   },
   {
     category: "NAD+",
     items: ["Nicotinamide adenine dinucleotide"],
     description:
       "Nicotinamide adenine dinucleotide (NAD+) is a critical coenzyme found in every cell. Anti-aging, cardio & neuro-protective qualities. Clinical studies show improved cellular energy production, enhanced recovery, DNA repair support, and longevity benefits. May help with mental clarity, physical endurance, and metabolic function.",
-    color: "bg-purple-100 text-purple-800",
   },
   {
     category: "Glutathione",
     items: ["Master antioxidant tri-peptide"],
     description:
-      "Glutathione is the body\u2019s master antioxidant tri-peptide, composed of three amino acids. Essential for detoxification processes, supports liver health, enhances skin brightness and clarity, boosts immune function, and increases cellular energy. Known as the most important antioxidant for overall health and anti-aging.",
-    color: "bg-green-100 text-green-800",
+      "Glutathione is the body’s master antioxidant tri-peptide, composed of three amino acids. Essential for detoxification processes, supports liver health, enhances skin brightness and clarity, boosts immune function, and increases cellular energy. Known as the most important antioxidant for overall health and anti-aging.",
   },
   {
     category: "L-Lysine",
     items: ["Essential amino acid"],
     description:
       "L-Lysine is an essential amino acid that cannot be produced by the body and must be obtained through diet or supplementation. Critical for collagen synthesis, immune system support, wound healing, calcium absorption, and protein synthesis. Particularly beneficial for skin health, bone strength, and recovery.",
-    color: "bg-yellow-100 text-yellow-800",
   },
   {
     category: "L-Carnitine",
     items: ["Naturally occurring amino acid"],
     description:
       "L-Carnitine is a naturally occurring amino acid derivative that plays a crucial role in energy metabolism. Facilitates the conversion of fat to fuel at the cellular level, supports weight management, enhances physical performance, improves mental clarity, and aids in recovery. Essential for optimal mitochondrial function and energy production.",
-    color: "bg-red-100 text-red-800",
   },
   {
     category: "Fluid & Electrolytes",
     items: ["Sodium", "Potassium", "Magnesium", "Calcium"],
-    description: "Essential for all living organisms: proper hydration and cellular function.",
-    color: "bg-teal-100 text-teal-800",
+    description:
+      "Essential for all living organisms: proper hydration and cellular function.",
   },
 ];
 
@@ -62,25 +62,46 @@ const ivPackages = [
   {
     name: "Re-Hydration",
     description: "Essential hydration therapy for optimal wellness",
-    nutrients: ["1000mL Fluids", "Electrolytes like sodium, potassium, calcium, chloride"],
+    nutrients: [
+      "1000mL Fluids",
+      "Electrolytes like sodium, potassium, calcium, chloride",
+    ],
     duration: "30-45 minutes",
   },
   {
     name: "Post-Workout",
     description: "Perfect recovery blend for athletic performance",
-    nutrients: ["Fluids & electrolytes", "L-Carnitine", "Vitamin B1, B6, B12", "Magnesium"],
+    nutrients: [
+      "Fluids & electrolytes",
+      "L-Carnitine",
+      "Vitamin B1, B6, B12",
+      "Magnesium",
+    ],
     duration: "45 minutes",
   },
   {
     name: "Immunity Myers",
-    description: "Immune system support with classic Myers\u2019 cocktail",
-    nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium"],
+    description: "Immune system support with classic Myers’ cocktail",
+    nutrients: [
+      "Fluids & electrolytes",
+      "Vitamin B1, B6, B12",
+      "Vitamin C",
+      "Zinc",
+      "Magnesium",
+    ],
     duration: "45 minutes",
   },
   {
-    name: "The \u201CCure\u201D",
+    name: "The “Cure”",
     description: "Ultimate wellness therapy with premium antioxidants",
-    nutrients: ["Fluids & electrolytes", "Vitamin B1, B6, B12", "Vitamin C", "Zinc", "Magnesium", "Glutathione"],
+    nutrients: [
+      "Fluids & electrolytes",
+      "Vitamin B1, B6, B12",
+      "Vitamin C",
+      "Zinc",
+      "Magnesium",
+      "Glutathione",
+    ],
     duration: "60 minutes",
   },
   {
@@ -92,6 +113,30 @@ const ivPackages = [
   },
 ];
 
+function CategoryChip({ label }: { label: string }) {
+  return (
+    <span className="inline-flex rounded-full bg-[hsl(164_44%_28%/0.1)] px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
+      {label}
+    </span>
+  );
+}
+
+function NutrientList({ items }: { items: string[] }) {
+  return (
+    <div className="space-y-1.5">
+      {items.map((item) => (
+        <div
+          key={item}
+          className="flex items-center gap-2 text-sm text-muted-foreground"
+        >
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[hsl(var(--wellness-gold))]" />
+          {item}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function IVMenuContent() {
   const [tab, setTab] = useState("nutrients");
 
@@ -101,46 +146,46 @@ export default function IVMenuContent() {
       <div className="section-white pb-0">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Tabs value={tab} onValueChange={setTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsList className="mx-auto mb-12 grid w-full max-w-md grid-cols-2">
               <TabsTrigger value="nutrients">Nutrients</TabsTrigger>
               <TabsTrigger value="packages">Packages</TabsTrigger>
             </TabsList>
 
             {/* Nutrients Tab */}
             <TabsContent value="nutrients" className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-heading font-semibold">LL. IV Nutrients</h2>
-                <p className="mt-2 text-muted-foreground">
-                  High-quality ingredients for maximum therapeutic benefit
+              <div className="mb-12 text-center">
+                <p className="eyebrow justify-center">The ingredients</p>
+                <h2 className="mt-4 text-3xl font-medium sm:text-4xl">
+                  LL. IV nutrients
+                </h2>
+                <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+                  High-quality ingredients for maximum therapeutic benefit.
                 </p>
               </div>
 
               {/* Mobile: Accordion */}
               <div className="md:hidden">
-                <Accordion type="single" collapsible className="w-full space-y-2">
+                <Accordion type="single" collapsible className="w-full space-y-3">
                   {nutrients.map((nutrient) => (
                     <AccordionItem
                       key={nutrient.category}
                       value={nutrient.category}
-                      className="rounded-xl border bg-white px-4"
+                      className="rounded-2xl border border-border/60 bg-white px-5"
                     >
                       <AccordionTrigger className="text-left hover:no-underline">
                         <div className="flex items-center gap-3">
-                          <Badge className={nutrient.color}>{nutrient.category}</Badge>
-                          <span className="font-semibold">{nutrient.category}</span>
+                          <CategoryChip label={nutrient.category} />
+                          <span className="font-heading text-lg font-semibold">
+                            {nutrient.category}
+                          </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="space-y-4 pt-2">
-                          <p className="text-sm text-muted-foreground">{nutrient.description}</p>
-                          <div className="space-y-2">
-                            {nutrient.items.map((item) => (
-                              <div key={item} className="text-sm flex items-center gap-2">
-                                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                                {item}
-                              </div>
-                            ))}
-                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            {nutrient.description}
+                          </p>
+                          <NutrientList items={nutrient.items} />
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -149,73 +194,58 @@ export default function IVMenuContent() {
               </div>
 
               {/* Desktop: Cards */}
-              <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
                 {nutrients.map((nutrient) => (
-                  <Card
-                    key={nutrient.category}
-                    className="border hover:shadow-lg transition-shadow"
-                  >
-                    <CardHeader>
-                      <div className="flex items-center justify-between mb-2">
-                        <CardTitle className="text-lg">{nutrient.category}</CardTitle>
-                        <Badge className={nutrient.color}>{nutrient.category}</Badge>
-                      </div>
-                      <CardDescription className="text-sm">
-                        {nutrient.description}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-1">
-                        {nutrient.items.map((item) => (
-                          <div
-                            key={item}
-                            className="text-sm text-muted-foreground flex items-center gap-2"
-                          >
-                            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                            {item}
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <div key={nutrient.category} className="card-lux">
+                    <div className="mb-3 flex items-center justify-between gap-3">
+                      <h3 className="font-heading text-xl font-semibold">
+                        {nutrient.category}
+                      </h3>
+                      <CategoryChip label={nutrient.category} />
+                    </div>
+                    <p className="mb-4 text-sm text-muted-foreground">
+                      {nutrient.description}
+                    </p>
+                    <NutrientList items={nutrient.items} />
+                  </div>
                 ))}
               </div>
             </TabsContent>
 
             {/* Packages Tab */}
             <TabsContent value="packages" className="space-y-8">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-heading font-semibold">IV Therapy Packages</h2>
-                <p className="mt-2 text-muted-foreground">
-                  Complete treatment options designed for specific wellness goals
+              <div className="mb-12 text-center">
+                <p className="eyebrow justify-center">Treatment menu</p>
+                <h2 className="mt-4 text-3xl font-medium sm:text-4xl">
+                  IV therapy packages
+                </h2>
+                <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+                  Complete treatment options designed for specific wellness goals.
                 </p>
               </div>
 
               {/* Mobile: Accordion */}
               <div className="md:hidden">
-                <Accordion type="single" collapsible className="w-full space-y-2">
+                <Accordion type="single" collapsible className="w-full space-y-3">
                   {ivPackages.map((pkg) => (
                     <AccordionItem
                       key={pkg.name}
                       value={pkg.name}
-                      className="rounded-xl border bg-white px-4"
+                      className="rounded-2xl border border-border/60 bg-white px-5"
                     >
                       <AccordionTrigger className="text-left hover:no-underline">
                         <div>
-                          <div className="font-semibold text-primary">{pkg.name}</div>
-                          <div className="text-sm text-muted-foreground">{pkg.description}</div>
+                          <div className="font-heading text-lg font-semibold text-primary">
+                            {pkg.name}
+                          </div>
+                          <div className="text-sm text-muted-foreground">
+                            {pkg.description}
+                          </div>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="space-y-4 pt-2">
-                          <div className="space-y-2">
-                            {pkg.nutrients.map((item) => (
-                              <div key={item} className="text-sm flex items-center gap-2">
-                                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                                {item}
-                              </div>
-                            ))}
-                          </div>
+                          <NutrientList items={pkg.nutrients} />
                           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                             <Clock className="h-4 w-4" />
                             {pkg.duration}
@@ -225,7 +255,12 @@ export default function IVMenuContent() {
                               {pkg.specialNote}
                             </p>
                           )}
-                          <Button variant="medical" size="sm" asChild className="w-full">
+                          <Button
+                            variant="medical"
+                            size="sm"
+                            asChild
+                            className="w-full"
+                          >
                             <Link href="/contact">Book This IV</Link>
                           </Button>
                         </div>
@@ -236,42 +271,41 @@ export default function IVMenuContent() {
               </div>
 
               {/* Desktop: Cards */}
-              <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="hidden gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
                 {ivPackages.map((pkg) => (
-                  <Card key={pkg.name} className="border hover:shadow-lg transition-shadow">
-                    <CardHeader>
-                      <CardTitle className="text-lg text-primary">{pkg.name}</CardTitle>
-                      <CardDescription>{pkg.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="space-y-1">
-                        {pkg.nutrients.map((item) => (
-                          <div
-                            key={item}
-                            className="text-sm text-muted-foreground flex items-center gap-2"
-                          >
-                            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                            {item}
-                          </div>
-                        ))}
-                      </div>
-                      <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                        <Clock className="h-4 w-4" />
-                        {pkg.duration}
-                      </div>
-                      {pkg.specialNote && (
-                        <p className="text-xs italic text-muted-foreground">
-                          {pkg.specialNote}
-                        </p>
-                      )}
-                      <Button variant="medical" size="sm" asChild className="w-full">
+                  <div key={pkg.name} className="card-lux flex flex-col">
+                    <h3 className="font-heading text-xl font-semibold text-primary">
+                      {pkg.name}
+                    </h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {pkg.description}
+                    </p>
+                    <div className="mt-4">
+                      <NutrientList items={pkg.nutrients} />
+                    </div>
+                    <div className="mt-4 flex items-center gap-1.5 text-sm text-muted-foreground">
+                      <Clock className="h-4 w-4" />
+                      {pkg.duration}
+                    </div>
+                    {pkg.specialNote && (
+                      <p className="mt-2 text-xs italic text-muted-foreground">
+                        {pkg.specialNote}
+                      </p>
+                    )}
+                    <div className="mt-auto pt-6">
+                      <Button
+                        variant="medical"
+                        size="sm"
+                        asChild
+                        className="w-full"
+                      >
                         <Link href="/contact">
                           Book This IV
                           <ArrowRight className="ml-1 h-4 w-4" />
                         </Link>
                       </Button>
-                    </CardContent>
-                  </Card>
+                    </div>
+                  </div>
                 ))}
               </div>
             </TabsContent>
@@ -282,16 +316,17 @@ export default function IVMenuContent() {
       {/* Decision Help */}
       <div className="section-white">
         <div className="mx-auto max-w-2xl px-4 text-center sm:px-6">
-          <h2 className="text-2xl font-heading font-semibold">
-            Not Sure Which IV Is Right for You?
+          <p className="eyebrow justify-center">Need a hand?</p>
+          <h2 className="mt-4 text-3xl font-medium sm:text-4xl">
+            Not sure which IV is right for you?
           </h2>
-          <p className="mt-3 text-muted-foreground">
+          <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
             Take our quick quiz to get a personalized recommendation, or contact
             us directly for a consultation.
           </p>
-          <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button variant="default" size="lg" asChild>
-              <Link href="/find-your-iv">Take the Quiz</Link>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Button variant="medical" size="lg" asChild>
+              <Link href="/find-your-iv">Take the quiz</Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
               <a
@@ -299,7 +334,7 @@ export default function IVMenuContent() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Message Us on WhatsApp
+                Message us on WhatsApp
               </a>
             </Button>
           </div>
@@ -309,17 +344,20 @@ export default function IVMenuContent() {
       {/* FAQ */}
       <div className="section-cream">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
-          <h2 className="mb-8 text-center text-2xl font-heading font-semibold">
-            Frequently Asked Questions
-          </h2>
-          <Accordion type="single" collapsible className="space-y-2">
+          <div className="mb-12 text-center">
+            <p className="eyebrow justify-center">Good to know</p>
+            <h2 className="mt-4 text-3xl font-medium sm:text-4xl">
+              Frequently asked questions
+            </h2>
+          </div>
+          <Accordion type="single" collapsible className="space-y-3">
             {ivMenuFaqs.map((faq) => (
               <AccordionItem
                 key={faq.question}
                 value={faq.question}
-                className="rounded-xl border bg-white px-4"
+                className="rounded-2xl border border-border/60 bg-white px-5"
               >
-                <AccordionTrigger className="text-left font-medium hover:no-underline">
+                <AccordionTrigger className="text-left font-heading text-lg font-semibold hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
                 {/* forceMount keeps answer text in the server-rendered HTML so
@@ -330,16 +368,17 @@ export default function IVMenuContent() {
               </AccordionItem>
             ))}
           </Accordion>
-          <p className="mt-6 text-center text-xs text-muted-foreground italic">
-            It is the client&apos;s responsibility to check with their primary health care provider for safety and appropriateness of treatment.
+          <p className="mt-6 text-center text-xs italic text-muted-foreground">
+            It is the client&apos;s responsibility to check with their primary
+            health care provider for safety and appropriateness of treatment.
           </p>
         </div>
       </div>
 
       {/* Booking CTA Strip */}
-      <div className="section-teal py-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8">
-          <p className="text-lg font-medium text-white">
+      <div className="section-teal aurora py-10">
+        <div className="relative mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 sm:flex-row sm:px-6 lg:px-8">
+          <p className="font-heading text-2xl font-medium text-white">
             Ready to book your treatment?
           </p>
           <Button variant="medical" size="lg" asChild>

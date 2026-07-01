@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
+import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
 import StructuredData from "@/components/StructuredData";
@@ -18,21 +19,11 @@ export default function ContactPage() {
       <StructuredData data={contactBreadcrumbSchema} />
       <Header />
       <main className="pt-20">
-        {/* Page Header */}
-        <section className="section-teal">
-          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[hsl(43_74%_66%)]">
-              GET STARTED
-            </p>
-            <h1 className="text-4xl font-heading font-semibold text-white sm:text-5xl">
-              Book Your IV Therapy
-            </h1>
-            <p className="mt-4 text-lg text-white/80">
-              Fill out the form below and our team will confirm your appointment
-              within 1 hour. Same-day availability.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Get started"
+          title="Book your IV therapy"
+          subtitle="Same-day appointments available when possible. Advance booking is recommended during peak seasons and holidays."
+        />
 
         <section className="section-cream">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -43,13 +34,12 @@ export default function ContactPage() {
         {/* Service Area */}
         <section className="section-white">
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6">
-            <h2 className="text-2xl font-heading font-semibold">
-              Where We Serve
-            </h2>
-            <p className="mt-3 text-muted-foreground">
-              Mobile IV therapy throughout Los Cabos and surrounding areas.
+            <p className="eyebrow justify-center">Service area</p>
+            <h2 className="mt-4 text-3xl font-medium sm:text-4xl">Where we serve</h2>
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+              Mobile IV therapy throughout Los Cabos and the surrounding areas.
             </p>
-            <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
               {[
                 "San Jose del Cabo",
                 "Cabo San Lucas",

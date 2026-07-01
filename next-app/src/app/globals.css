@@ -65,6 +65,12 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+    /* offset anchor jumps for the fixed h-20 header */
+    scroll-padding-top: 6rem;
+  }
+
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
@@ -72,9 +78,15 @@
     min-height: 100vh;
   }
 
-  /* Heading defaults — Cormorant Garamond */
+  ::selection {
+    background-color: hsl(var(--wellness-gold) / 0.3);
+    color: hsl(var(--medical-teal-dark));
+  }
+
+  /* Heading defaults — Cormorant Garamond, editorial tracking */
   h1, h2, h3 {
-    @apply font-heading;
+    @apply font-heading tracking-tight;
+    text-wrap: balance;
   }
 
   h4, h5, h6 {
@@ -112,18 +124,18 @@
     @apply shadow-lg -translate-y-1;
   }
 
-  /* Section alternation */
+  /* Section alternation — luxury vertical rhythm (bottom optically heavier) */
   .section-white {
-    @apply bg-white py-16 md:py-20;
+    @apply bg-white pt-20 pb-24 md:pt-28 md:pb-32;
   }
 
   .section-cream {
-    @apply py-16 md:py-20;
+    @apply pt-20 pb-24 md:pt-28 md:pb-32;
     background-color: hsl(var(--wellness-cream));
   }
 
   .section-teal {
-    @apply py-16 md:py-20 text-white;
+    @apply relative overflow-hidden pt-20 pb-24 md:pt-28 md:pb-32 text-white;
     background: var(--gradient-hero);
   }
 
@@ -138,5 +150,111 @@
     @apply inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm font-semibold;
     background-color: hsl(var(--medical-teal) / 0.1);
     color: hsl(var(--medical-teal));
+  }
+
+  /* === Cabo luxury surface system === */
+
+  /* Thin gold hairline divider */
+  .divider-gold {
+    height: 1px;
+    width: 3.5rem;
+    background: linear-gradient(
+      90deg,
+      hsl(var(--wellness-gold)) 0%,
+      hsl(var(--wellness-gold) / 0) 100%
+    );
+  }
+
+  /* Editorial overline with a leading gold tick */
+  .eyebrow {
+    @apply inline-flex items-center gap-3 font-sans text-xs font-semibold uppercase tracking-[0.25em];
+    color: hsl(var(--medical-teal));
+  }
+  .eyebrow::before {
+    content: "";
+    height: 1px;
+    width: 1.75rem;
+    background-color: hsl(var(--wellness-gold));
+  }
+
+  /* Premium card — soft tinted shadow, gold hairline on hover */
+  .card-lux {
+    @apply rounded-3xl bg-white p-8 transition-all duration-500;
+    border: 1px solid hsl(var(--border) / 0.6);
+    box-shadow: var(--shadow-card);
+  }
+  .card-lux:hover {
+    transform: translateY(-6px);
+    border-color: hsl(var(--wellness-gold) / 0.5);
+    box-shadow: 0 18px 50px hsl(164 44% 28% / 0.12);
+  }
+
+  /* Article body typography for MDX blog content */
+  .prose-blog {
+    @apply text-lg leading-relaxed text-muted-foreground;
+  }
+  .prose-blog h2 {
+    @apply mt-12 text-2xl font-medium text-foreground sm:text-3xl;
+  }
+  .prose-blog h3 {
+    @apply mt-8 text-xl font-medium text-foreground;
+  }
+  .prose-blog p {
+    @apply mt-5;
+  }
+  .prose-blog ul,
+  .prose-blog ol {
+    @apply mt-5 space-y-2 pl-6;
+  }
+  .prose-blog ul {
+    @apply list-disc;
+  }
+  .prose-blog ol {
+    @apply list-decimal;
+  }
+  .prose-blog a {
+    color: hsl(var(--medical-teal));
+    @apply font-semibold underline underline-offset-2;
+  }
+  .prose-blog strong {
+    @apply font-semibold text-foreground;
+  }
+  .prose-blog hr {
+    @apply my-10 border-border/60;
+  }
+
+  /* Ambient radial aurora for dark teal sections */
+  .aurora::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    pointer-events: none;
+    background:
+      radial-gradient(40% 50% at 15% 20%, hsl(43 74% 66% / 0.16), transparent 70%),
+      radial-gradient(45% 55% at 85% 80%, hsl(164 35% 40% / 0.45), transparent 70%);
+  }
+}
+
+@layer utilities {
+  /* Subtle film grain to kill digital flatness — overlay, non-interactive */
+  .bg-grain {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Staggered on-load entrance: paired with animate-fade-in-up */
+  .reveal-init {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal-init,
+  [class*="animate-"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

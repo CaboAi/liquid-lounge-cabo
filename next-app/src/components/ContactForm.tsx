@@ -117,10 +117,10 @@ export default function ContactForm() {
 
   if (submitted && submittedData) {
     return (
-      <div className="mx-auto max-w-lg rounded-2xl bg-white p-8 text-center shadow-card">
+      <div className="mx-auto max-w-lg rounded-3xl border border-border/60 bg-white p-8 text-center shadow-card">
         <CheckCircle className="mx-auto h-12 w-12 text-[hsl(152_60%_40%)]" />
-        <h2 className="mt-4 text-2xl font-heading font-semibold">
-          Booking Request Submitted!
+        <h2 className="mt-4 font-heading text-2xl font-semibold">
+          Booking request received
         </h2>
         <p className="mt-3 text-muted-foreground">
           Thanks, {submittedData.first_name}! Our team will confirm your{" "}
@@ -154,7 +154,7 @@ export default function ContactForm() {
       <div className="lg:col-span-3">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="rounded-2xl bg-white p-6 shadow-card md:p-8"
+          className="rounded-3xl border border-border/60 bg-white p-6 shadow-card md:p-8"
         >
           {/* Name Row */}
           <div className="grid gap-4 sm:grid-cols-2">
@@ -329,13 +329,13 @@ export default function ContactForm() {
       {/* Trust Panel */}
       <div className="lg:col-span-2">
         <div className="sticky top-24 space-y-4">
-          <div className="rounded-2xl bg-[hsl(43_36%_95%)] p-6">
+          <div className="rounded-3xl border border-border/60 bg-[hsl(43_36%_95%)] p-6">
             <div className="space-y-4">
               {[
                 {
                   icon: Shield,
-                  title: "Licensed Professional",
-                  desc: "Licensed Medical Professional",
+                  title: "Licensed",
+                  desc: "Administered by a licensed medical team",
                 },
                 {
                   icon: Clock,
@@ -349,7 +349,7 @@ export default function ContactForm() {
                 },
                 {
                   icon: Star,
-                  title: "4.9 Star Rating",
+                  title: "4.8 Star Rating",
                   desc: "500+ treatments delivered",
                 },
               ].map((item) => {
@@ -357,7 +357,7 @@ export default function ContactForm() {
                 return (
                   <div
                     key={item.title}
-                    className="rounded-xl bg-white p-4"
+                    className="rounded-2xl border border-border/60 bg-white p-4"
                   >
                     <div className="flex items-start gap-3">
                       <Icon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />

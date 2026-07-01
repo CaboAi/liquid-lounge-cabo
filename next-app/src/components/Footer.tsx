@@ -22,7 +22,7 @@ export default function Footer() {
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-white/60">
               Professional mobile IV therapy in Los Cabos. Hydration, recovery,
-              and wellness delivered to your door by a licensed medical professional.
+              and wellness delivered to your door by licensed medical professionals.
             </p>
           </div>
 

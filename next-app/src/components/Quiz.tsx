@@ -74,12 +74,12 @@ export default function Quiz({ variant = "full" }: QuizProps) {
     const Icon = recommendation.icon;
     return (
       <div className="mx-auto max-w-lg">
-        <Card className="border-none bg-white shadow-lg">
+        <Card className="rounded-3xl border border-border/60 bg-white shadow-card">
           <CardContent className="p-8 text-center">
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[hsl(164_44%_28%/0.1)]">
               <Icon className="h-8 w-8 text-primary" />
             </div>
-            <p className="overline mb-2">YOUR RECOMMENDATION</p>
+            <p className="eyebrow mb-3 justify-center">Your recommendation</p>
             <h2 className="text-2xl font-heading font-semibold">
               {recommendation.name}
             </h2>
@@ -141,7 +141,7 @@ export default function Quiz({ variant = "full" }: QuizProps) {
                 key={option.value}
                 onClick={() => handleSelect(option.value)}
                 className={cn(
-                  "w-full rounded-xl border-2 px-4 py-3 text-left text-sm font-medium transition-all duration-200",
+                  "w-full rounded-xl border-2 px-4 py-3 text-left text-sm font-medium transition-all duration-200 active:scale-[0.99]",
                   answers[currentQ.id] === option.value
                     ? "border-primary bg-primary/5 text-primary"
                     : "border-border hover:border-primary/40 hover:bg-secondary"

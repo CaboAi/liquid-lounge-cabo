@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
+import PageHero from "@/components/PageHero";
 import Quiz from "@/components/Quiz";
 import Footer from "@/components/Footer";
 import StructuredData from "@/components/StructuredData";
@@ -18,21 +19,11 @@ export default function FindYourIVPage() {
       <StructuredData data={findYourIvBreadcrumbSchema} />
       <Header />
       <main className="pt-20">
-        {/* Page Header */}
-        <section className="section-teal">
-          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6">
-            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[hsl(43_74%_66%)]">
-              PERSONALIZED
-            </p>
-            <h1 className="text-4xl font-heading font-semibold text-white sm:text-5xl">
-              Find Your Perfect IV
-            </h1>
-            <p className="mt-4 text-lg text-white/80">
-              Answer 5 quick questions and get a personalized IV therapy
-              recommendation in under a minute.
-            </p>
-          </div>
-        </section>
+        <PageHero
+          eyebrow="Personalized"
+          title="Find your perfect IV"
+          subtitle="Answer 5 quick questions and get a personalized IV therapy recommendation in under a minute."
+        />
 
         <section className="section-cream">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
