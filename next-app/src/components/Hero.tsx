@@ -55,7 +55,7 @@ export default function Hero() {
               style={{ animationDelay: "270ms", animationFillMode: "both" }}
             >
               <Button variant="medical" size="lg" asChild>
-                <Link href="/contact">Book your IV</Link>
+                <Link href="/book">Book your IV</Link>
               </Button>
               <Button
                 variant="ghost"

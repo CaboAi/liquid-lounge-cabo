@@ -261,7 +261,7 @@ export default function IVMenuContent() {
                             asChild
                             className="w-full"
                           >
-                            <Link href="/contact">Book This IV</Link>
+                            <Link href="/book">Book This IV</Link>
                           </Button>
                         </div>
                       </AccordionContent>
@@ -299,7 +299,7 @@ export default function IVMenuContent() {
                         asChild
                         className="w-full"
                       >
-                        <Link href="/contact">
+                        <Link href="/book">
                           Book This IV
                           <ArrowRight className="ml-1 h-4 w-4" />
                         </Link>
@@ -382,7 +382,7 @@ export default function IVMenuContent() {
             Ready to book your treatment?
           </p>
           <Button variant="medical" size="lg" asChild>
-            <Link href="/contact">
+            <Link href="/book">
               Book Now
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
