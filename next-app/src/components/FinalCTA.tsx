@@ -21,7 +21,7 @@ export default function FinalCTA() {
         </p>
         <div className="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
           <Button variant="medical" size="lg" asChild>
-            <Link href="/contact">Book now</Link>
+            <Link href="/book">Book now</Link>
           </Button>
           <Button
             variant="ghost"

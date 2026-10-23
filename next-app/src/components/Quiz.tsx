@@ -93,7 +93,7 @@ export default function Quiz({ variant = "full" }: QuizProps) {
 
             <div className="mt-6 flex flex-col gap-3">
               <Button variant="medical" size="lg" asChild>
-                <Link href="/contact">Book {recommendation.name}</Link>
+                <Link href="/book">Book {recommendation.name}</Link>
               </Button>
               <Button variant="outline" asChild>
                 <a

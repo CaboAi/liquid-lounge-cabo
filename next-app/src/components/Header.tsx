@@ -83,7 +83,7 @@ export default function Header() {
             </a>
           </Button>
           <Button variant="medical" size="sm" asChild>
-            <Link href="/contact">Book Now</Link>
+            <Link href="/book">Book Now</Link>
           </Button>
         </div>
 
@@ -118,7 +118,7 @@ export default function Header() {
             ))}
             <div className="mt-4 flex flex-col gap-2">
               <Button variant="medical" asChild className="w-full">
-                <Link href="/contact" onClick={() => setMobileOpen(false)}>
+                <Link href="/book" onClick={() => setMobileOpen(false)}>
                   Book Now
                 </Link>
               </Button>
