@@ -131,7 +131,7 @@ export default function BlogPostPage({ params }: Props) {
                 </p>
                 <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
                   <Button variant="medical" size="lg" asChild>
-                    <Link href="/contact">Book a Session</Link>
+                    <Link href="/book">Book a Session</Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild>
                     <a

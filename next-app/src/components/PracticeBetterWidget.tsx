@@ -21,7 +21,7 @@ export default function PracticeBetterWidget() {
         style={{
           width: "100%",
           maxWidth: "550px",
-          height: "800px",
+          height: "clamp(560px, 75vh, 720px)",
         }}
       />
       <Script
